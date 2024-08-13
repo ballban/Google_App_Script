@@ -79,15 +79,19 @@ class BaiduHanyuObject {
 // }
 
 function baiduHanyuApi(word: string): BaiduHanyuObject {
-  url = `https://hanyuapp.baidu.com/dictapp/swan/termdetail?wd=${word}`;
+  const url = `https://hanyuapp.baidu.com/dictapp/swan/termdetail?wd=${word}`;
   const res = UrlFetchApp.fetch(url);
   if (res.getResponseCode() != 200) return new BaiduHanyuObject();
   const data = JSON.parse(res.getContentText()).data;
 
   let pinyinList = data.definition.map((x: { pinyin: string }) => x.pinyin);
+  // Logger.log(`pinyinList: ${pinyinList}`);
+  // Logger.log(`data.definition: ${data.definition}`);
   let definitionList = data.definition.map((x: { definition: Array<string> }) =>
     x.definition.join("\n")
   );
+  // Logger.log(`definitionList: ${definitionList}`);
+  // Logger.log(`data.definition: ${data.definition}`);
 
   // this data structure is so fucked up
   // for(let i = 0; i < data.definition.length; i++){

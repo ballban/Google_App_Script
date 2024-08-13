@@ -1,4 +1,5 @@
 import Cheerio from "cheerio";
+export { MDbgApi, MDBGWeb };
 
 /**
  * Fetches English translation for a given Chinese word using the MDbg API.
@@ -40,7 +41,7 @@ function MDbgApi(input: string): string {
  * @param {string} input - The Chinese word to search for.
  * @returns {string|null} - The definition of the word, or null if no results found.
  */
-function MDbgWeb(input: string): string | null {
+function MDBGWeb(input: string): string {
   if (input == "") return "";
   let url = `https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=0&wdqb=c%3A${input}`;
   try {
@@ -48,8 +49,7 @@ function MDbgWeb(input: string): string | null {
     const $ = Cheerio.load(response.getContentText());
 
     const noResults = $(':contains("No results found searching for")').length;
-    console.log(noResults);
-    if (noResults != 0) return null;
+    if (noResults != 0) return "";
 
     //const pinyin = $('.row .pinyin span').toArray().map(x => $(x).text());
     const definition = $(".row .defs")
@@ -57,11 +57,10 @@ function MDbgWeb(input: string): string | null {
       .map((x) => $(x).text());
 
     //console.log(pinyin);
-    console.log(definition);
+    Logger.log(definition);
 
     return definition.join(", ");
   } catch (err) {
-    log(err);
-    return null;
+    return "";
   }
 }
