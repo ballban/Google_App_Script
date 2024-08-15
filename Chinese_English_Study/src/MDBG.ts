@@ -1,12 +1,11 @@
 import Cheerio from "cheerio";
-export { MDbgApi, MDBGWeb };
 
 /**
  * Fetches English translation for a given Chinese word using the MDbg API.
  * @param {string} input - The Chinese word to be translated.
  * @returns {string} - The English translation of the input word, or null if no translation is found.
  */
-function MDbgApi(input: string): string {
+function MDBGApi(input: string): string {
   if (input == "") return "";
   const url = `https://zhres.herokuapp.com/api/vocab/match`;
   const payload = {
@@ -22,7 +21,7 @@ function MDbgApi(input: string): string {
     const response = UrlFetchApp.fetch(url, options);
     const json = response.getContentText();
     const data = JSON.parse(json);
-    console.log(data);
+    Logger.log(data);
 
     const result = data["result"];
     if (result.length == 0) {
@@ -56,7 +55,7 @@ function MDBGWeb(input: string): string {
       .toArray()
       .map((x) => $(x).text());
 
-    //console.log(pinyin);
+    //Logger.log(pinyin);
     Logger.log(definition);
 
     return definition.join(", ");
