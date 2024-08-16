@@ -56,7 +56,7 @@ function MDBGWeb(input: string): string {
       .map((x) => $(x).text());
 
     //Logger.log(pinyin);
-    Logger.log(definition);
+    Logger.log(`MDBG definition: ${definition}`);
 
     return definition.join(", ");
   } catch (err) {

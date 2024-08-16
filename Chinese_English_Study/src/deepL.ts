@@ -25,5 +25,6 @@ function deepl(
     data.translations && data.translations.length > 0
       ? data.translations[0].text
       : "No value";
+  Logger.log(`Deepl: ${result}`);
   return result;
 }

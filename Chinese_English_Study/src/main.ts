@@ -58,6 +58,7 @@ function main(sheet: GoogleAppsScript.Spreadsheet.Sheet): void {
     }
 
     pasteToSheet(sheet);
+    changeCellFontColor();
     candidates = candidates.filter((candidate) => !candidate.done);
   }
 }
@@ -72,7 +73,6 @@ function pasteToSheet(sheet: GoogleAppsScript.Spreadsheet.Sheet) {
     const candidate = candidates[i];
     if (!candidate.done) continue;
 
-    Logger.log(`dict.word: ${candidate.word}`);
     const rowIndex = candidate.cell.getRowIndex();
     let data = [];
     for (let j = 0; j < candidate.baiduHanyu.definitionList.length; j++) {
@@ -86,12 +86,27 @@ function pasteToSheet(sheet: GoogleAppsScript.Spreadsheet.Sheet) {
     let count = candidate.baiduHanyu.definitionList.length;
     const lastIndex = data.length - 1;
     if (data[lastIndex][2] == "") {
-      data[lastIndex][2] = candidate.MDBG ?? candidate.deepL;
+      data[lastIndex][2] =
+        candidate.MDBG == "" ? candidate.deepL : candidate.MDBG;
       count--;
-    } else data.push(["", "", candidate.MDBG ?? candidate.deepL]);
+    } else
+      data.push([
+        "",
+        "",
+        candidate.MDBG == "" ? candidate.deepL : candidate.MDBG,
+      ]);
 
     sheet.getRange(`R${rowIndex}C1:R${rowIndex + count}C3`).setValues(data);
     candidate.done = true;
+  }
+}
+
+function changeCellFontColor() {
+  for (let i = 0; i < candidates.length; i++) {
+    const candidate = candidates[i];
+    if (candidate.baiduHanyu.type == baiduHanyuApiType.idiom) {
+      candidate.cell.setFontColor("red");
+    }
   }
 }
 

@@ -1,5 +1,6 @@
 class BaiduHanyuObject {
   definitionList: Array<DefinitionObject> = [];
+  type: string = "";
 }
 
 class DefinitionObject {
@@ -46,7 +47,7 @@ class DefinitionObject {
    */
   listToString(list: Array<string>): string {
     if (list.length == 0) return "";
-    else if (list.length == 1) return list[0];
+    else if (list.length == 1) return `\n    ${list[0]}`;
     else {
       let result = "";
       for (let i = 0; i < list.length; i++) {
@@ -56,6 +57,12 @@ class DefinitionObject {
     }
   }
 }
+
+const baiduHanyuApiType = {
+  term: "term",
+  idiom: "idiom",
+  other: "other",
+};
 
 /**
  * Fetches the definition and pinyin of a word from Baidu Hanyu.
@@ -166,27 +173,48 @@ function baiduHanyuApi(word: string): BaiduHanyuObject {
   const data = JSON.parse(res.getContentText()).data;
   const baiduHanyu = new BaiduHanyuObject();
 
-  // If comprehensiveDefinition exists, get definition from it
-  // Otherwise, get definition from baikeInfo
-  const dataComprehensiveDefinition = data.comprehensiveDefinition;
-  Logger.log(`dataComprehensiveDefinition: ${dataComprehensiveDefinition}`);
-  if (dataComprehensiveDefinition)
-    baiduHanyuApiHasDefinition(dataComprehensiveDefinition, baiduHanyu);
-  else baiduHanyuApiBaiduBaike(data, baiduHanyu);
-
+  const dataType = data.type;
+  let dataTypeVer = "";
+  Logger.log(`dataType: ${dataType}`);
+  switch (dataType) {
+    case baiduHanyuApiType.term:
+      dataTypeVer = data.termVersion;
+      if (dataTypeVer) baiduHanyuApiTypeTermVer2(data, baiduHanyu);
+      else baiduHanyuApiTypeTerm(data, baiduHanyu);
+      baiduHanyu.type = baiduHanyuApiType.term;
+      break;
+    case baiduHanyuApiType.idiom:
+      dataTypeVer = data.idiomVersion;
+      if (dataTypeVer) baiduHanyuApiTypeidiomVer2(data, baiduHanyu);
+      else baiduHanyuApiTypeidiom(data, baiduHanyu);
+      baiduHanyu.type = baiduHanyuApiType.idiom;
+      break;
+    // for those definitions that I don't know
+    default:
+      baiduHanyu.definitionList.push(
+        new DefinitionObject("", ["Unknown type"], [[]])
+      );
+      baiduHanyu.type = baiduHanyuApiType.other;
+      return baiduHanyu;
+  }
   return baiduHanyu;
 }
 
-/**
- * Checks if the Baidu Hanyu API has a definition.
- *
- * @param dataComprehensiveDefinition - The comprehensive definition data.
- * @param baiduHanyu - The Baidu Hanyu object.
- */
-function baiduHanyuApiHasDefinition(
-  dataComprehensiveDefinition: any,
+function baiduHanyuApiTypeTerm(data: any, baiduHanyu: BaiduHanyuObject): void {
+  const dataBaiduBaike = data.baikeInfo;
+  if (!dataBaiduBaike || dataBaiduBaike.baikeMean == "") return;
+
+  baiduHanyu.definitionList.push(
+    new DefinitionObject("", [dataBaiduBaike.baikeMean], [[]])
+  );
+}
+
+function baiduHanyuApiTypeTermVer2(
+  data: any,
   baiduHanyu: BaiduHanyuObject
 ): void {
+  let dataComprehensiveDefinition = data.comprehensiveDefinition;
+
   // Loop comprehensiveDefinition
   Logger.log("Loop comprehensiveDefinition");
   for (let i = 0; i < dataComprehensiveDefinition.length; i++) {
@@ -207,20 +235,37 @@ function baiduHanyuApiHasDefinition(
   }
 }
 
-/**
- * Retrieves information from Baidu Baike and adds it to the BaiduHanyuObject.
- *
- * @param data - The data object containing the information from Baidu Baike.
- * @param baiduHanyu - The BaiduHanyuObject to which the retrieved information will be added.
- */
-function baiduHanyuApiBaiduBaike(
+function baiduHanyuApiTypeidiom(data: any, baiduHanyu: BaiduHanyuObject): void {
+  const dataDefinitionRoot = data.definition;
+  for (let i = 0; i < dataDefinitionRoot.length; i++) {
+    baiduHanyu.definitionList.push(
+      new DefinitionObject(
+        dataDefinitionRoot[i].pinyin,
+        [dataDefinitionRoot[i].definition],
+        [[]]
+      )
+    );
+  }
+
+  if (baiduHanyu.definitionList.length > 0) {
+    const lijuList = data.zaoJu.map((x: { name: string }) => x.name);
+    baiduHanyu.definitionList[0].lijuList = [lijuList];
+  }
+}
+
+function baiduHanyuApiTypeidiomVer2(
   data: any,
   baiduHanyu: BaiduHanyuObject
 ): void {
-  const dataBaiduBaike = data.baikeInfo;
-  if (!dataBaiduBaike || dataBaiduBaike.baikeMean == "") return;
+  let definition = data.definitionInfo.definition;
+  const dataDetailMeans = data.definitionInfo.detailMeans;
+  for (let i = 0; i < dataDetailMeans.length; i++) {
+    definition += `\n    ${dataDetailMeans[i].word}: ${dataDetailMeans[i].definition}`;
+  }
+
+  const liju = data.liju.map((x: { name: string }) => x.name);
 
   baiduHanyu.definitionList.push(
-    new DefinitionObject("", [dataBaiduBaike.baikeMean], [[]])
+    new DefinitionObject(data.pinyin, [definition], [liju])
   );
 }
