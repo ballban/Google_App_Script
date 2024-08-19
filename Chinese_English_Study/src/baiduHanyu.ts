@@ -100,7 +100,7 @@ function baiduHanyuWeb(word: string, baiduHanyu: BaiduHanyuObject): void {
     }
   }
 
-  // get pinyin fuck you xmlservice.parse
+  // get pinyin fuck you xml service.parse
   // get div
   let pinyinList = [];
   pattern = /<div([^<>]*?)id="pinyin">([^]*?)<\/div>/;
@@ -185,8 +185,8 @@ function baiduHanyuApi(word: string): BaiduHanyuObject {
       break;
     case baiduHanyuApiType.idiom:
       dataTypeVer = data.idiomVersion;
-      if (dataTypeVer) baiduHanyuApiTypeidiomVer2(data, baiduHanyu);
-      else baiduHanyuApiTypeidiom(data, baiduHanyu);
+      if (dataTypeVer) baiduHanyuApiTypeIdiomVer2(data, baiduHanyu);
+      else baiduHanyuApiTypeIdiom(data, baiduHanyu);
       baiduHanyu.type = baiduHanyuApiType.idiom;
       break;
     // for those definitions that I don't know
@@ -235,7 +235,7 @@ function baiduHanyuApiTypeTermVer2(
   }
 }
 
-function baiduHanyuApiTypeidiom(data: any, baiduHanyu: BaiduHanyuObject): void {
+function baiduHanyuApiTypeIdiom(data: any, baiduHanyu: BaiduHanyuObject): void {
   const dataDefinitionRoot = data.definition;
   for (let i = 0; i < dataDefinitionRoot.length; i++) {
     baiduHanyu.definitionList.push(
@@ -253,7 +253,7 @@ function baiduHanyuApiTypeidiom(data: any, baiduHanyu: BaiduHanyuObject): void {
   }
 }
 
-function baiduHanyuApiTypeidiomVer2(
+function baiduHanyuApiTypeIdiomVer2(
   data: any,
   baiduHanyu: BaiduHanyuObject
 ): void {
