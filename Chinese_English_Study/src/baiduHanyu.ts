@@ -201,6 +201,29 @@ function baiduHanyuApi(word: string): BaiduHanyuObject {
 }
 
 function baiduHanyuApiTypeTerm(data: any, baiduHanyu: BaiduHanyuObject): void {
+  if (!data.sid) return baiduHanyuApiTypeTermBaiduBaike(data, baiduHanyu);
+
+  const dataDefinition = data.definition;
+  for (let i = 0; i < dataDefinition.length; i++) {
+    const pinyin = dataDefinition[i].pinyin;
+    const definitions = dataDefinition[i].definition;
+    if (i == 0) {
+      const liju = data.zaoJu.map((x: { name: string }) => x.name);
+      baiduHanyu.definitionList.push(
+        new DefinitionObject(pinyin, definitions, [liju])
+      );
+      continue;
+    }
+    baiduHanyu.definitionList.push(
+      new DefinitionObject(pinyin, definitions, [[]])
+    );
+  }
+}
+
+function baiduHanyuApiTypeTermBaiduBaike(
+  data: any,
+  baiduHanyu: BaiduHanyuObject
+): void {
   const dataBaiduBaike = data.baikeInfo;
   if (!dataBaiduBaike || dataBaiduBaike.baikeMean == "") return;
 
@@ -213,7 +236,7 @@ function baiduHanyuApiTypeTermVer2(
   data: any,
   baiduHanyu: BaiduHanyuObject
 ): void {
-  let dataComprehensiveDefinition = data.comprehensiveDefinition;
+  const dataComprehensiveDefinition = data.comprehensiveDefinition;
 
   // Loop comprehensiveDefinition
   Logger.log("Loop comprehensiveDefinition");
