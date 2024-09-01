@@ -53,13 +53,14 @@ function main(sheet: GoogleAppsScript.Spreadsheet.Sheet): void {
       Logger.log("Deepl finish.");
       dict.done = true;
       Logger.log("Done.");
+
+      pasteToSheet(sheet);
+      changeCellFontColor();
+      candidates = candidates.filter((candidate) => !candidate.done);
     } catch (err) {
       log(err);
+      throw err;
     }
-
-    pasteToSheet(sheet);
-    changeCellFontColor();
-    candidates = candidates.filter((candidate) => !candidate.done);
   }
 }
 
@@ -82,7 +83,7 @@ function pasteToSheet(sheet: GoogleAppsScript.Spreadsheet.Sheet) {
         candidate.baiduHanyu.definitionList[j].getDefinition(),
       ]);
     }
-
+    Logger.log(`data: ${data}`);
     let count = candidate.baiduHanyu.definitionList.length;
     const lastIndex = data.length - 1;
     if (data[lastIndex][2] == "") {

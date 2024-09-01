@@ -31,9 +31,17 @@ class DefinitionObject {
           ? ""
           : String.fromCharCode(parseInt((2460 + i).toString(), 16))
       }${this.definitionList[i]}`;
-      if (this.lijuList[i].length > 0) {
+
+      if (this.lijuList.length == this.definitionList.length) {
         result += "\n例句:";
         result += this.listToString(this.lijuList[i]);
+      } else if (
+        this.lijuList[0] &&
+        this.lijuList[0].length > 0 &&
+        i == this.definitionList.length - 1
+      ) {
+        result += "\n例句:";
+        result += this.listToString(this.lijuList[0]);
       }
     }
     return result.trim();
