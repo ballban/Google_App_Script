@@ -1,5 +1,6 @@
 {
   "timeZone": "America/New_York",
+  "oauthScopes": ["https://www.googleapis.com/auth/script.external_request"],
   "dependencies": {
     "libraries": [
       {
@@ -9,5 +10,12 @@
       }
     ]
   },
-  "runtimeVersion": "V8"
+  "runtimeVersion": "V8",
+  "executionApi": {
+    "access": "MYSELF"
+  },
+  "webapp": {
+    "executeAs": "USER_DEPLOYING",
+    "access": "MYSELF"
+  }
 }
