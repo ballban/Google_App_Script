@@ -10,6 +10,7 @@ function deepl(
   sourceLang: string = "zh",
   targetLang: string = "en"
 ): string {
+  Logger.log("deepl start.");
   const apiKey =
     PropertiesService.getScriptProperties().getProperty("DEEPL_API_KEY");
   if (!apiKey) throw new Error("DeepL API key not found.");

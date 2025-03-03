@@ -7,6 +7,7 @@ import Cheerio from "cheerio";
  */
 function MDBGApi(input: string): string {
   if (input == "") return "";
+  Logger.log("MDBGApi start.");
   const url = `https://zhres.herokuapp.com/api/vocab/match`;
   const payload = {
     entry: input,
@@ -42,6 +43,7 @@ function MDBGApi(input: string): string {
  */
 function MDBGWeb(input: string): string {
   if (input == "") return "";
+  Logger.log("MDBGWeb start.");
   let url = `https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=0&wdqb=c%3A${input}`;
   try {
     let response = UrlFetchApp.fetch(url);

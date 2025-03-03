@@ -112,6 +112,7 @@ function pasteToSheet(
 }
 
 function changeCellFontColor(candidate: DictObject): void {
+  Logger.log(`changeCellFontColor start. type: ${candidate.baiduHanyu.type}`);
   if (candidate.baiduHanyu.type == baiduHanyuApiType.idiom) {
     candidate.cell.setFontColor("red");
   }

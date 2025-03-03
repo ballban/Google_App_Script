@@ -72,6 +72,7 @@ const baiduHanyuApiType = {
   term: "term",
   idiom: "idiom",
   other: "other",
+  hot_words: "hot_words",
   unknown: "unknown",
 };
 
@@ -83,6 +84,7 @@ const baiduHanyuApiType = {
  * @returns void
  */
 function baiduHanyuWeb(word: string, baiduHanyu: BaiduHanyuObject): void {
+  Logger.log("baiduHanyuWeb start.");
   const url = `https://dict.baidu.com/s?wd=${word}&ptype=zici`;
 
   const response = UrlFetchApp.fetch(url);
@@ -109,6 +111,7 @@ function baiduHanyuWeb(word: string, baiduHanyu: BaiduHanyuObject): void {
 }
 
 function extractContentText(content: string): string | null {
+  Logger.log("extractContentText start.");
   const pattern = /<div class="tab-content([\s\S]*?)">([\s\S]*?)<\/div>/;
   const match = content.match(pattern);
   return match ? match[0] : null;
@@ -128,6 +131,7 @@ function extractDefinitions(
 }
 
 function extractPinyin(content: string): Array<string> {
+  Logger.log("extractPinyin start.");
   const pattern = /<div([^<>]*?)id="pinyin">([^]*?)<\/div>/;
   const matchDiv = content.match(pattern);
   if (!matchDiv) return [];
@@ -174,13 +178,14 @@ function baiduHanyu(word: string): BaiduHanyuObject {
  * @returns The BaiduHanyuObject containing the definition of the word.
  */
 function baiduHanyuApi(word: string): BaiduHanyuObject {
-  Logger.log("baiduHanyuApi request");
+  Logger.log("baiduHanyuApi request start.");
   const url = `https://hanyuapp.baidu.com/dictapp/swan/termdetail?wd=${word}&ptype=zici&source_tag=2`;
   const res = UrlFetchApp.fetch(url);
   if (res.getResponseCode() != 200) return new BaiduHanyuObject();
 
   const data = JSON.parse(res.getContentText()).data;
   const baiduHanyu = new BaiduHanyuObject();
+  baiduHanyu.type = data.type;
 
   switch (data.type) {
     case baiduHanyuApiType.term:
@@ -193,7 +198,8 @@ function baiduHanyuApi(word: string): BaiduHanyuObject {
       baiduHanyu.definitionList.push(
         new DefinitionObject("", ["Other type"], [[]])
       );
-      baiduHanyu.type = baiduHanyuApiType.other;
+      break;
+    case baiduHanyuApiType.hot_words:
       break;
     default:
       Logger.log(`Unknown dataType: ${data.type}`);
@@ -205,29 +211,31 @@ function baiduHanyuApi(word: string): BaiduHanyuObject {
 }
 
 function handleTermType(data: any, baiduHanyu: BaiduHanyuObject): void {
+  Logger.log("handleTermType start.");
   if (!data.sid) {
     handleTermBaiduBaike(data, baiduHanyu);
     return;
   }
 
-  const dataDefinition = data.definition;
+  const dataDefinition = data.comprehensiveDefinition;
   for (let i = 0; i < dataDefinition.length; i++) {
     const pinyin = dataDefinition[i].pinyin;
-    const definitions = dataDefinition[i].definition;
+    const definitions = dataDefinition[i].basicDefinition[0];
     if (i == 0) {
-      const liju = data.zaoJu.map((x: { name: string }) => x.name);
+      const liju = definitions.liju.map((x: { name: string }) => x.name);
       baiduHanyu.definitionList.push(
-        new DefinitionObject(pinyin, definitions, [liju])
+        new DefinitionObject(pinyin, [definitions.definition], [liju])
       );
       continue;
     }
     baiduHanyu.definitionList.push(
-      new DefinitionObject(pinyin, definitions, [[]])
+      new DefinitionObject(pinyin, [definitions.definition], [[]])
     );
   }
 }
 
 function handleTermBaiduBaike(data: any, baiduHanyu: BaiduHanyuObject): void {
+  Logger.log("handleTermBaiduBaike start.");
   const dataBaiduBaike = data.baikeInfo;
   if (!dataBaiduBaike || dataBaiduBaike.baikeMean == "") return;
 
@@ -237,24 +245,27 @@ function handleTermBaiduBaike(data: any, baiduHanyu: BaiduHanyuObject): void {
 }
 
 function handleIdiomType(data: any, baiduHanyu: BaiduHanyuObject): void {
-  const dataDefinitionRoot = data.definition;
-  for (let i = 0; i < dataDefinitionRoot.length; i++) {
-    baiduHanyu.definitionList.push(
-      new DefinitionObject(
-        dataDefinitionRoot[i].pinyin,
-        [dataDefinitionRoot[i].definition],
-        [[]]
-      )
-    );
+  Logger.log("handleIdiomType start.");
+  const definitionData = data.definitionInfo;
+  let definition = definitionData.definition;
+  if (data.ancientDefinition) {
+    definition += `\n${definitionData.ancientDefinition}`;
   }
+  if (data.modernDefinition) {
+    definition += `\n${definitionData.modernDefinition}`;
+  }
+  baiduHanyu.definitionList.push(
+    new DefinitionObject(data.pinyin, [definition], [[]])
+  );
 
   if (baiduHanyu.definitionList.length > 0) {
-    const lijuList = data.zaoJu.map((x: { name: string }) => x.name);
+    const lijuList = data.liju.map((x: { name: string }) => x.name);
     baiduHanyu.definitionList[0].lijuList = [lijuList];
   }
 }
 
 function handleIdiomTypeVer2(data: any, baiduHanyu: BaiduHanyuObject): void {
+  Logger.log("handleIdiomTypeVer2 start.");
   let definition = data.definitionInfo.definition;
   const dataDetailMeans = data.definitionInfo.detailMeans;
   for (let i = 0; i < dataDetailMeans.length; i++) {
