@@ -2,7 +2,7 @@ let candidates: Array<DictObject> = [];
 
 type DictObject = {
   word: string;
-  baiduHanyu: BaiduHanyuObject;
+  baiduHanyuObject: BaiduHanyuObject;
   MDBG: string;
   deepL: string;
   cell: GoogleAppsScript.Spreadsheet.Range;
@@ -25,7 +25,7 @@ function on_edit(e: GoogleAppsScript.Events.SheetsOnEdit): void {
     if (value == "") continue;
     let dictObject: DictObject = {
       word: value,
-      baiduHanyu: new BaiduHanyuObject(),
+      baiduHanyuObject: new BaiduHanyuObject(),
       MDBG: "",
       deepL: "",
       cell: cell,
@@ -63,7 +63,7 @@ function main(sheet: GoogleAppsScript.Spreadsheet.Sheet): void {
 
 function processCandidate(dict: DictObject): void {
   Logger.log("baiduHanyu start.");
-  dict.baiduHanyu = baiduHanyu(dict.word);
+  dict.baiduHanyuObject = baiduHanyu(dict.word);
   Logger.log("baiduHanyu finish.");
   dict.MDBG = MDBGWeb(dict.word) ?? "";
   Logger.log("MDBG finish.");
@@ -87,14 +87,24 @@ function pasteToSheet(
 
   const rowIndex = candidate.cell.getRowIndex();
   let data = [];
-  for (let j = 0; j < candidate.baiduHanyu.definitionList.length; j++) {
+  candidate.baiduHanyuObject.definitionList.forEach(
+    (definition: ComprehensiveDefinitionObject, i: number) => {
+      data.push([
+        i == 0 ? candidate.word : "",
+        definition.pinyin,
+        definition.getDefinition(),
+      ]);
+    }
+  );
+
+  for (let j = 0; j < candidate.baiduHanyuObject.definitionList.length; j++) {
     data.push([
       j == 0 ? candidate.word : "",
-      candidate.baiduHanyu.definitionList[j].pinyin,
-      candidate.baiduHanyu.definitionList[j].getDefinition(),
+      candidate.baiduHanyuObject.definitionList[j].pinyin,
+      candidate.baiduHanyuObject.definitionList[j].getDefinition(),
     ]);
   }
-  let count = candidate.baiduHanyu.definitionList.length;
+  let count = candidate.baiduHanyuObject.definitionList.length;
   const lastIndex = data.length - 1;
   if (data[lastIndex][2] == "") {
     data[lastIndex][2] =
@@ -112,8 +122,10 @@ function pasteToSheet(
 }
 
 function changeCellFontColor(candidate: DictObject): void {
-  Logger.log(`changeCellFontColor start. type: ${candidate.baiduHanyu.type}`);
-  if (candidate.baiduHanyu.type == baiduHanyuApiType.idiom) {
+  Logger.log(
+    `changeCellFontColor start. type: ${candidate.baiduHanyuObject.type}`
+  );
+  if (candidate.baiduHanyuObject.type == baiduHanyuApiType.idiom) {
     candidate.cell.setFontColor("red");
   }
 }

@@ -1,9 +1,19 @@
+/**
+ * The Baidu Hanyu API response object.
+ * "data" contains the definition of the word.
+ */
 class BaiduHanyuObject {
-  definitionList: Array<DefinitionObject> = [];
+  definitionList: Array<ComprehensiveDefinitionObject> = [];
   type: string = "";
+  termVersion: number = 0;
 }
 
-class DefinitionObject {
+/**
+ * The definition object containing the pinyin, definition, and example sentences.
+ * "comprehensiveDefinition" contains the definition of the word.
+ * each comprehensiveDefinition contains one "pinyin" and multiple "basicDefinition" or "detailDefinition".
+ */
+class ComprehensiveDefinitionObject {
   pinyin: string = "";
   definitionList: Array<string> = [];
   lijuList: Array<Array<string>> = [];
@@ -11,7 +21,7 @@ class DefinitionObject {
   constructor(
     pinyin: string = "",
     definitionList: Array<string> = [],
-    lijuList: Array<Array<string>> = []
+    lijuList: Array<Array<string>> = [[]]
   ) {
     this.pinyin = pinyin;
     this.definitionList = definitionList;
@@ -26,10 +36,11 @@ class DefinitionObject {
   getDefinition(): string {
     let result = "";
     for (let i = 0; i < this.definitionList.length; i++) {
+      // add ①, ②, ③, ... before each definition if there are multiple definitions
       result += `\n${
         this.definitionList.length == 1
           ? ""
-          : String.fromCharCode(parseInt((2460 + i).toString(), 16)) // ①, ②, ③, ...
+          : String.fromCharCode(parseInt((2460 + i).toString(), 16))
       }${this.definitionList[i]}`;
       Logger.log(`i: ${i} \nresult: ${result}`);
       Logger.log(`this.definitionList: ${this.definitionList}`);
@@ -104,7 +115,7 @@ function baiduHanyuWeb(word: string, baiduHanyu: BaiduHanyuObject): void {
   if (pinyinList.length < 1) return;
   for (let i = 0; i < pinyinList.length; i++) {
     baiduHanyu.definitionList.push(
-      new DefinitionObject(pinyinList[i], [], [[]])
+      new ComprehensiveDefinitionObject(pinyinList[i], [], [[]])
     );
   }
   baiduHanyu.definitionList[0].definitionList = definitionList;
@@ -196,14 +207,16 @@ function baiduHanyuApi(word: string): BaiduHanyuObject {
       break;
     case baiduHanyuApiType.other:
       baiduHanyu.definitionList.push(
-        new DefinitionObject("", ["Other type"], [[]])
+        new ComprehensiveDefinitionObject("", ["Other type"], [[]])
       );
       break;
     case baiduHanyuApiType.hot_words:
       break;
     default:
       Logger.log(`Unknown dataType: ${data.type}`);
-      baiduHanyu.definitionList.push(new DefinitionObject("", [""], [[]]));
+      baiduHanyu.definitionList.push(
+        new ComprehensiveDefinitionObject("", [""], [[]])
+      );
       baiduHanyu.type = baiduHanyuApiType.unknown;
       break;
   }
@@ -217,21 +230,26 @@ function handleTermType(data: any, baiduHanyu: BaiduHanyuObject): void {
     return;
   }
 
-  const dataDefinition = data.comprehensiveDefinition;
-  for (let i = 0; i < dataDefinition.length; i++) {
-    const pinyin = dataDefinition[i].pinyin;
-    const definitions = dataDefinition[i].basicDefinition[0];
-    if (i == 0) {
-      const liju = definitions.liju.map((x: { name: string }) => x.name);
-      baiduHanyu.definitionList.push(
-        new DefinitionObject(pinyin, [definitions.definition], [liju])
-      );
-      continue;
-    }
+  data.comprehensiveDefinition.forEach((comprehensiveDefinition: any) => {
+    const pinyin = comprehensiveDefinition.pinyin;
+    // try to get basicDefinition first
+    // if basicDefinition is empty, get detailDefinition
+    const definitionList =
+      comprehensiveDefinition.basicDefinition.length > 0
+        ? comprehensiveDefinition.basicDefinition
+        : comprehensiveDefinition.detailDefinition;
+
+    let resultDefinition: Array<string> = [];
+    let resultLiju = [[]];
+    definitionList.forEach((definition: any) => {
+      resultDefinition.push(definition.definition);
+      const liju = definition.liju.map((x: { name: string }) => x.name);
+      resultLiju.push(liju);
+    });
     baiduHanyu.definitionList.push(
-      new DefinitionObject(pinyin, [definitions.definition], [[]])
+      new ComprehensiveDefinitionObject(pinyin, resultDefinition, resultLiju)
     );
-  }
+  });
 }
 
 function handleTermBaiduBaike(data: any, baiduHanyu: BaiduHanyuObject): void {
@@ -240,7 +258,7 @@ function handleTermBaiduBaike(data: any, baiduHanyu: BaiduHanyuObject): void {
   if (!dataBaiduBaike || dataBaiduBaike.baikeMean == "") return;
 
   baiduHanyu.definitionList.push(
-    new DefinitionObject("", [dataBaiduBaike.baikeMean], [[]])
+    new ComprehensiveDefinitionObject("", [dataBaiduBaike.baikeMean], [[]])
   );
 }
 
@@ -255,7 +273,7 @@ function handleIdiomType(data: any, baiduHanyu: BaiduHanyuObject): void {
     definition += `\n${definitionData.modernDefinition}`;
   }
   baiduHanyu.definitionList.push(
-    new DefinitionObject(data.pinyin, [definition], [[]])
+    new ComprehensiveDefinitionObject(data.pinyin, [definition], [[]])
   );
 
   if (baiduHanyu.definitionList.length > 0) {
@@ -275,6 +293,6 @@ function handleIdiomTypeVer2(data: any, baiduHanyu: BaiduHanyuObject): void {
   const liju = data.liju.map((x: { name: string }) => x.name);
 
   baiduHanyu.definitionList.push(
-    new DefinitionObject(data.pinyin, [definition], [liju])
+    new ComprehensiveDefinitionObject(data.pinyin, [definition], [liju])
   );
 }
