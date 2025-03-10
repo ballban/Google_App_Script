@@ -42,20 +42,11 @@ class ComprehensiveDefinitionObject {
           ? ""
           : String.fromCharCode(parseInt((2460 + i).toString(), 16))
       }${this.definitionList[i]}`;
-      Logger.log(`i: ${i} \nresult: ${result}`);
-      Logger.log(`this.definitionList: ${this.definitionList}`);
 
-      if (this.lijuList.length == this.definitionList.length) {
-        result += "\n例句:";
-        result += this.listToString(this.lijuList[i]);
-      } else if (
-        this.lijuList[0] &&
-        this.lijuList[0].length > 0 &&
-        i == this.definitionList.length - 1
-      ) {
-        result += "\n例句:";
-        result += this.listToString(this.lijuList[0]);
-      }
+      // add example sentences after definition
+      if (this.lijuList.length == 0) continue;
+      if (this.lijuList[i].length == 0) continue;
+      result += `\n例句：${this.lijuList[i][0]}`;
     }
     return result.trim();
   }
@@ -264,22 +255,26 @@ function handleTermBaiduBaike(data: any, baiduHanyu: BaiduHanyuObject): void {
 
 function handleIdiomType(data: any, baiduHanyu: BaiduHanyuObject): void {
   Logger.log("handleIdiomType start.");
-  const definitionData = data.definitionInfo;
-  let definition = definitionData.definition;
-  if (data.ancientDefinition) {
-    definition += `\n${definitionData.ancientDefinition}`;
+  const definitionInfo = data.definitionInfo;
+  let definition = definitionInfo.definition;
+  if (definitionInfo.ancientDefinition) {
+    definition += `\n${definitionInfo.ancientDefinition}`;
   }
-  if (data.modernDefinition) {
-    definition += `\n${definitionData.modernDefinition}`;
+  if (definitionInfo.modernDefinition) {
+    definition += `\n${definitionInfo.modernDefinition}`;
   }
-  baiduHanyu.definitionList.push(
-    new ComprehensiveDefinitionObject(data.pinyin, [definition], [[]])
-  );
+  if (definitionInfo.detailMeans) {
+    definitionInfo.detailMeans.forEach((detailMean: any) => {
+      definition += `\n　${detailMean.word}：${detailMean.definition}`;
+    });
+  }
 
-  if (baiduHanyu.definitionList.length > 0) {
-    const lijuList = data.liju.map((x: { name: string }) => x.name);
-    baiduHanyu.definitionList[0].lijuList = [lijuList];
-  }
+  // add example sentences
+  const liju = data.liju.map((x: { name: string }) => x.name);
+
+  baiduHanyu.definitionList.push(
+    new ComprehensiveDefinitionObject(data.pinyin, [definition], [liju])
+  );
 }
 
 function handleIdiomTypeVer2(data: any, baiduHanyu: BaiduHanyuObject): void {

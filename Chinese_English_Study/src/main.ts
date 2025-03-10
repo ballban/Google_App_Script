@@ -46,6 +46,7 @@ function main(sheet: GoogleAppsScript.Spreadsheet.Sheet): void {
     if (dict.done) continue;
 
     try {
+      addLoadingText(sheet, dict);
       processCandidate(dict);
       pasteToSheet(sheet, dict);
       changeCellFontColor(dict);
@@ -59,6 +60,14 @@ function main(sheet: GoogleAppsScript.Spreadsheet.Sheet): void {
   candidates = candidates.filter(
     (candidate) => !completedCandidates.includes(candidate)
   );
+}
+
+function addLoadingText(
+  sheet: GoogleAppsScript.Spreadsheet.Sheet,
+  dict: DictObject
+): void {
+  const rowIndex = dict.cell.getRowIndex();
+  sheet.getRange(`R${rowIndex}C3`).setValue("Loading...");
 }
 
 function processCandidate(dict: DictObject): void {
@@ -86,7 +95,7 @@ function pasteToSheet(
   if (!candidate.done) return;
 
   const rowIndex = candidate.cell.getRowIndex();
-  let data = [];
+  let data: any[][] = [];
   candidate.baiduHanyuObject.definitionList.forEach(
     (definition: ComprehensiveDefinitionObject, i: number) => {
       data.push([
@@ -97,25 +106,19 @@ function pasteToSheet(
     }
   );
 
-  for (let j = 0; j < candidate.baiduHanyuObject.definitionList.length; j++) {
-    data.push([
-      j == 0 ? candidate.word : "",
-      candidate.baiduHanyuObject.definitionList[j].pinyin,
-      candidate.baiduHanyuObject.definitionList[j].getDefinition(),
-    ]);
-  }
+  const englishDefinition =
+    candidate.MDBG == ""
+      ? `(deepL) ${candidate.deepL}`
+      : `(MDBG) ${candidate.MDBG}`;
+  // If the last definition is empty, fill it with the English definition
+  // Otherwise, add a new row with the English definition
   let count = candidate.baiduHanyuObject.definitionList.length;
   const lastIndex = data.length - 1;
   if (data[lastIndex][2] == "") {
-    data[lastIndex][2] =
-      candidate.MDBG == "" ? candidate.deepL : candidate.MDBG;
+    data[lastIndex][2] = englishDefinition;
     count--;
   } else {
-    data.push([
-      "",
-      "",
-      candidate.MDBG == "" ? candidate.deepL : candidate.MDBG,
-    ]);
+    data.push(["", "", englishDefinition]);
   }
 
   sheet.getRange(`R${rowIndex}C1:R${rowIndex + count}C3`).setValues(data);
