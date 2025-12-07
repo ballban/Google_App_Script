@@ -1,0 +1,275 @@
+{
+  "errno": 0,
+  "errmsg": "",
+  "data": {
+    "idiomVersion": 2,
+    "name": "幸灾乐祸",
+    "sid": "30485ee725ca4d7597d797ef6f7003b5",
+    "type": "idiom",
+    "lessonInfo": [],
+    "relationInfo": {
+      "relationName": "相关推荐",
+      "relationList": [
+        {
+          "name": "书声琅琅",
+          "imgs": [
+            "http://t12.baidu.com/it/u=4138234532,1014813273&fm=58",
+            "http://t11.baidu.com/it/u=4077237433,1023611966&fm=58",
+            "http://t11.baidu.com/it/u=3843563263,889621358&fm=58",
+            "http://t11.baidu.com/it/u=3843563263,889621358&fm=58"
+          ]
+        },
+        {
+          "name": "女扮男装",
+          "imgs": [
+            "http://t11.baidu.com/it/u=4148089696,917017145&fm=58",
+            "http://t10.baidu.com/it/u=4008905106,994993782&fm=58",
+            "http://t12.baidu.com/it/u=2698169,615952637&fm=58",
+            "http://t12.baidu.com/it/u=4069940762,446245229&fm=58"
+          ]
+        },
+        {
+          "name": "窗明几净",
+          "imgs": [
+            "http://t10.baidu.com/it/u=4067666847,391173574&fm=58",
+            "http://t12.baidu.com/it/u=3859830554,822380085&fm=58",
+            "http://t12.baidu.com/it/u=3827301635,718009128&fm=58",
+            "http://t10.baidu.com/it/u=4135920042,1068502565&fm=58"
+          ]
+        },
+        {
+          "name": "舒舒服服",
+          "imgs": [
+            "http://t11.baidu.com/it/u=110402578,775911798&fm=58",
+            "http://t11.baidu.com/it/u=110402578,775911798&fm=58",
+            "http://t10.baidu.com/it/u=4134507225,1043550499&fm=58",
+            "http://t10.baidu.com/it/u=4134507225,1043550499&fm=58"
+          ]
+        },
+        {
+          "name": "鹅毛大雪",
+          "imgs": [
+            "http://t10.baidu.com/it/u=294481767,1310609889&fm=58",
+            "http://t12.baidu.com/it/u=4039989668,951846314&fm=58",
+            "http://t10.baidu.com/it/u=3921013929,876801111&fm=58",
+            "http://t11.baidu.com/it/u=57336115,586624914&fm=58"
+          ]
+        },
+        {
+          "name": "人无远虑",
+          "imgs": [
+            "http://t10.baidu.com/it/u=3194892681,768368178&fm=58",
+            "http://t11.baidu.com/it/u=4150269931,951228437&fm=58",
+            "http://t11.baidu.com/it/u=167457649,1080037510&fm=58",
+            "http://t12.baidu.com/it/u=4107189389,526078347&fm=58"
+          ]
+        },
+        {
+          "name": "秋高气爽",
+          "imgs": [
+            "http://t12.baidu.com/it/u=4202813609,664530023&fm=58",
+            "http://t10.baidu.com/it/u=4249924791,666519719&fm=58",
+            "http://t12.baidu.com/it/u=3879901709,770486380&fm=58",
+            "http://t11.baidu.com/it/u=4172020780,1005366257&fm=58"
+          ]
+        },
+        {
+          "name": "循序渐进",
+          "imgs": [
+            "http://t11.baidu.com/it/u=4207164598,1030639120&fm=58",
+            "http://t12.baidu.com/it/u=4154453939,1072755241&fm=58",
+            "http://t11.baidu.com/it/u=3907921159,913337200&fm=58",
+            "http://t12.baidu.com/it/u=234931928,680789851&fm=58"
+          ]
+        },
+        {
+          "name": "灯火辉煌",
+          "imgs": [
+            "http://t10.baidu.com/it/u=4048473165,1044955893&fm=58",
+            "http://t12.baidu.com/it/u=4180170035,984703609&fm=58",
+            "http://t12.baidu.com/it/u=4098275357,631899434&fm=58",
+            "http://t10.baidu.com/it/u=4064509554,1078005155&fm=58"
+          ]
+        },
+        {
+          "name": "羞羞答答",
+          "imgs": [
+            "http://t11.baidu.com/it/u=124171297,1128878730&fm=58",
+            "http://t11.baidu.com/it/u=124171297,1128878730&fm=58",
+            "http://t10.baidu.com/it/u=139067913,1132735791&fm=58",
+            "http://t10.baidu.com/it/u=139067913,1132735791&fm=58"
+          ]
+        }
+      ]
+    },
+    "imgs": [
+      "http://t10.baidu.com/it/u=3953964246,857286903&fm=58",
+      "http://t11.baidu.com/it/u=3328396309,667367682&fm=58",
+      "http://t11.baidu.com/it/u=3279568162,772223459&fm=58",
+      "http://t12.baidu.com/it/u=4145110592,533306540&fm=58"
+    ],
+    "definitionInfo": {
+      "definition": "对别人遭受灾祸感到庆幸、高兴。",
+      "similarDefinition": "比喻缺乏同情心或居心不善。",
+      "ancientDefinition": "",
+      "modernDefinition": "",
+      "detailMeans": [
+        {
+          "word": "幸灾",
+          "definition": "因别人遭灾而高兴。"
+        },
+        {
+          "word": "乐",
+          "definition": "高兴，欢乐。"
+        },
+        {
+          "word": "祸",
+          "definition": "祸事；灾难（跟“福”相对）。"
+        }
+      ],
+      "usageTips": [],
+      "yicuodian": ["注意\"幸\"的意思；含贬义。"],
+      "baobian": "贬义",
+      "wordFormation": "联合"
+    },
+    "liju": [
+      {
+        "name": "当他的竞争对手在生意上遭遇失败时，他并没有表示同情，反而幸灾乐祸地嘲笑对方的遭遇。",
+        "showName": "当他的竞争对手在生意上遭遇失败时，他并没有表示同情，反而<span class=\"highlight\">幸灾乐祸</span>地嘲笑对方的遭遇。"
+      },
+      {
+        "name": "看到小明在考试中失利，小明的一些同学不是给予鼓励，而是幸灾乐祸地在一旁说风凉话。",
+        "showName": "看到小明在考试中失利，小明的一些同学不是给予鼓励，而是<span class=\"highlight\">幸灾乐祸</span>地在一旁说风凉话。"
+      }
+    ],
+    "story": [
+      "《左传·僖公十三年》记载到，据传晋国遭遇大饥荒，向秦国求援。秦国便向晋国运去了大量粮食，用以解决晋国的困境。后来，秦国遭遇同样的困境时，向晋国发出求援，但晋国却拒绝出售粮食。这时，有一位大夫庆郑竭力劝说：“背施无亲，幸灾不仁，贪爱不祥，怒邻不义，四德皆失，何以守国？”大意为人若是背弃恩惠就会没有亲人，幸灾乐祸就不会仁慈，过度贪婪就不会顺利，无端激怒邻国就是不义。如果丢掉了这四种道德，拿什么来保卫国家？《左传·庄公二十年》记载，周庄王死后本应由孙子惠王继位，但周庄王的小儿子子颓被阴谋篡位的大夫所利用，篡夺了王位。子颓不知祸福，反而沉迷于歌舞之中，因此有人说：“哀乐不时，殃咎必至，今王子颓歌舞不倦，乐祸也。”大意为悲哀和欢乐不会一直存在，灾难和祸患也必然会到来，现在子颓歌舞不倦，这是以灾祸为乐了。后来，成语“幸灾乐祸”用以比喻缺乏同情心或居心不善。也称“乐祸幸灾”。"
+    ],
+    "antonym": [
+      {
+        "name": "哀矜勿喜",
+        "isClick": true
+      },
+      {
+        "name": "兔死狐悲",
+        "isClick": true
+      },
+      {
+        "name": "感同身受",
+        "isClick": true
+      },
+      {
+        "name": "悲天悯人",
+        "isClick": true
+      },
+      {
+        "name": "急人之难",
+        "isClick": true
+      },
+      {
+        "name": "同病相怜",
+        "isClick": true
+      }
+    ],
+    "synonyms": [
+      {
+        "name": "乐祸幸灾",
+        "isClick": true
+      },
+      {
+        "name": "落井下石",
+        "isClick": true
+      },
+      {
+        "name": "利灾乐祸",
+        "isClick": true
+      }
+    ],
+    "tongyiyixing": [
+      {
+        "name": "乐祸幸灾",
+        "isClick": true
+      },
+      {
+        "name": "利灾乐祸",
+        "isClick": true
+      }
+    ],
+    "chuChu": [
+      {
+        "sourceChapter": "",
+        "source": "《左传·僖公十四年》",
+        "dynasty": "春秋",
+        "citeOriginalText": "背施无亲，幸灾不仁。",
+        "author": "左丘明等"
+      }
+    ],
+    "yinZheng": [
+      {
+        "sourceChapter": "",
+        "source": "《颜氏家训·诫兵》",
+        "dynasty": "北齐",
+        "citeOriginalText": "若居承平之世，睥睨宫阃，幸灾乐祸，首为逆乱，诖误善良，……此皆陷身灭族之本也。",
+        "author": "颜之推"
+      },
+      {
+        "sourceChapter": "三一",
+        "source": "《家》",
+        "dynasty": "现代",
+        "citeOriginalText": "老太爷时时生气。觉新这一房的人都没有笑脸。别房的人大都怀着幸灾乐祸的心理在暗中冷笑。",
+        "author": "巴金"
+      },
+      {
+        "sourceChapter": "",
+        "source": "《闻笑有感》",
+        "dynasty": "现代",
+        "citeOriginalText": "这中间并无恶意，当然也未必带有幸灾乐祸的成份。",
+        "author": "茅盾"
+      },
+      {
+        "sourceChapter": "",
+        "source": "《思慎赋序》",
+        "dynasty": "唐",
+        "citeOriginalText": "某尝迹其行事，略而论之……或幸灾乐祸，或甘死徇生，求而得之，又何怨也。",
+        "author": "刘知几"
+      },
+      {
+        "sourceChapter": "",
+        "source": "《益智录·白猿》",
+        "dynasty": "清",
+        "citeOriginalText": "后来一人，见之大笑。客怒曰：“吾恚而君喜，何幸灾乐祸如是！”",
+        "author": "解鉴"
+      },
+      {
+        "sourceChapter": "三回",
+        "source": "《野叟曝言》",
+        "dynasty": "清",
+        "citeOriginalText": "这人虽有救命之恩，但既幸灾乐祸，则非救你之命，实是贪你之色。",
+        "author": "夏敬渠"
+      },
+      {
+        "sourceChapter": "第一幕",
+        "source": "《屈原》",
+        "dynasty": "现代",
+        "citeOriginalText": "我的脚不方便，你不晓得犒怜，偏要幸灾乐祸，加倍嘲笑。",
+        "author": "郭沫若"
+      }
+    ],
+    "pictureList": [],
+    "lessonTerms": {
+      "termList": [],
+      "hasTerms": 0
+    },
+    "lessonTermsNew": {
+      "termList": [],
+      "hasTerms": 0
+    },
+    "baobian": "贬义",
+    "structure": "abcd",
+    "pinyin": "xìng zāi lè huò",
+    "voice": "https://tts.baidu.com/text2audio?tex=%E5%B9%B8%28xing4%29%E7%81%BE%28zai1%29%E4%B9%90%28le4%29%E7%A5%B8%28huo4%29&per=4100&time=1765013386&auth=d1b44c13a21dc0ee0a689d0f8e07987e12a46125997278d75a7773bc3d372976&cuid=dict&lan=zh&ctp=1&pdt=10169&vol=9&req_version=1",
+    "lessonTermsDetail": [],
+    "zuowen_query": "",
+    "ad": []
+  }
+}

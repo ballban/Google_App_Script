@@ -1,0 +1,501 @@
+{
+  "errno": 0,
+  "errmsg": "",
+  "data": {
+    "termVersion": 2,
+    "name": "运转",
+    "sid": "d8b96ca5c6ca4af5bfef3998112d77fd",
+    "type": "term",
+    "lessonInfo": {},
+    "relationInfo": {
+      "relationName": "相关推荐",
+      "relationList": [
+        {
+          "name": "运行",
+          "imgs": [
+            "http://t12.baidu.com/it/u=194948351,1256593823&fm=58",
+            "http://t11.baidu.com/it/u=121989664,647225619&fm=58"
+          ]
+        },
+        {
+          "name": "转动",
+          "imgs": [
+            "http://t12.baidu.com/it/u=109121879,711784770&fm=58",
+            "http://t11.baidu.com/it/u=4092863038,959387631&fm=58"
+          ]
+        },
+        {
+          "name": "运作",
+          "imgs": [
+            "http://t12.baidu.com/it/u=194948351,1256593823&fm=58",
+            "http://t12.baidu.com/it/u=3319229672,712060941&fm=58"
+          ]
+        },
+        {
+          "name": "停止",
+          "imgs": [
+            "http://t10.baidu.com/it/u=3402451413,654649811&fm=58",
+            "http://t10.baidu.com/it/u=51179406,1181641990&fm=58"
+          ]
+        },
+        {
+          "name": "停转",
+          "imgs": [
+            "http://t10.baidu.com/it/u=3402451413,654649811&fm=58",
+            "http://t12.baidu.com/it/u=109121879,711784770&fm=58"
+          ]
+        },
+        {
+          "name": "停滞",
+          "imgs": [
+            "http://t10.baidu.com/it/u=3402451413,654649811&fm=58",
+            "http://t10.baidu.com/it/u=4004925930,966599016&fm=58"
+          ]
+        }
+      ]
+    },
+    "imgs": [
+      "http://t12.baidu.com/it/u=194948351,1256593823&fm=58",
+      "http://t12.baidu.com/it/u=109121879,711784770&fm=58"
+    ],
+    "comprehensiveDefinition": [
+      {
+        "pinyin": "yùn zhuǎn",
+        "voice": "https://tts.baidu.com/text2audio?tex=%E8%BF%90%28yun4%29%E8%BD%AC%28zhuan3%29&per=4100&time=1765014417&auth=b9f032ab430407d74c93759e68e22f2bb2b70ca61c5efa7711e35d18806e3c38&cuid=dict&lan=zh&ctp=1&pdt=10169&vol=9&req_version=1",
+        "basicDefinition": [
+          {
+            "definition": "沿着一定的轨道行动。",
+            "synonyms": [
+              {
+                "name": "运行",
+                "isClick": true
+              }
+            ],
+            "antonym": [],
+            "baobian": "",
+            "zuci": [
+              {
+                "name": "运转轨道",
+                "isClick": false
+              },
+              {
+                "name": "运转机制",
+                "isClick": false
+              },
+              {
+                "name": "运转流畅",
+                "isClick": false
+              }
+            ],
+            "liju": [
+              {
+                "name": "这台机器在运转轨道上准确无误地执行着每一个步骤。",
+                "showName": "这台机器在<span class=\"highlight\">运转</span>轨道上准确无误地执行着每一个步骤。"
+              },
+              {
+                "name": "火车在铁轨上平稳运转，载着乘客安全到达目的地。",
+                "showName": "火车在铁轨上平稳<span class=\"highlight\">运转</span>，载着乘客安全到达目的地。"
+              }
+            ],
+            "shiyongchangjing": "",
+            "grammarStruct": ["谓语"],
+            "cixing": ["动词"]
+          },
+          {
+            "definition": "（机器等）有规则地转动。",
+            "synonyms": [
+              {
+                "name": "转动",
+                "isClick": true
+              },
+              {
+                "name": "运作",
+                "isClick": true
+              },
+              {
+                "name": "运行",
+                "isClick": true
+              }
+            ],
+            "antonym": [
+              {
+                "name": "停止",
+                "isClick": true
+              },
+              {
+                "name": "停转",
+                "isClick": true
+              }
+            ],
+            "baobian": "",
+            "zuci": [
+              {
+                "name": "运转正常",
+                "isClick": false
+              },
+              {
+                "name": "运转速度",
+                "isClick": false
+              },
+              {
+                "name": "运转效率",
+                "isClick": false
+              }
+            ],
+            "liju": [
+              {
+                "name": "工人正在检查机器的运转状态，确保它处于最佳工作状态。",
+                "showName": "工人正在检查机器的<span class=\"highlight\">运转</span>状态，确保它处于最佳工作状态。"
+              },
+              {
+                "name": "工程师对机器进行了调整，使其运转更加平稳。",
+                "showName": "工程师对机器进行了调整，使其<span class=\"highlight\">运转</span>更加平稳。"
+              }
+            ],
+            "shiyongchangjing": "",
+            "grammarStruct": ["谓语"],
+            "cixing": ["动词"]
+          },
+          {
+            "definition": "指机器正常转动。也比喻组织、机构等进行工作。",
+            "synonyms": [
+              {
+                "name": "运作",
+                "isClick": true
+              },
+              {
+                "name": "运行",
+                "isClick": true
+              }
+            ],
+            "antonym": [
+              {
+                "name": "停滞",
+                "isClick": true
+              }
+            ],
+            "baobian": "",
+            "zuci": [
+              {
+                "name": "运转顺畅",
+                "isClick": false
+              },
+              {
+                "name": "运转有序",
+                "isClick": false
+              },
+              {
+                "name": "高效运转",
+                "isClick": false
+              }
+            ],
+            "liju": [
+              {
+                "name": "这个公司的运转非常顺畅，各部门之间的协作非常默契。",
+                "showName": "这个公司的<span class=\"highlight\">运转</span>非常顺畅，各部门之间的协作非常默契。"
+              },
+              {
+                "name": "政府机构的运转需要有序，才能确保各项政策得到有效执行。",
+                "showName": "政府机构的<span class=\"highlight\">运转</span>需要有序，才能确保各项政策得到有效执行。"
+              }
+            ],
+            "shiyongchangjing": "",
+            "grammarStruct": ["谓语"],
+            "cixing": ["动词"]
+          }
+        ],
+        "detailDefinition": [
+          {
+            "definition": "指机器的转动。",
+            "baobian": "",
+            "liju": [
+              {
+                "name": "这台机器经过维修后，已经恢复了正常运转。",
+                "showName": "这台机器经过维修后，已经恢复了正常<span class=\"highlight\">运转</span>。"
+              }
+            ],
+            "citeList": [
+              {
+                "comment": [],
+                "source": "《池北偶谈·谈异四·风磨风扇》",
+                "dynasty": "清",
+                "citeOriginalText": "风来，随表旋动，不拘东西南北，俱能运转。",
+                "author": "王士禛"
+              },
+              {
+                "comment": [],
+                "source": "《在和平的日子里》第六章",
+                "dynasty": "现当代",
+                "citeOriginalText": "工地里的各种机器，照样运转，照样吼叫。",
+                "author": "杜鹏程"
+              },
+              {
+                "comment": [],
+                "source": "《水车赋》",
+                "dynasty": "宋",
+                "citeOriginalText": "扬清激浊，诚运转而有时；救患分灾，幸周旋于当世。",
+                "author": "范仲淹"
+              }
+            ],
+            "cixing": ["动词"]
+          },
+          {
+            "definition": "谓沿着一定的轨道行动。",
+            "baobian": "",
+            "liju": [
+              {
+                "name": "这颗行星按照固定的运转周期围绕恒星旋转，形成了稳定的星系结构。",
+                "showName": "这颗行星按照固定的<span class=\"highlight\">运转</span>周期围绕恒星旋转，形成了稳定的星系结构。"
+              }
+            ],
+            "citeList": [
+              {
+                "comment": [],
+                "source": "《光的赞歌》诗",
+                "dynasty": "现代",
+                "citeOriginalText": "每一个人既是独立的，而又互相照耀，在互相照耀中不停地运转，和地球一同在太空中运转。",
+                "author": "艾青"
+              },
+              {
+                "comment": [],
+                "source": "《朱子语类》卷六八",
+                "dynasty": "宋",
+                "citeOriginalText": "盖天是个至刚至阳之物，自然如此运转不息。",
+                "author": "朱熹等"
+              },
+              {
+                "comment": [],
+                "source": "《淮南子·主术》",
+                "dynasty": "西汉",
+                "citeOriginalText": "主道员者，运转而无端，化育如神，虚无应循，常后而不先也。",
+                "author": "刘安及其门客"
+              },
+              {
+                "comment": [],
+                "source": "《庄子·天运》",
+                "dynasty": "战国",
+                "citeOriginalText": "意者其有机缄而不得已邪，意者其运转而不能自止邪？",
+                "author": "庄子"
+              }
+            ],
+            "cixing": ["动词"]
+          },
+          {
+            "definition": "谓机构、团体等行使权力，进行活动。",
+            "baobian": "",
+            "liju": [
+              {
+                "name": "在领导的带领下，整个组织运转良好，呈现出蓬勃发展的态势。",
+                "showName": "在领导的带领下，整个组织<span class=\"highlight\">运转</span>良好，呈现出蓬勃发展的态势。"
+              }
+            ],
+            "citeList": [
+              {
+                "comment": [],
+                "source": "《人民日报》1982.3.17",
+                "dynasty": "当代",
+                "citeOriginalText": "党就在眼前，各级党组织都在运转着，人民群众和党的干部每时每刻都有接触。",
+                "author": "佚名"
+              },
+              {
+                "comment": [],
+                "source": "《驳法律新闻之论清廷立宪》",
+                "dynasty": "未知",
+                "citeOriginalText": "所谓立宪之特质者，乃在其机关组织之完全，而不任独夫之自由意思以运转统治权，即有监督机关也。",
+                "author": "县解"
+              }
+            ],
+            "cixing": ["动词"]
+          },
+          {
+            "definition": "犹言转运粮食物资。",
+            "baobian": "",
+            "liju": [
+              {
+                "name": "为了确保前线的粮食物资供应，后勤部门日夜不停地运转，确保补给及时送达。",
+                "showName": "为了确保前线的粮食物资供应，后勤部门日夜不停地<span class=\"highlight\">运转</span>，确保补给及时送达。"
+              }
+            ],
+            "citeList": [
+              {
+                "comment": [],
+                "source": "《汉纪·平帝纪》",
+                "dynasty": "汉",
+                "citeOriginalText": "莽（王莽 ）怒，策尤（严尤）为庶人，以董忠代之，师久屯不行，运转不已，天下骚动。",
+                "author": "荀悦"
+              },
+              {
+                "comment": [],
+                "source": "《北史·魏纪三》",
+                "dynasty": "唐",
+                "citeOriginalText": "夏四月丁未，曲赦徐、豫二州,其运转之士，复租三年。",
+                "author": "李延寿"
+              },
+              {
+                "comment": [],
+                "source": "《豫省试策》之四",
+                "dynasty": "清",
+                "citeOriginalText": "以治河为名而取之民间者，本折、工饩，追呼、运转之费，种种以什伯计。",
+                "author": "侯方域"
+              }
+            ],
+            "cixing": ["动词"]
+          }
+        ]
+      },
+      {
+        "pinyin": "yùn zhuàn",
+        "voice": "https://tts.baidu.com/text2audio?tex=%E8%BF%90%28yun4%29%E8%BD%AC%28zhuan4%29&per=4100&time=1765014417&auth=c079a773a896b7324541205e5e3284163521ada15bd1698b8c7775967cc25fc6&cuid=dict&lan=zh&ctp=1&pdt=10169&vol=9&req_version=1",
+        "basicDefinition": [],
+        "detailDefinition": [
+          {
+            "definition": "谓沿着一定的轨道行动。",
+            "baobian": "",
+            "liju": [
+              {
+                "name": "我们要根据市场需求调整公司的运转模式，以适应不断变化的市场环境。",
+                "showName": "我们要根据市场需求调整公司的<span class=\"highlight\">运转</span>模式，以适应不断变化的市场环境。"
+              }
+            ],
+            "citeList": [
+              {
+                "comment": [],
+                "source": "《光的赞歌》诗",
+                "dynasty": "现代",
+                "citeOriginalText": "每一个人既是独立的，而又互相照耀，在互相照耀中不停地运转，和地球一同在太空中运转。",
+                "author": "艾青"
+              },
+              {
+                "comment": [],
+                "source": "《朱子语类》卷六八",
+                "dynasty": "南宋",
+                "citeOriginalText": "盖天是个至刚至阳之物，自然如此运转不息。",
+                "author": "朱熹等"
+              },
+              {
+                "comment": [],
+                "source": "《淮南子·主术》",
+                "dynasty": "西汉",
+                "citeOriginalText": "主道员者，运转而无端，化育如神，虚无应循，常后而不先也。",
+                "author": "刘安及其门客"
+              },
+              {
+                "comment": [],
+                "source": "《庄子·天运》",
+                "dynasty": "战国",
+                "citeOriginalText": "意者其有机缄而不得已邪，意者其运转而不能自止邪？",
+                "author": "庄子"
+              }
+            ],
+            "cixing": ["动词"]
+          },
+          {
+            "definition": "谓机构、团体等行使权力，进行活动。",
+            "baobian": "",
+            "liju": [
+              {
+                "name": "通过优化流程，我们实现了机构运转的高效化，提高了工作效率。",
+                "showName": "通过优化流程，我们实现了机构<span class=\"highlight\">运转</span>的高效化，提高了工作效率。"
+              }
+            ],
+            "citeList": [
+              {
+                "comment": [],
+                "source": "《人民日报》1982.3.17",
+                "dynasty": "当代",
+                "citeOriginalText": "党就在眼前，各级党组织都在运转着，人民群众和党的干部每时每刻都有接触。",
+                "author": "佚名"
+              },
+              {
+                "comment": [],
+                "source": "《驳法律新闻之论清廷立宪》",
+                "dynasty": "未知",
+                "citeOriginalText": "所谓立宪之特质者，乃在其机关组织之完全，而不任独夫之自由意思以运转统治权，即有监督机关也。",
+                "author": "县解"
+              }
+            ],
+            "cixing": ["动词"]
+          },
+          {
+            "definition": "指机器的转动。",
+            "baobian": "",
+            "liju": [
+              {
+                "name": "经过优化后，机器的运转效率得到了显著提升。",
+                "showName": "经过优化后，机器的<span class=\"highlight\">运转</span>效率得到了显著提升。"
+              }
+            ],
+            "citeList": [
+              {
+                "comment": [],
+                "source": "《池北偶谈·谈异四·风磨风扇》",
+                "dynasty": "清",
+                "citeOriginalText": "风来，随表旋动，不拘东西南北，俱能运转。",
+                "author": "王士禛"
+              },
+              {
+                "comment": [],
+                "source": "《在和平的日子里》第六章",
+                "dynasty": "现当代",
+                "citeOriginalText": "工地里的各种机器，照样运转，照样吼叫。",
+                "author": "杜鹏程"
+              },
+              {
+                "comment": [],
+                "source": "《水车赋》",
+                "dynasty": "宋",
+                "citeOriginalText": "扬清激浊，诚运转而有时；救患分灾，幸周旋于当世。",
+                "author": "范仲淹"
+              }
+            ],
+            "cixing": ["动词"]
+          }
+        ]
+      }
+    ],
+    "modifier": [
+      {
+        "name": "高效地运转",
+        "showName": "高效地<span class=\"highlight\">运转</span>",
+        "isClick": false
+      },
+      {
+        "name": "平稳地运转",
+        "showName": "平稳地<span class=\"highlight\">运转</span>",
+        "isClick": false
+      },
+      {
+        "name": "顺畅地运转",
+        "showName": "顺畅地<span class=\"highlight\">运转</span>",
+        "isClick": false
+      }
+    ],
+    "quantifier": [
+      {
+        "name": "次"
+      },
+      {
+        "name": "轮"
+      }
+    ],
+    "baikeInfo": {
+      "baikeMean": "汉语二字词语，本义为绕某个中心或某根轴作曲线运动。",
+      "baikeUrl": "http://baike.baidu.com/view/1457811.htm?forcehttps=1"
+    },
+    "relationIdiom": [],
+    "lessonTerms": {
+      "termList": [],
+      "hasTerms": 0
+    },
+    "lessonTermsNew": {
+      "termList": [],
+      "hasTerms": 0
+    },
+    "baobian": "",
+    "structure": "ab",
+    "lessonTermsDetail": {},
+    "termStyle": 2,
+    "zuowen_query": "",
+    "ad": []
+  }
+}

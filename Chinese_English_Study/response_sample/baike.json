@@ -1,0 +1,31 @@
+{
+  "errno": 0,
+  "errmsg": "",
+  "data": {
+    "name": "崴脚",
+    "sid": "",
+    "type": "term",
+    "source": "",
+    "story": "",
+    "antonym": [],
+    "synonym": [],
+    "definition": [],
+    "zaoJu": [],
+    "lessonInfo": {},
+    "relationInfo": {},
+    "imgs": [
+      "http://t10.baidu.com/it/u=3938203914,916301533&fm=58",
+      "http://t11.baidu.com/it/u=4257476077,599019222&fm=58"
+    ],
+    "jieLong": [],
+    "baikeInfo": {
+      "baikeMean": "踝关节扭伤是临床常见的疾病，在关节及韧带损伤中是发病率最高的疾病。踝关节是人体距离地面最近的负重关节，也就是说踝关节是全身负重最多的关节。踝关节的稳定性，对于日常的活动和体育运动的正常进行，起重要的作用。踝关节周围的韧带损伤都属于踝关节扭伤的范畴。踝关节扭伤，可能导致的损伤包括外踝的距腓前韧带跟腓韧带、内踝三角韧带、下胫腓横韧带等。",
+      "baikeUrl": "http://baike.baidu.com/view/186395.htm?forcehttps=1"
+    },
+    "baikeVideo": {},
+    "relationIdiom": [],
+    "pictureList": [],
+    "zuowen_query": "",
+    "ad": []
+  }
+}

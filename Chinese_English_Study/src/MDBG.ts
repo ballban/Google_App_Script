@@ -1,4 +1,5 @@
-import Cheerio from "cheerio";
+// import Cheerio from "cheerio";
+declare const Cheerio: any;
 
 /**
  * Fetches English translation for a given Chinese word using the MDbg API.
@@ -55,7 +56,7 @@ function MDBGWeb(input: string): string {
     //const pinyin = $('.row .pinyin span').toArray().map(x => $(x).text());
     const definition = $(".row .defs")
       .toArray()
-      .map((x) => $(x).text());
+      .map((x: any) => $(x).text());
 
     //Logger.log(pinyin);
     Logger.log(`MDBG definition: ${definition}`);

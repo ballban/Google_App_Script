@@ -1,0 +1,2067 @@
+{
+  "errno": 0,
+  "errmsg": "",
+  "data": {
+    "detail": {
+      "name": "挑",
+      "strokeOrderGif": "https://hanyu-word-gif.cdn.bcebos.com/b49db33a3427711e588a9c8e0eb15ce01.gif",
+      "radical": "扌",
+      "wordStrokeCount": "9",
+      "structType": "左右",
+      "traditional": "挑",
+      "wubi": "RIQN",
+      "lineType": "火",
+      "img": "http://t11.baidu.com/it/u=3900914005,816801207&fm=58",
+      "pinyinList": [
+        {
+          "name": "tiāo",
+          "voice": "https://hanyu-word-pinyin-short.cdn.bcebos.com/tiao1.mp3"
+        },
+        {
+          "name": "tiǎo",
+          "voice": "https://hanyu-word-pinyin-short.cdn.bcebos.com/tiao3.mp3"
+        },
+        {
+          "name": "tāo",
+          "voice": "https://hanyu-word-pinyin-short.cdn.bcebos.com/tao1.mp3"
+        },
+        {
+          "name": "diào",
+          "voice": "https://hanyu-word-pinyin-short.cdn.bcebos.com/diao4.mp3"
+        },
+        {
+          "name": "tiáo",
+          "voice": "https://hanyu-word-pinyin-short.cdn.bcebos.com/tiao2.mp3"
+        },
+        {
+          "name": "tiào",
+          "voice": "https://hanyu-word-pinyin-short.cdn.bcebos.com/tiao4.mp3"
+        }
+      ],
+      "writingSkill": "“扌”横画稍短，竖钩端正。“兆”撇与竖弯钩间距适中，点画左右对称，位置安放恰当。",
+      "comprehensiveDefinition": [
+        {
+          "pinyin": "tiāo",
+          "voice": "https://hanyu-word-pinyin-short.cdn.bcebos.com/tiao1.mp3",
+          "bolCommon": true,
+          "bookPinyin": 100,
+          "basicDefinition": [
+            {
+              "definition": "扁担等两头挂上东西，用肩膀支起来搬运。",
+              "cixing": ["动词"],
+              "baobian": "",
+              "shiyongchangjing": "",
+              "source": ["现代汉语词典"],
+              "zuci": [
+                {
+                  "name": "挑水",
+                  "isClick": true
+                },
+                {
+                  "name": "挑菜",
+                  "isClick": true
+                },
+                {
+                  "name": "挑担",
+                  "isClick": true
+                },
+                {
+                  "name": "挑力",
+                  "isClick": true
+                },
+                {
+                  "name": "挑包",
+                  "isClick": true
+                }
+              ],
+              "synonyms": [
+                {
+                  "name": "担",
+                  "isClick": true
+                }
+              ],
+              "antonym": [],
+              "liju": [
+                {
+                  "name": "孩子们走着去溪边戏水，姑娘们走着去溪边洗衣，男人们走着去溪挑水。",
+                  "showName": "孩子们走着去溪边戏水，姑娘们走着去溪边洗衣，男人们走着去溪<span class=\"highlight\">挑</span>水。"
+                },
+                {
+                  "name": "每天清晨，父亲都会挑起装满蔬菜的担子，步行到市场去卖。",
+                  "showName": "每天清晨，父亲都会<span class=\"highlight\">挑</span>起装满蔬菜的担子，步行到市场去卖。"
+                }
+              ]
+            },
+            {
+              "definition": "从若干人或事物中选出适合要求的。",
+              "cixing": ["动词"],
+              "baobian": "",
+              "shiyongchangjing": "",
+              "source": ["抖音汉语"],
+              "zuci": [
+                {
+                  "name": "挑选",
+                  "isClick": true
+                },
+                {
+                  "name": "挑拣",
+                  "isClick": true
+                },
+                {
+                  "name": "挑取",
+                  "isClick": true
+                },
+                {
+                  "name": "挑踢",
+                  "isClick": true
+                },
+                {
+                  "name": "百里挑一",
+                  "isClick": false
+                }
+              ],
+              "synonyms": [
+                {
+                  "name": "选",
+                  "isClick": true
+                },
+                {
+                  "name": "拣",
+                  "isClick": true
+                }
+              ],
+              "antonym": [],
+              "liju": [
+                {
+                  "name": "她在琳琅满目的商品中仔细挑选，希望能找到最满意的礼物。",
+                  "showName": "她在琳琅满目的商品中仔细<span class=\"highlight\">挑</span>选，希望能找到最满意的礼物。"
+                },
+                {
+                  "name": "她不仅才华横溢，而且性格温婉，真是百里挑一的佳人。",
+                  "showName": "她不仅才华横溢，而且性格温婉，真是百里<span class=\"highlight\">挑</span>一的佳人。"
+                }
+              ]
+            },
+            {
+              "definition": "过分严格地在细节上指摘。",
+              "cixing": ["动词"],
+              "baobian": "",
+              "shiyongchangjing": "",
+              "source": ["抖音汉语"],
+              "zuci": [
+                {
+                  "name": "挑错",
+                  "isClick": true
+                },
+                {
+                  "name": "挑眼",
+                  "isClick": true
+                },
+                {
+                  "name": "挑剔",
+                  "isClick": true
+                },
+                {
+                  "name": "挑毛病",
+                  "isClick": false
+                },
+                {
+                  "name": "挑检",
+                  "isClick": true
+                }
+              ],
+              "synonyms": [],
+              "antonym": [],
+              "liju": [
+                {
+                  "name": "客户对产品的设计细节非常挑剔，要求设计师反复修改直到满意为止。",
+                  "showName": "客户对产品的设计细节非常<span class=\"highlight\">挑</span>剔，要求设计师反复修改直到满意为止。"
+                },
+                {
+                  "name": "他总是爱挑别人的毛病，却从不反省自己的不足。",
+                  "showName": "他总是爱<span class=\"highlight\">挑</span>别人的毛病，却从不反省自己的不足。"
+                }
+              ]
+            },
+            {
+              "definition": "挑子，扁担和担在两端的东西。",
+              "cixing": ["名词"],
+              "baobian": "",
+              "shiyongchangjing": "",
+              "source": ["商务馆小学生字典"],
+              "zuci": [
+                {
+                  "name": "挑子",
+                  "isClick": true
+                },
+                {
+                  "name": "扁挑",
+                  "isClick": true
+                },
+                {
+                  "name": "木挑",
+                  "isClick": true
+                },
+                {
+                  "name": "货挑子",
+                  "isClick": true
+                },
+                {
+                  "name": "空挑子",
+                  "isClick": false
+                }
+              ],
+              "synonyms": [],
+              "antonym": [],
+              "liju": [
+                {
+                  "name": "爷爷肩上扛着沉重的竹编挑子，一步步走在崎岖的山路上。",
+                  "showName": "爷爷肩上扛着沉重的竹编<span class=\"highlight\">挑</span>子，一步步走在崎岖的山路上。"
+                },
+                {
+                  "name": "父亲用自制的货挑子，挑着家里的土特产到镇上赶集，希望能卖个好价钱。",
+                  "showName": "父亲用自制的货<span class=\"highlight\">挑</span>子，<span class=\"highlight\">挑</span>着家里的土特产到镇上赶集，希望能卖个好价钱。"
+                }
+              ]
+            },
+            {
+              "definition": "（～儿）用于成挑儿的东西。",
+              "cixing": ["量词"],
+              "baobian": "",
+              "shiyongchangjing": "",
+              "source": ["现代汉语学习词典"],
+              "zuci": [],
+              "synonyms": [],
+              "antonym": [],
+              "liju": [
+                {
+                  "name": "她随手拿了一挑儿菜放进了篮子里。",
+                  "showName": "她随手拿了一<span class=\"highlight\">挑</span>儿菜放进了篮子里。"
+                },
+                {
+                  "name": "你去打一挑儿水，把这些东西洗洗。",
+                  "showName": "你去打一<span class=\"highlight\">挑</span>儿水，把这些东西洗洗。"
+                }
+              ]
+            }
+          ],
+          "detailDefinition": [
+            {
+              "definition": "挑选。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "你不嫌不好，挑两块去就是了。",
+                  "author": "曹雪芹",
+                  "source": "《红楼梦》",
+                  "dynasty": "清",
+                  "sourceChapter": "第三五回",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "我好奇地，把里面一些新买的东西挑来细看。",
+                  "author": "陈残云",
+                  "source": "《沙田水秀》",
+                  "dynasty": "现当代",
+                  "sourceChapter": "",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "挑剔。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "你敢挑宝姐姐的短处，就算你是个好的。",
+                  "author": "曹雪芹",
+                  "source": "《红楼梦》",
+                  "dynasty": "清",
+                  "sourceChapter": "第二十回",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "我的姑奶奶，我可不知道么叫个挑礼呀！",
+                  "author": "文康",
+                  "source": "《儿女英雄传》",
+                  "dynasty": "近代",
+                  "sourceChapter": "第二一回",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "嗯哪，如今人民军队讲民主，不兴骂人，打人，说得对不对不挑。",
+                  "author": "周立波",
+                  "source": "《暴风骤雨》",
+                  "dynasty": "现当代",
+                  "sourceChapter": "第一部六",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "以肩担物。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "上市却好，挑担者尤能表现他苦于生活的神情，所以用了这一幅了。",
+                  "author": "鲁迅",
+                  "source": "《书信‧致何白涛（一九三四年六月二十六日）》",
+                  "dynasty": "现代",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "这一向爬山过岭，身挑着重担，老大难挨也。",
+                  "author": "吴承恩",
+                  "source": "《西游记》",
+                  "dynasty": "明",
+                  "sourceChapter": "第二三回",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "街上很清静……有一个进城来挑粪的乡下人。",
+                  "author": "巴金",
+                  "source": "《家》",
+                  "dynasty": "现当代",
+                  "sourceChapter": "四十",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "修长貌。多指身材。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "容长脸儿，长挑身材。",
+                  "author": "曹雪芹",
+                  "source": "《红楼梦》",
+                  "dynasty": "清",
+                  "sourceChapter": "第二四回",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "孟康是个细高挑儿，长脖小脑袋。",
+                  "author": "老舍",
+                  "source": "《裕兴池里》",
+                  "dynasty": "现代",
+                  "sourceChapter": "",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "量词。用于成挑儿的东西。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "丢樵担，贺婚姻。分赀无别样，半挑薪。",
+                  "author": "李渔",
+                  "source": "《比目鱼·合卺》",
+                  "dynasty": "清",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "以花为粮的丰台，开始一挑一挑的往城里运送叶齐苞大的秋菊。",
+                  "author": "老舍",
+                  "source": "《四世同堂》",
+                  "dynasty": "现代",
+                  "sourceChapter": "十四",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "通“佻”。轻佻。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "入境观其风俗，其百姓朴……其服不挑。",
+                  "author": "",
+                  "source": "《荀子·强国》",
+                  "dynasty": "战国",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "岁星居前，不武不挑。",
+                  "author": "苏洵",
+                  "source": "《吴道子画五星赞》",
+                  "dynasty": "宋",
+                  "sourceChapter": "",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "特指大挑。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "后卒中式举人，充教习，馆期满，挑知县。",
+                  "author": "钱泳",
+                  "source": "《履园丛话·梦幻·陈太守》",
+                  "dynasty": "清",
+                  "sourceChapter": "",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "引申为承当，带领。参见“挑頭”。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "他们都在盼着她挑头儿斗一斗。",
+                  "author": "刘心武",
+                  "source": "《溜冰圆舞曲》",
+                  "dynasty": "当代",
+                  "sourceChapter": "",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "量词。方言。计算耕地面积的单位。一般四挑等于一市亩，也有些地方五挑等于一市亩。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "全社共有土地两千五百多挑。",
+                  "author": "",
+                  "source": "《中国农村的社会主义高潮·宜宾县天池乡集体农业生产合作社是怎样计划繁殖耕牛的》",
+                  "dynasty": "当代",
+                  "sourceChapter": "",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "通“佻”。窃取。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "却至挑天。",
+                  "author": "许慎",
+                  "source": "《说文·手部》",
+                  "dynasty": "东汉",
+                  "sourceChapter": "“挑”字下引《国语》",
+                  "comment": [
+                    {
+                      "detail": "韦本作“佻天”。注云：“佻，偷也。”",
+                      "source": "段玉裁 注"
+                    }
+                  ]
+                }
+              ],
+              "liju": []
+            }
+          ]
+        },
+        {
+          "pinyin": "tiǎo",
+          "voice": "https://hanyu-word-pinyin-short.cdn.bcebos.com/tiao3.mp3",
+          "bolCommon": true,
+          "bookPinyin": 100,
+          "basicDefinition": [
+            {
+              "definition": "用尖或条状的细长物由下往上用力拨开、弄开。",
+              "cixing": ["动词"],
+              "baobian": "",
+              "shiyongchangjing": "",
+              "source": ["新华大字典"],
+              "zuci": [
+                {
+                  "name": "挑刺",
+                  "isClick": true
+                },
+                {
+                  "name": "挑灯芯",
+                  "isClick": false
+                },
+                {
+                  "name": "挑拨",
+                  "isClick": true
+                },
+                {
+                  "name": "挑开",
+                  "isClick": false
+                }
+              ],
+              "synonyms": [],
+              "antonym": [],
+              "liju": [
+                {
+                  "name": "吃完鱼后，妈妈总是耐心地帮我挑刺，确保我不会被卡住。",
+                  "showName": "吃完鱼后，妈妈总是耐心地帮我<span class=\"highlight\">挑</span>刺，确保我不会被卡住。"
+                },
+                {
+                  "name": "爷爷喜欢在夜晚挑灯芯，借着微弱的灯光阅读那些泛黄的古籍。",
+                  "showName": "爷爷喜欢在夜晚<span class=\"highlight\">挑</span>灯芯，借着微弱的灯光阅读那些泛黄的古籍。"
+                }
+              ]
+            },
+            {
+              "definition": "用竿子等把东西举起或支起。",
+              "cixing": ["动词"],
+              "baobian": "",
+              "shiyongchangjing": "",
+              "source": ["新华字典"],
+              "zuci": [
+                {
+                  "name": "挑灯夜读",
+                  "isClick": true
+                },
+                {
+                  "name": "挑起",
+                  "isClick": true
+                },
+                {
+                  "name": "挑灯",
+                  "isClick": true
+                },
+                {
+                  "name": "挑着",
+                  "isClick": false
+                }
+              ],
+              "synonyms": [],
+              "antonym": [],
+              "liju": [
+                {
+                  "name": "为了准备即将到来的考试，他连续几个晚上都挑灯夜读，直到黎明才休息。",
+                  "showName": "为了准备即将到来的考试，他连续几个晚上都<span class=\"highlight\">挑</span>灯夜读，直到黎明才休息。"
+                },
+                {
+                  "name": "每当夜深人静，总能见到他在书房里挑灯夜读的身影，那份勤奋与坚持令人敬佩。",
+                  "showName": "每当夜深人静，总能见到他在书房里<span class=\"highlight\">挑</span>灯夜读的身影，那份勤奋与坚持令人敬佩。"
+                }
+              ]
+            },
+            {
+              "definition": "挑拨；挑动。",
+              "cixing": ["动词"],
+              "baobian": "",
+              "shiyongchangjing": "",
+              "source": ["现代汉语词典"],
+              "zuci": [
+                {
+                  "name": "挑战",
+                  "isClick": true
+                },
+                {
+                  "name": "挑衅",
+                  "isClick": true
+                },
+                {
+                  "name": "挑拨",
+                  "isClick": true
+                },
+                {
+                  "name": "挑逗",
+                  "isClick": true
+                },
+                {
+                  "name": "挑拨是非",
+                  "isClick": true
+                }
+              ],
+              "synonyms": [
+                {
+                  "name": "拨",
+                  "isClick": true
+                },
+                {
+                  "name": "谏",
+                  "isClick": true
+                },
+                {
+                  "name": "搬",
+                  "isClick": true
+                }
+              ],
+              "antonym": [],
+              "liju": [
+                {
+                  "name": "面对这项艰巨的任务，他勇敢地接受了挑战，决心证明自己的实力。",
+                  "showName": "面对这项艰巨的任务，他勇敢地接受了<span class=\"highlight\">挑</span>战，决心证明自己的实力。"
+                },
+                {
+                  "name": "对方的挑衅言论激起了他的愤怒，但他仍努力保持冷静，避免事态升级。",
+                  "showName": "对方的<span class=\"highlight\">挑</span>衅言论激起了他的愤怒，但他仍努力保持冷静，避免事态升级。"
+                }
+              ]
+            },
+            {
+              "definition": "刺绣方法，用针挑起经线或纬线，把针上的线从底下穿过去。",
+              "cixing": ["动词"],
+              "baobian": "",
+              "shiyongchangjing": "",
+              "source": ["现代汉语词典"],
+              "zuci": [
+                {
+                  "name": "挑花",
+                  "isClick": true
+                },
+                {
+                  "name": "挑字",
+                  "isClick": false
+                }
+              ],
+              "synonyms": [],
+              "antonym": [],
+              "liju": [
+                {
+                  "name": "这件民族服饰上的图案采用了传统的挑花工艺，色彩鲜艳，富有地方特色。",
+                  "showName": "这件民族服饰上的图案采用了传统的<span class=\"highlight\">挑</span>花工艺，色彩鲜艳，富有地方特色。"
+                },
+                {
+                  "name": "她在闲暇时喜欢练习挑花技艺，每一件作品都细腻精美，令人赞叹。",
+                  "showName": "她在闲暇时喜欢练习<span class=\"highlight\">挑</span>花技艺，每一件作品都细腻精美，令人赞叹。"
+                }
+              ]
+            },
+            {
+              "definition": "汉字的一种笔形（㇀），即“提”。",
+              "cixing": ["名词"],
+              "baobian": "",
+              "shiyongchangjing": "",
+              "source": ["新华字典"],
+              "zuci": [
+                {
+                  "name": "挑踢",
+                  "isClick": true
+                }
+              ],
+              "synonyms": [
+                {
+                  "name": "提",
+                  "isClick": true
+                }
+              ],
+              "antonym": [],
+              "liju": [
+                {
+                  "name": "在学习书法时，掌握正确的挑笔技巧对于写出流畅而有力的汉字至关重要。",
+                  "showName": "在学习书法时，掌握正确的<span class=\"highlight\">挑</span>笔技巧对于写出流畅而有力的汉字至关重要。"
+                },
+                {
+                  "name": "这个汉字的书写难点在于最后的挑笔，需要掌握适当的力度和角度，才能写出美观的字形。",
+                  "showName": "这个汉字的书写难点在于最后的<span class=\"highlight\">挑</span>笔，需要掌握适当的力度和角度，才能写出美观的字形。"
+                }
+              ]
+            },
+            {
+              "definition": "比喻公开提出。",
+              "cixing": ["动词"],
+              "baobian": "",
+              "shiyongchangjing": "",
+              "source": ["现代汉语学习词典"],
+              "zuci": [
+                {
+                  "name": "挑明",
+                  "isClick": true
+                }
+              ],
+              "synonyms": [],
+              "antonym": [],
+              "liju": [
+                {
+                  "name": "在团队会议上，他终于挑明了项目中存在的问题，希望大家能共同找到解决方案。",
+                  "showName": "在团队会议上，他终于<span class=\"highlight\">挑</span>明了项目中存在的问题，希望大家能共同找到解决方案。"
+                },
+                {
+                  "name": "面对同事间的流言蜚语，他决定直接挑明事实，避免不必要的误解和猜疑。",
+                  "showName": "面对同事间的流言蜚语，他决定直接<span class=\"highlight\">挑</span>明事实，避免不必要的误解和猜疑。"
+                }
+              ]
+            },
+            {
+              "definition": "〈书〉挑逗；引诱。",
+              "cixing": ["动词"],
+              "baobian": "",
+              "shiyongchangjing": "",
+              "source": ["现代汉语学习词典"],
+              "zuci": [
+                {
+                  "name": "挑逗",
+                  "isClick": true
+                },
+                {
+                  "name": "挑弄",
+                  "isClick": true
+                },
+                {
+                  "name": "挑泛",
+                  "isClick": true
+                },
+                {
+                  "name": "挑动",
+                  "isClick": true
+                },
+                {
+                  "name": "挑情",
+                  "isClick": true
+                }
+              ],
+              "synonyms": [
+                {
+                  "name": "谕",
+                  "isClick": true
+                },
+                {
+                  "name": "诱",
+                  "isClick": true
+                },
+                {
+                  "name": "骗",
+                  "isClick": true
+                },
+                {
+                  "name": "钓",
+                  "isClick": true
+                },
+                {
+                  "name": "演",
+                  "isClick": true
+                }
+              ],
+              "antonym": [],
+              "liju": [
+                {
+                  "name": "他的玩笑话明显带有挑逗的意味，让在场的人都忍不住笑了出来。",
+                  "showName": "他的玩笑话明显带有<span class=\"highlight\">挑</span>逗的意味，让在场的人都忍不住笑了出来。"
+                },
+                {
+                  "name": "她用手指轻轻挑弄着头发，似乎在思考着什么。",
+                  "showName": "她用手指轻轻<span class=\"highlight\">挑</span>弄着头发，似乎在思考着什么。"
+                }
+              ]
+            }
+          ],
+          "detailDefinition": [
+            {
+              "definition": "挑动；挑拨。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "垂饵虎口，横挑强胡。",
+                  "author": "萧统",
+                  "source": "《文选·司马迁〈报任少卿书〉》",
+                  "dynasty": "南朝梁",
+                  "sourceChapter": "",
+                  "comment": [
+                    {
+                      "detail": "挑，挑敌求战也。",
+                      "source": "李善 注引 臣瓒 曰"
+                    }
+                  ]
+                },
+                {
+                  "citeOriginalText": "及建德结阵於汜水，秦王遣骑挑之。",
+                  "author": "刘昫等",
+                  "source": "《旧唐书·窦建德传》",
+                  "dynasty": "五代晋",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "既挑於石跋嘴，复邀之定山，虏遽解和州围，退屯瓜步。",
+                  "author": "叶适",
+                  "source": "《叶岭书房记》",
+                  "dynasty": "宋",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "咱玉春的事，生是这些东西给挑坏了。",
+                  "author": "刘春",
+                  "source": "《春大姐》",
+                  "dynasty": "",
+                  "sourceChapter": "三",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "挖；掘。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "挑鼠穴，探涤器。",
+                  "author": "",
+                  "source": "《墨子·非儒下》",
+                  "dynasty": "战国",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "况西北二京、临潢诸路，比岁不登，加以民有养马、签军、挑壕之役，财用大困。",
+                  "author": "毕沅",
+                  "source": "《续资治通鉴·宋光宗绍熙四年》",
+                  "dynasty": "清",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "树底下有一个七八岁的小女孩，穿着小破花袄，在那儿挑野菜。",
+                  "author": "魏巍",
+                  "source": "《东方》",
+                  "dynasty": "当代",
+                  "sourceChapter": "第一部第三章",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "扬起；举起。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "臣请走马赴东京，开府库，募骁勇，挑马箠渡河，计日取逆胡之首悬於阙下。",
+                  "author": "刘昫等",
+                  "source": "《旧唐书·封常清传》",
+                  "dynasty": "五代晋",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "酒窝儿一动，蛾眉儿一挑。",
+                  "author": "文康",
+                  "source": "《儿女英雄传》",
+                  "dynasty": "近代",
+                  "sourceChapter": "第七回",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "“他是很有学问的……”我挑着大拇指说。",
+                  "author": "林海音",
+                  "source": "《城南旧事·兰姨娘》",
+                  "dynasty": "现当代",
+                  "sourceChapter": "",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "悬挂；用竹竿等一端支起。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "檐挑双草履，壁倚一乌藤。",
+                  "author": "陆游",
+                  "source": "《自题传神》诗",
+                  "dynasty": "宋",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "官道旁边，早望见一座酒肆，望子挑出在檐前。",
+                  "author": "施耐庵",
+                  "source": "《水浒传》",
+                  "dynasty": "元末明初",
+                  "sourceChapter": "第二九回",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "没有生意的生意，却还天天挑出幌子去，天天开着门。",
+                  "author": "老舍",
+                  "source": "《四世同堂》",
+                  "dynasty": "现代",
+                  "sourceChapter": "五九",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "弹拨。亦专指弹奏乐器的一种指法，即以指向外反拨。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "鸣弦拨捩发初异，挑琴欲吹众曲殊。",
+                  "author": "梁简文帝",
+                  "source": "《乌夜啼》诗",
+                  "dynasty": "南朝",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "轻拢慢撚抹复挑，初为《霓裳》后《绿腰》。",
+                  "author": "白居易",
+                  "source": "《琵琶行》",
+                  "dynasty": "唐",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "阿妹把泛音会了，其余八法，如擘、托、勾、踢、抹、挑、摘、打之类……更是不足道的。",
+                  "author": "李汝珍",
+                  "source": "《镜花缘》",
+                  "dynasty": "清",
+                  "sourceChapter": "第七三回",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "初起不过轻挑漫剔，声响悠柔；一段以后，散泛相错，其声清脆。",
+                  "author": "刘鹗",
+                  "source": "《老残游记》",
+                  "dynasty": "清末",
+                  "sourceChapter": "第十回",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "一种刺绣的方法。用针挑起经线或纬线，把针上的线从下面穿过去。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "谁家挑锦字，烛灭翠眉颦。",
+                  "author": "杜甫",
+                  "source": "《江月》诗",
+                  "dynasty": "唐",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "挑成祝寿词，织成蟠桃会。",
+                  "author": "赵明道",
+                  "source": "《夜行船·寄香罗帕》套曲",
+                  "dynasty": "元",
+                  "sourceChapter": "",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "叉取。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "安太太只不过挑了两三箸面，挟了一片火腿。",
+                  "author": "文康",
+                  "source": "《儿女英雄传》",
+                  "dynasty": "近代",
+                  "sourceChapter": "第二八回",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "揭露。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "贵人有过端，而说者明言礼义以挑其恶，如此者身危。",
+                  "author": "韩非",
+                  "source": "《韩非子·说难》",
+                  "dynasty": "战国末期",
+                  "sourceChapter": "",
+                  "comment": [
+                    {
+                      "detail": "挑，谓发扬也。",
+                      "source": "王先慎 集解"
+                    }
+                  ]
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "挑逗；引诱。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "乡有处子之娥姣者，必贿而招之，媒而挑之。",
+                  "author": "",
+                  "source": "《列子·杨朱》",
+                  "dynasty": "",
+                  "sourceChapter": "",
+                  "comment": [
+                    {
+                      "detail": "《苍颉篇》云：“挑，谓招呼也。”《说文》作“誂”，相诱也。",
+                      "source": "张湛 注"
+                    }
+                  ]
+                },
+                {
+                  "citeOriginalText": "卓王孙有女文君新寡，好音，故相如缪与令相重，而以琴心挑之。",
+                  "author": "司马迁",
+                  "source": "《史记·司马相如列传》",
+                  "dynasty": "西汉",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "郑子见之惊悦……将挑而未敢。",
+                  "author": "沈既济",
+                  "source": "《任氏传》",
+                  "dynasty": "唐",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "巷中有毛大者，游手无籍，尝挑王氏不得。",
+                  "author": "蒲松龄",
+                  "source": "《聊斋志异·胭脂》",
+                  "dynasty": "清",
+                  "sourceChapter": "",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "独。参见“挑取”。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "大将军梁冀与龟素有隙，谮其沮毁国威，挑取功誉。",
+                  "author": "范晔",
+                  "source": "《后汉书·陈龟传》",
+                  "dynasty": "南朝宋",
+                  "sourceChapter": "",
+                  "comment": [
+                    {
+                      "detail": "挑取犹独取也。",
+                      "source": "李贤 注"
+                    }
+                  ]
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "汉字笔画之一。有的单独成一笔划，形状是“㇀”；有的同其他笔画相连接，形状是“亅”或“㇂”。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "瞬目已留三五行，摘如钩、挑如拨，斜如撑，回如斡。",
+                  "author": "陈思",
+                  "source": "《书苑菁华》",
+                  "dynasty": "南宋",
+                  "sourceChapter": "卷十七引吴融《赠󰮉光上人草书歌》",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "方言。犹照顾。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "只要六老爷别的事上多挑他姐儿们几回就是了。",
+                  "author": "吴敬梓",
+                  "source": "《儒林外史》",
+                  "dynasty": "清",
+                  "sourceChapter": "第四二回",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "先生不在乎，挑挑我们穷人吧。",
+                  "author": "彭养鸥",
+                  "source": "《黑籍冤魂》",
+                  "dynasty": "清",
+                  "sourceChapter": "第十七回",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "通“翟”。山雉的羽毛。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "延陵卓子乘苍龙挑文之乘。",
+                  "author": "韩非",
+                  "source": "《韩非子·外储说右下》",
+                  "dynasty": "战国末期",
+                  "sourceChapter": "",
+                  "comment": [
+                    {
+                      "detail": "挑当读为翟。下文“一曰：延陵卓子乘苍龙与翟文之乘”注云“马有翟之文”是也。挑从兆声，与翟声相近，故翟通作挑。",
+                      "source": "俞樾《诸子平议·韩非子》"
+                    }
+                  ]
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "引申指发掘。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "孟子分明是於人身上挑出天之所命者说与人，要见得本原皆善。",
+                  "author": "",
+                  "source": "《朱子语类》",
+                  "dynasty": "",
+                  "sourceChapter": "卷四",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "在解放军这个熔炉里，他先前被埋着的阶级觉悟，一下子挑出来了。",
+                  "author": "杨朔",
+                  "source": "《熔炉》",
+                  "dynasty": "当代",
+                  "sourceChapter": "",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "用针、指甲或小勺等挖剔。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "陶侃左手有文，直达中指上横节便止……侃以针挑令彻。",
+                  "author": "刘敬叔",
+                  "source": "《异苑》",
+                  "dynasty": "南朝宋",
+                  "sourceChapter": "卷四",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "怀中取出一包白色有光的药来，用小指甲挑些些弹在头断处。",
+                  "author": "凌濛初",
+                  "source": "《初刻拍案惊奇》",
+                  "dynasty": "明末",
+                  "sourceChapter": "卷四",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "无奈臀上作痛，如针挑刀挖一般。",
+                  "author": "曹雪芹",
+                  "source": "《红楼梦》",
+                  "dynasty": "清",
+                  "sourceChapter": "第三四回",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            }
+          ]
+        },
+        {
+          "pinyin": "tāo",
+          "voice": "https://hanyu-word-pinyin-short.cdn.bcebos.com/tao1.mp3",
+          "bolCommon": false,
+          "bookPinyin": 100,
+          "detailDefinition": [
+            {
+              "definition": "见“挑達”。往来相见貌。一说轻薄放恣貌。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "挑兮达兮，在城阙兮。",
+                  "author": "",
+                  "source": "《诗·郑风·子衿》",
+                  "dynasty": "",
+                  "sourceChapter": "",
+                  "comment": [
+                    {
+                      "detail": "挑达，往来相见貌。",
+                      "source": "毛 传"
+                    },
+                    {
+                      "detail": "《太平御览》卷四八九引《诗》作“挑兮挞兮”。",
+                      "source": ""
+                    },
+                    {
+                      "detail": "挑，轻儇跳跃之貌。达，放恣也。",
+                      "source": "朱熹 集传"
+                    }
+                  ]
+                },
+                {
+                  "citeOriginalText": "蒋子文者，广陵人也，嗜酒好色，挑挞无度。",
+                  "author": "干宝",
+                  "source": "《搜神记》",
+                  "dynasty": "晋",
+                  "sourceChapter": "卷五",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "及周之衰，则溱洧之郊密迩王畿，且学校堕坏，士人挑闼而缺於礼。",
+                  "author": "唐顺之",
+                  "source": "《〈福建乡试录〉后序》",
+                  "dynasty": "明",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "却说那狄希陈的为人，也刁钻古怪的异样，顽皮挑达的倍常。",
+                  "author": "",
+                  "source": "《醒世姻缘传》",
+                  "dynasty": "明末清初",
+                  "sourceChapter": "第六二回",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "舀取并注入。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "字或作桃者，秦人语也……桃长枋，可以杼物於器中者。",
+                  "author": "",
+                  "source": "《仪礼·有司彻》",
+                  "dynasty": "",
+                  "sourceChapter": "“桃匕枋”汉郑玄注",
+                  "comment": [
+                    {
+                      "detail": "注疏本此字仍作桃，非是。",
+                      "source": "胡承珙《仪礼古今文疏义》"
+                    }
+                  ]
+                },
+                {
+                  "citeOriginalText": "一碗水里，只用挑上一茶匙，就香的了不得呢！",
+                  "author": "曹雪芹",
+                  "source": "《红楼梦》",
+                  "dynasty": "清",
+                  "sourceChapter": "第三四回",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "掏。谓拔兵刃以习击刺。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "挑……一曰摷也。",
+                  "author": "许慎",
+                  "source": "《说文·手部》",
+                  "dynasty": "东汉",
+                  "sourceChapter": "",
+                  "comment": [
+                    {
+                      "detail": "本书“摷，拘击也”。“掏”下云：“掏者，拔兵刃以习击刺。”《一切经音义》二十五：“中国言掏，江南言挑。”",
+                      "source": "桂馥 义证"
+                    }
+                  ]
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "见“挑達”。引申为自由自在，放纵不羁。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "不如侬家任挑达，草𪨗捞虾富春渚。",
+                  "author": "王维",
+                  "source": "《赠吴官》诗",
+                  "dynasty": "唐",
+                  "sourceChapter": "",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "是非不道任挑挞，唯忆当时阮步兵。",
+                  "author": "梅尧臣",
+                  "source": "《朝》诗",
+                  "dynasty": "宋",
+                  "sourceChapter": "之二",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "引申为舞动兵器。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "手挑丈八矛，所往如投空。",
+                  "author": "苏辙",
+                  "source": "《郭纶》诗",
+                  "dynasty": "宋",
+                  "sourceChapter": "",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            }
+          ]
+        },
+        {
+          "pinyin": "diào",
+          "voice": "https://hanyu-word-pinyin-short.cdn.bcebos.com/diao4.mp3",
+          "bolCommon": false,
+          "bookPinyin": 100,
+          "detailDefinition": [
+            {
+              "definition": "摇动。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "蚕月必纺绩，丝车方挑掷。",
+                  "author": "梅尧臣",
+                  "source": "《和孙端叟蚕具·纺车》",
+                  "dynasty": "宋",
+                  "sourceChapter": "",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "回，转。参见“挑轉”。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "连绵字不可挑转用，诗人间有挑转用者，非为平侧所牵，则为韵所牵也。",
+                  "author": "葛立方",
+                  "source": "《韵语阳秋》",
+                  "dynasty": "宋",
+                  "sourceChapter": "卷二",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            }
+          ]
+        },
+        {
+          "pinyin": "tiáo",
+          "voice": "https://hanyu-word-pinyin-short.cdn.bcebos.com/tiao2.mp3",
+          "bolCommon": false,
+          "bookPinyin": 100,
+          "detailDefinition": [
+            {
+              "definition": "见“撓挑”。宛转循环貌。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "孰能登天游雾，挠挑无极。",
+                  "author": "庄子及后学",
+                  "source": "《庄子·大宗师》",
+                  "dynasty": "战国",
+                  "sourceChapter": "",
+                  "comment": [
+                    {
+                      "detail": "挠挑，犹宛转也。",
+                      "source": "成玄英 疏"
+                    },
+                    {
+                      "detail": "循环之名。",
+                      "source": "陆德明 释文引 南朝 梁简文帝 曰"
+                    },
+                    {
+                      "detail": "挠挑，一本作“橈桃”。",
+                      "source": ""
+                    }
+                  ]
+                }
+              ],
+              "liju": []
+            },
+            {
+              "definition": "见“挑皮”。调皮。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "白占魁那家伙，真挑皮，立正给组长行军礼。",
+                  "author": "柳青",
+                  "source": "《创业史》",
+                  "dynasty": "现当代",
+                  "sourceChapter": "第一部第二九章",
+                  "comment": []
+                },
+                {
+                  "citeOriginalText": "这一声，马上引起会议的骚动，大家听得出来这是挑皮的“拨浪鼓”的声音。",
+                  "author": "夏红",
+                  "source": "《谁是那百分之十》",
+                  "dynasty": "",
+                  "sourceChapter": "",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            }
+          ]
+        },
+        {
+          "pinyin": "tiào",
+          "voice": "https://hanyu-word-pinyin-short.cdn.bcebos.com/tiao4.mp3",
+          "bolCommon": false,
+          "bookPinyin": 100,
+          "detailDefinition": [
+            {
+              "definition": "见“挑槽”。跳槽。指嫖客抛弃前好，另结新欢。",
+              "cixing": [],
+              "citeList": [
+                {
+                  "citeOriginalText": "﹝美娘﹞每遇不如意之处，或是子弟们任情使性，喫醋挑槽，或自己病中醉后，半夜三更，没人疼热，就想起秦小官人的好处来。",
+                  "author": "冯梦龙",
+                  "source": "《醒世恒言·卖油郎独占花魁》",
+                  "dynasty": "明",
+                  "sourceChapter": "",
+                  "comment": []
+                }
+              ],
+              "liju": []
+            }
+          ]
+        }
+      ],
+      "commonZuci": [
+        {
+          "name": "挑水",
+          "isClick": true
+        },
+        {
+          "name": "挑菜",
+          "isClick": true
+        },
+        {
+          "name": "挑担",
+          "isClick": true
+        },
+        {
+          "name": "挑力",
+          "isClick": true
+        },
+        {
+          "name": "挑包",
+          "isClick": true
+        },
+        {
+          "name": "挑选",
+          "isClick": true
+        },
+        {
+          "name": "挑拣",
+          "isClick": true
+        },
+        {
+          "name": "挑取",
+          "isClick": true
+        },
+        {
+          "name": "挑踢",
+          "isClick": true
+        },
+        {
+          "name": "百里挑一",
+          "isClick": false
+        },
+        {
+          "name": "挑错",
+          "isClick": true
+        },
+        {
+          "name": "挑眼",
+          "isClick": true
+        },
+        {
+          "name": "挑剔",
+          "isClick": true
+        },
+        {
+          "name": "挑毛病",
+          "isClick": false
+        },
+        {
+          "name": "挑检",
+          "isClick": true
+        },
+        {
+          "name": "挑子",
+          "isClick": true
+        },
+        {
+          "name": "扁挑",
+          "isClick": true
+        },
+        {
+          "name": "木挑",
+          "isClick": true
+        },
+        {
+          "name": "货挑子",
+          "isClick": true
+        },
+        {
+          "name": "空挑子",
+          "isClick": false
+        },
+        {
+          "name": "挑刺",
+          "isClick": true
+        },
+        {
+          "name": "挑灯芯",
+          "isClick": false
+        },
+        {
+          "name": "挑拨",
+          "isClick": true
+        },
+        {
+          "name": "挑开",
+          "isClick": false
+        },
+        {
+          "name": "挑灯夜读",
+          "isClick": true
+        },
+        {
+          "name": "挑起",
+          "isClick": true
+        },
+        {
+          "name": "挑灯",
+          "isClick": true
+        },
+        {
+          "name": "挑着",
+          "isClick": false
+        },
+        {
+          "name": "挑战",
+          "isClick": true
+        },
+        {
+          "name": "挑衅",
+          "isClick": true
+        },
+        {
+          "name": "挑拨",
+          "isClick": true
+        },
+        {
+          "name": "挑逗",
+          "isClick": true
+        },
+        {
+          "name": "挑拨是非",
+          "isClick": true
+        },
+        {
+          "name": "挑花",
+          "isClick": true
+        },
+        {
+          "name": "挑字",
+          "isClick": false
+        },
+        {
+          "name": "挑踢",
+          "isClick": true
+        },
+        {
+          "name": "挑明",
+          "isClick": true
+        },
+        {
+          "name": "挑逗",
+          "isClick": true
+        },
+        {
+          "name": "挑弄",
+          "isClick": true
+        },
+        {
+          "name": "挑泛",
+          "isClick": true
+        },
+        {
+          "name": "挑动",
+          "isClick": true
+        },
+        {
+          "name": "挑情",
+          "isClick": true
+        }
+      ],
+      "strokeOrder": [
+        {
+          "img": "1",
+          "value": "横",
+          "simple": "一",
+          "pic": "M 333 506 Q 360 515 389 521 Q 423 530 428 535 Q 437 544 432 552 Q 425 564 394 570 Q 363 574 335 561 L 285 544 Q 198 522 152 514 Q 115 507 142 491 Q 184 469 261 489 Q 271 492 284 494 L 333 506 Z"
+        },
+        {
+          "img": "12",
+          "value": "竖钩",
+          "simple": "亅",
+          "pic": "M 278 312 Q 275 233 274 135 Q 273 111 260 102 Q 251 98 193 110 Q 160 123 163 113 Q 164 106 184 90 Q 242 39 256 12 Q 272 -21 287 -23 Q 302 -24 317 11 Q 336 56 336 129 Q 330 243 330 355 L 330 385 Q 330 446 333 506 L 335 561 Q 335 679 358 756 Q 374 786 320 809 Q 287 828 267 822 Q 249 815 265 792 Q 286 765 287 731 Q 288 712 285 544 L 284 494 Q 281 433 279 352 L 278 312 Z"
+        },
+        {
+          "img": "8",
+          "value": "提",
+          "simple": "㇀",
+          "pic": "M 279 352 Q 66 220 58 216 Q 43 209 42 201 Q 41 192 56 179 Q 75 166 97 158 Q 113 155 122 167 Q 161 215 278 312 L 330 355 Q 378 397 381 400 Q 387 413 376 412 Q 360 409 330 385 L 279 352 Z"
+        },
+        {
+          "img": "3",
+          "value": "撇",
+          "simple": "丿",
+          "pic": "M 526 323 Q 490 188 390 87 Q 377 74 374 68 Q 373 61 384 61 Q 423 64 491 140 Q 566 228 582 366 Q 595 451 594 580 Q 597 599 598 611 Q 604 632 583 640 Q 534 662 520 659 Q 501 655 517 634 Q 556 570 533 357 Q 532 357 532 354 L 526 323 Z"
+        },
+        {
+          "img": "4",
+          "value": "点",
+          "simple": "丶",
+          "pic": "M 420 458 Q 465 404 486 405 Q 499 404 504 422 Q 505 435 496 454 Q 475 478 424 484 Q 415 485 414 474 Q 413 467 420 458 Z"
+        },
+        {
+          "img": "8",
+          "value": "提",
+          "simple": "㇀",
+          "pic": "M 532 354 Q 397 287 369 280 Q 359 277 359 269 Q 359 259 368 254 Q 387 245 416 235 Q 425 234 432 243 Q 445 261 526 323 C 550 341 559 367 532 354 Z"
+        },
+        {
+          "img": "13",
+          "value": "竖弯钩",
+          "simple": "乚",
+          "pic": "M 985 79 Q 1001 92 985 119 Q 969 165 962 225 Q 962 235 954 244 Q 944 250 941 227 Q 916 145 909 135 Q 905 122 885 119 Q 813 104 754 138 Q 712 163 706 232 Q 691 457 729 664 Q 736 704 744 715 Q 751 736 734 749 Q 707 774 671 784 Q 652 788 645 779 Q 636 770 643 761 Q 662 742 666 689 Q 650 229 675 157 Q 675 121 744 79 Q 780 58 835 51 Q 901 41 934 51 Q 971 61 985 79 Z"
+        },
+        {
+          "img": "3",
+          "value": "撇",
+          "simple": "丿",
+          "pic": "M 800 544 Q 794 529 741 445 Q 734 429 749 434 Q 869 530 878 535 Q 897 547 885 561 Q 872 576 847 586 Q 825 596 813 592 Q 801 591 807 578 Q 811 562 800 544 Z"
+        },
+        {
+          "img": "4",
+          "value": "点",
+          "simple": "丶",
+          "pic": "M 743 342 Q 783 314 833 271 Q 849 255 863 253 Q 870 253 877 263 Q 886 276 870 312 Q 858 345 797 359 Q 760 366 740 369 Q 731 373 731 362 Q 732 350 743 342 Z"
+        }
+      ],
+      "sameRadical": [
+        {
+          "name": "捿",
+          "sid": "00aabb83e32b4b4b902352faaa91d4a4",
+          "isClick": true
+        },
+        {
+          "name": "拘",
+          "sid": "00fe9d4c06004753af88987d35b3c554",
+          "isClick": true
+        },
+        {
+          "name": "㧺",
+          "sid": "017944f6a9330b8b6d9fecc0686b9a6f",
+          "isClick": true
+        },
+        {
+          "name": "揚",
+          "sid": "01a66f6f5ca34d9e9afe5e83a37767a1",
+          "isClick": true
+        },
+        {
+          "name": "掍",
+          "sid": "01d8ce647aa141ef9ed1f6a6acb0ece7",
+          "isClick": true
+        },
+        {
+          "name": "挢",
+          "sid": "01ee3df7f92148ba81da74a0ce9ccb72",
+          "isClick": true
+        },
+        {
+          "name": "擾",
+          "sid": "01fb5346c46347839238bb3010b42999",
+          "isClick": true
+        },
+        {
+          "name": "揤",
+          "sid": "0243c092c9d34e9499d6815bf386d79d",
+          "isClick": true
+        },
+        {
+          "name": "㨎",
+          "sid": "0280dcd78eb3eec241ccc69b4b71afbf",
+          "isClick": true
+        },
+        {
+          "name": "扑",
+          "sid": "037e43348bf54a0ea2099dec90cf84d2",
+          "isClick": true
+        },
+        {
+          "name": "摡",
+          "sid": "03a652fced654dea8818309d3c1fb532",
+          "isClick": true
+        },
+        {
+          "name": "毮",
+          "sid": "03a775342dd64b24a0437cd1068b000d",
+          "isClick": true
+        },
+        {
+          "name": "捳",
+          "sid": "03a8b97cf57c4a2998075679e324c246",
+          "isClick": true
+        },
+        {
+          "name": "㩗",
+          "sid": "03f187e84389a66ca6be098fa1b955c2",
+          "isClick": true
+        },
+        {
+          "name": "擛",
+          "sid": "040d18fce55b4a65a9511ea80bfa715c",
+          "isClick": true
+        },
+        {
+          "name": "拫",
+          "sid": "042be99d1d79487a863fe876fc90fe89",
+          "isClick": true
+        },
+        {
+          "name": "搌",
+          "sid": "04a39fe2a13947e5ab287e2f79b9e0ed",
+          "isClick": true
+        },
+        {
+          "name": "撮",
+          "sid": "05e910118e0346e990f2b08dd86ad446",
+          "isClick": true
+        },
+        {
+          "name": "擷",
+          "sid": "0625957dbb1b4921a28c17585470d1ce",
+          "isClick": true
+        },
+        {
+          "name": "搀",
+          "sid": "063cbdd20a8e457da1295c9724bcb1a0",
+          "isClick": true
+        },
+        {
+          "name": "㨮",
+          "sid": "0642d148c281fabe9db18fcec9ad9b52",
+          "isClick": true
+        },
+        {
+          "name": "㩆",
+          "sid": "067a2474f5d60d80ec0b9e31f18f39b3",
+          "isClick": true
+        },
+        {
+          "name": "揹",
+          "sid": "0693c4265e0f4eda8da3eede7d25466b",
+          "isClick": true
+        },
+        {
+          "name": "摧",
+          "sid": "06a71b4224b641fbbd38cfc83423c3c2",
+          "isClick": true
+        },
+        {
+          "name": "抑",
+          "sid": "0736c8dd947d44c8af6d4b27706996ac",
+          "isClick": true
+        },
+        {
+          "name": "搐",
+          "sid": "0764f210390348e2b18e5bc6c2456f79",
+          "isClick": true
+        },
+        {
+          "name": "擻",
+          "sid": "07dccd7df2e34f018a87ca579364aaad",
+          "isClick": true
+        },
+        {
+          "name": "掑",
+          "sid": "08e258f665a74fa0858f9980b13c9b99",
+          "isClick": true
+        },
+        {
+          "name": "拸",
+          "sid": "0a200956b6c64c69a01a8570ef631ae9",
+          "isClick": true
+        },
+        {
+          "name": "捻",
+          "sid": "0a5b7e42707841758c6243b9f4cd556a",
+          "isClick": true
+        },
+        {
+          "name": "扽",
+          "sid": "0b30a97a147148c180b2447b3086a3dd",
+          "isClick": true
+        },
+        {
+          "name": "攇",
+          "sid": "0b5795f5f1a74726b1084f4118e3e7e7",
+          "isClick": true
+        },
+        {
+          "name": "抂",
+          "sid": "0b7e73a435944e7d91349fd49171e0a2",
+          "isClick": true
+        },
+        {
+          "name": "拐",
+          "sid": "0c41b9ab1e844d8f828e6ca12b8056f9",
+          "isClick": true
+        },
+        {
+          "name": "搔",
+          "sid": "0d7535661187418b83ccae5c86e787b5",
+          "isClick": true
+        },
+        {
+          "name": "搳",
+          "sid": "0e025f2f056748bab1d270ec26c6082d",
+          "isClick": true
+        },
+        {
+          "name": "摢",
+          "sid": "0e9396f62a124ab894e5b2216332c3dc",
+          "isClick": true
+        },
+        {
+          "name": "揌",
+          "sid": "0e9cc804168440ebb45e83371452a555",
+          "isClick": true
+        },
+        {
+          "name": "措",
+          "sid": "0ed6c7de01f340269dd351a037b40164",
+          "isClick": true
+        },
+        {
+          "name": "搤",
+          "sid": "0eddab95b2d443c7b15cb4bfa1b63938",
+          "isClick": true
+        }
+      ],
+      "sameStrokeCount": [
+        {
+          "name": "朐",
+          "sid": "0045ef8d2d384189b055afd5880263c2",
+          "isClick": true
+        },
+        {
+          "name": "侳",
+          "sid": "005554f4eca940938ceb60a4e8c59377",
+          "isClick": true
+        },
+        {
+          "name": "㣠",
+          "sid": "005e65742d742f7d2725913be6c4e427",
+          "isClick": true
+        },
+        {
+          "name": "既",
+          "sid": "00c612d9ee8f4388b1a948c407392722",
+          "isClick": true
+        },
+        {
+          "name": "玾",
+          "sid": "011fff2ccb5f47c0b95c7cd92fbe8156",
+          "isClick": true
+        },
+        {
+          "name": "狣",
+          "sid": "01482f8b99bd4ca39a388fc2ea2900b1",
+          "isClick": true
+        },
+        {
+          "name": "胘",
+          "sid": "0157c21db33249688404ab7a6095c384",
+          "isClick": true
+        },
+        {
+          "name": "茗",
+          "sid": "01954c0d39b54130aa4477e1c5a65657",
+          "isClick": true
+        },
+        {
+          "name": "哚",
+          "sid": "01cbb1d7b4e34d2c9ee125f27fecb6d2",
+          "isClick": true
+        },
+        {
+          "name": "挢",
+          "sid": "01ee3df7f92148ba81da74a0ce9ccb72",
+          "isClick": true
+        },
+        {
+          "name": "狤",
+          "sid": "0219a1b17cd44278802d6d2d211cb1ca",
+          "isClick": true
+        },
+        {
+          "name": "俒",
+          "sid": "02309cd2ea944000b5b43d08ddb639a8",
+          "isClick": true
+        },
+        {
+          "name": "㓩",
+          "sid": "023b83c52060328ddac93f790f6a713d",
+          "isClick": true
+        },
+        {
+          "name": "怸",
+          "sid": "025a6f20e06a4c4fbe468ac70ff4263d",
+          "isClick": true
+        },
+        {
+          "name": "秏",
+          "sid": "02657d80c7064e6a82dd25ca18653269",
+          "isClick": true
+        },
+        {
+          "name": "茥",
+          "sid": "030d1410292a4215a10aa168d81e61ca",
+          "isClick": true
+        },
+        {
+          "name": "茳",
+          "sid": "035e389032974b5fa2ddf228c552cada",
+          "isClick": true
+        },
+        {
+          "name": "夈",
+          "sid": "0361b727c47c462396d6d91f6efd0267",
+          "isClick": true
+        },
+        {
+          "name": "䒼",
+          "sid": "0370ad5c079bda7252b2734812a70357",
+          "isClick": true
+        },
+        {
+          "name": "钫",
+          "sid": "0378ec4a1522484e9ab12bb32ae01acb",
+          "isClick": true
+        },
+        {
+          "name": "逈",
+          "sid": "037c6c54588e48029302a08cfc96b680",
+          "isClick": true
+        },
+        {
+          "name": "剄",
+          "sid": "037ce6eb6d4a426e9011b91b44c32fc0",
+          "isClick": true
+        },
+        {
+          "name": "秐",
+          "sid": "03908279fcdb46b1a1e5976bcf2db48e",
+          "isClick": true
+        },
+        {
+          "name": "陛",
+          "sid": "03acd2dedfd843d380448bff1a498144",
+          "isClick": true
+        },
+        {
+          "name": "眃",
+          "sid": "03f87694784143bfbd793ff72dc5f882",
+          "isClick": true
+        },
+        {
+          "name": "柬",
+          "sid": "042a741e11a141c4802ff737c1f53936",
+          "isClick": true
+        },
+        {
+          "name": "拫",
+          "sid": "042be99d1d79487a863fe876fc90fe89",
+          "isClick": true
+        },
+        {
+          "name": "郎",
+          "sid": "04574b3e8d4a8b2bffe87be982e21396",
+          "isClick": true
+        },
+        {
+          "name": "派",
+          "sid": "045c94f603444339b275534667e6fdad",
+          "isClick": true
+        },
+        {
+          "name": "狥",
+          "sid": "0475cb80c2b74c59a419bf564bdc8897",
+          "isClick": true
+        },
+        {
+          "name": "則",
+          "sid": "047d6e059be940bc93252fc9083852c9",
+          "isClick": true
+        },
+        {
+          "name": "姡",
+          "sid": "04cd3ecfdb4b4b53b43f17aee584c5eb",
+          "isClick": true
+        },
+        {
+          "name": "剉",
+          "sid": "04df9c15d2b34893af08f2873fe34bf2",
+          "isClick": true
+        },
+        {
+          "name": "負",
+          "sid": "04f4d70bdcd643c499b7fdc5dd4e37cb",
+          "isClick": true
+        },
+        {
+          "name": "䣅",
+          "sid": "0504ed7de90a342de8612e9888c96600",
+          "isClick": true
+        },
+        {
+          "name": "㽙",
+          "sid": "05100fcacdce63f8ddfeb85c35ea3484",
+          "isClick": true
+        },
+        {
+          "name": "帝",
+          "sid": "0534391812d84cd0ac1a76695d2f430d",
+          "isClick": true
+        },
+        {
+          "name": "钪",
+          "sid": "0541e0246305477cb2f0f0ffbe630ac2",
+          "isClick": true
+        },
+        {
+          "name": "茰",
+          "sid": "05e7080018c8440fa63f092d755482cf",
+          "isClick": true
+        },
+        {
+          "name": "笂",
+          "sid": "06746603dfc44733a35b759908cc8415",
+          "isClick": true
+        }
+      ],
+      "fontEvolution": [],
+      "lessonInfo": []
+    },
+    "dataVersion": 2,
+    "wordNewData": "wordNewData1"
+  }
+}
