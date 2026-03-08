@@ -1,5 +1,6 @@
-// import { baiduHanyu, BaiduHanyuObject } from "./baiduHanyu";
-// import { Definition, PinyinObject, WordType } from "./baiduHanyu";
+import { baiduHanyu, BaiduHanyuObject } from "./baiduHanyu";
+import { Definition, PinyinObject, WordType } from "./baiduHanyu";
+import { deepl } from "./deepL";
 
 let candidates: Array<DictObject> = [];
 let processing = false;
@@ -69,7 +70,7 @@ async function main(sheet: GoogleAppsScript.Spreadsheet.Sheet): Promise<void> {
 
 function addLoadingText(
   sheet: GoogleAppsScript.Spreadsheet.Sheet,
-  dict: DictObject
+  dict: DictObject,
 ): void {
   const rowIndex = dict.cell.getRowIndex();
   sheet.getRange(rowIndex, 3).setValue("Loading...");
@@ -93,7 +94,12 @@ async function processCandidate(dict: DictObject): Promise<void> {
   // Only call DeepL if needed
   if (dict.MDBG == "") {
     Logger.log("DeepL start.");
-    dict.deepL = (await Promise.resolve(deepl(dict.word))) ?? "";
+    try {
+      dict.deepL = (await Promise.resolve(deepl(dict.word))) ?? "";
+    } catch (e) {
+      Logger.log(`DeepL error in processCandidate: ${e}`);
+      dict.deepL = "Error";
+    }
     Logger.log("DeepL finish.");
   }
 
@@ -108,7 +114,7 @@ async function processCandidate(dict: DictObject): Promise<void> {
  */
 function pasteToSheet(
   sheet: GoogleAppsScript.Spreadsheet.Sheet,
-  candidate: DictObject
+  candidate: DictObject,
 ): void {
   Logger.log("pasteToSheet start.");
   const rowIndex = candidate.cell.getRowIndex();
@@ -121,7 +127,7 @@ function pasteToSheet(
         pinyinObject.pinyin,
         pinyinObject.getFormattedDefinition(),
       ]);
-    }
+    },
   );
 
   const englishDefinition =
@@ -145,7 +151,7 @@ function pasteToSheet(
 
 function changeCellFontColor(candidate: DictObject): void {
   Logger.log(
-    `changeCellFontColor start. type: ${candidate.baiduHanyuObject.type}`
+    `changeCellFontColor start. type: ${candidate.baiduHanyuObject.type}`,
   );
   if (candidate.baiduHanyuObject.type == WordType.idiom) {
     candidate.cell.setFontColor("red");
