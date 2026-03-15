@@ -12,7 +12,7 @@ const path = require("path");
 
 // const testWords = ["挑", "幸灾乐祸", "转运", "崴脚"];
 // const testWords = ["挑", "情怀", "淡色", "有心无力", "截留"];
-const testWords = ["截留"];
+const testWords = ["褶皱", "皱褶"];
 
 // Shims
 const loggerShim = {
@@ -116,9 +116,7 @@ function testBaiduHanyu(w) {
   } else {
     console.log(`  ✓ Type: ${baiduObj.type}`);
     baiduObj.pinyinList.forEach((d, i) => {
-      console.log(
-        `  --- ${d.isCommon ? "Common" : "Uncommon"} definition ${i + 1} ---`,
-      );
+      console.log(`  --- ${d.isCommon ? "Common" : "Uncommon"} definition ${i + 1} ---`);
       console.log(`    Pinyin: ${d.pinyin}`);
       console.log(`${d.getFormattedDefinition()}`);
     });
@@ -127,12 +125,13 @@ function testBaiduHanyu(w) {
 
 function testMDBG(w) {
   console.log("\n[2/3] Fetching MDBG...");
-  let mdbgResult = "";
+  let mdbgResult = { pinyin: "", definition: "" };
   try {
     if (typeof MDBGWeb === "function") {
       mdbgResult = MDBGWeb(w);
-      if (mdbgResult && mdbgResult !== "") {
-        console.log(`  ✓ MDBG: ${mdbgResult}`);
+      if (mdbgResult && mdbgResult.definition !== "") {
+        console.log(`  ✓ MDBG pinyin: ${mdbgResult.pinyin}`);
+        console.log(`  ✓ MDBG definition: ${mdbgResult.definition}`);
       } else {
         console.log("  ❌ MDBG returned empty");
       }
@@ -150,11 +149,7 @@ function testDeepL(w) {
   try {
     if (typeof deepl === "function") {
       const deeplResult = deepl(w, "zh", "en");
-      if (
-        deeplResult &&
-        deeplResult !== "" &&
-        !deeplResult.startsWith("Error")
-      ) {
+      if (deeplResult && deeplResult !== "" && !deeplResult.startsWith("Error")) {
         console.log(`  ✓ DeepL: ${deeplResult}`);
       } else {
         console.log(`  ❌ DeepL failed: ${deeplResult}`);
@@ -168,8 +163,7 @@ function testDeepL(w) {
 }
 
 function runTest() {
-  const argv =
-    (process === null || process === void 0 ? void 0 : process.argv) || [];
+  const argv = (process === null || process === void 0 ? void 0 : process.argv) || [];
   const args = argv.slice(2);
   const inputs = args.length > 0 ? args : testWords;
   console.log(`Starting comprehensive test for: ${inputs.join(", ")}`);

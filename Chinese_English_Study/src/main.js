@@ -68,16 +68,15 @@ async function processCandidate(dict) {
   ]);
   dict.baiduHanyuObject = baiduResult;
   Logger.log("baiduHanyu finish.");
-  dict.MDBG = mdbgResult !== null && mdbgResult !== void 0 ? mdbgResult : "";
+  dict.MDBG = mdbgResult?.definition ?? "";
+  dict.MDBGPinyin = mdbgResult?.pinyin ?? "";
   Logger.log("MDBG finish.");
   // Only call DeepL if needed
   if (dict.MDBG == "") {
     Logger.log("DeepL start.");
     try {
       dict.deepL =
-        (_a = await Promise.resolve(deepl(dict.word))) !== null && _a !== void 0
-          ? _a
-          : "";
+        (_a = await Promise.resolve(deepl(dict.word))) !== null && _a !== void 0 ? _a : "";
     } catch (e) {
       Logger.log(`DeepL error in processCandidate: ${e}`);
       dict.deepL = "Error";
@@ -97,21 +96,19 @@ function pasteToSheet(sheet, candidate) {
   Logger.log("pasteToSheet start.");
   const rowIndex = candidate.cell.getRowIndex();
   let data = [];
-  candidate.baiduHanyuObject.pinyinList.forEach((pinyinObject, i) => {
+  candidate.baiduHanyuObject.pinyinList.forEach((pinyinObject) => {
     if (!pinyinObject.isCommon) return;
     data.push([
-      i == 0 ? candidate.word : "",
+      data.length === 0 ? candidate.word : "",
       pinyinObject.pinyin,
       pinyinObject.getFormattedDefinition(),
     ]);
   });
   const englishDefinition =
-    candidate.MDBG == ""
-      ? `(deepL) ${candidate.deepL}`
-      : `(MDBG) ${candidate.MDBG}`;
+    candidate.MDBG == "" ? `(deepL) ${candidate.deepL}` : `(MDBG) ${candidate.MDBG}`;
   // Handle empty definition list and fill last empty definition if present
   if (data.length === 0) {
-    data.push([candidate.word, "", englishDefinition]);
+    data.push([candidate.word, candidate.MDBGPinyin || "", englishDefinition]);
   } else {
     const lastIndex = data.length - 1;
     if (data[lastIndex][2] == "") {
@@ -124,9 +121,7 @@ function pasteToSheet(sheet, candidate) {
 }
 
 function changeCellFontColor(candidate) {
-  Logger.log(
-    `changeCellFontColor start. type: ${candidate.baiduHanyuObject.type}`,
-  );
+  Logger.log(`changeCellFontColor start. type: ${candidate.baiduHanyuObject.type}`);
   if (candidate.baiduHanyuObject.type == WordType.idiom) {
     candidate.cell.setFontColor("red");
   }
@@ -160,9 +155,7 @@ function logError(err, dict) {
   Logger.log(`Error processing word: ${dict.word}`);
   try {
     const serialized =
-      typeof err === "string"
-        ? err
-        : JSON.stringify(err, Object.getOwnPropertyNames(err));
+      typeof err === "string" ? err : JSON.stringify(err, Object.getOwnPropertyNames(err));
     log(serialized);
   } catch (e) {
     log(String(err));

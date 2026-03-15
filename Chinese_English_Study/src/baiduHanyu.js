@@ -86,16 +86,11 @@ class Definition {
   getFormattedDefinitionAndExample() {
     let result = "";
     const cixing =
-      this.cixingList.length > 0
-        ? `【${this.cixingList.join("").replace("词", "")}】`
-        : "";
+      this.cixingList.length > 0 ? `【${this.cixingList.join("").replace("词", "")}】` : "";
     result += `${cixing}${this.definition}`;
     // add example sentences after definition
-    if (this.lijuList.length == 0 || this.lijuList[0].length == 0)
-      return result;
-    const shortestExample = this.lijuList.sort(
-      (a, b) => a.length - b.length,
-    )[0];
+    if (this.lijuList.length == 0 || this.lijuList[0].length == 0) return result;
+    const shortestExample = this.lijuList.sort((a, b) => a.length - b.length)[0];
     result += `\n　▷例：${shortestExample}`;
     return result;
   }
@@ -104,9 +99,17 @@ class Definition {
 // Temporary endpoints; user will provide final URLs later
 const BAIDU_HANYU_ENDPOINTS = {
   word: (wd) =>
-    `https://hanyuapp.baidu.com/dictapp/swan/termdetail?wd=${wd}&source_tag=2`,
+    `https://hanyuapp.baidu.com/dictapp/swan/termdetail?wd=${encodeURIComponent(wd)}&source_tag=2`,
   character: (wd) =>
-    `https://hanyuapp.baidu.com/dictapp/word/detail_getworddetail?wd=${wd}&smp_names=wordNewData1`,
+    `https://hanyuapp.baidu.com/dictapp/word/detail_getworddetail?wd=${encodeURIComponent(wd)}&smp_names=wordNewData1`,
+};
+
+const BAIDU_FETCH_OPTIONS = {
+  muteHttpExceptions: true,
+  headers: {
+    "User-Agent":
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+  },
 };
 
 /**
@@ -138,17 +141,22 @@ function baiduHanyuApiFetchWord(word) {
   const url = BAIDU_HANYU_ENDPOINTS.word(word);
   let res;
   try {
-    res = UrlFetchApp.fetch(url);
+    res = UrlFetchApp.fetch(url, BAIDU_FETCH_OPTIONS);
   } catch (e) {
     Logger.log(`word fetch failed: ${e}`);
     return new BaiduHanyuObject();
   }
-  if (res.getResponseCode() != 200) return new BaiduHanyuObject();
+  const wordResponseCode = res.getResponseCode();
+  if (wordResponseCode != 200) {
+    Logger.log(
+      `word fetch failed: HTTP ${wordResponseCode} - ${res.getContentText().slice(0, 300)}`,
+    );
+    return new BaiduHanyuObject();
+  }
   const parsed = JSON.parse(res.getContentText());
   const data = parsed.data;
   if (!data) return new BaiduHanyuObject();
-  if (data.type !== WordType.idiom && data.type !== WordType.term)
-    return new BaiduHanyuObject();
+  if (data.type !== WordType.idiom && data.type !== WordType.term) return new BaiduHanyuObject();
   const obj = new BaiduHanyuObject();
   obj.type = data.type;
   obj.name = data.name || "";
@@ -165,12 +173,18 @@ function baiduHanyuApiFetchCharacter(word) {
   const url = BAIDU_HANYU_ENDPOINTS.character(word);
   let res;
   try {
-    res = UrlFetchApp.fetch(url);
+    res = UrlFetchApp.fetch(url, BAIDU_FETCH_OPTIONS);
   } catch (e) {
     Logger.log(`character fetch failed: ${e}`);
     return new BaiduHanyuObject();
   }
-  if (res.getResponseCode() != 200) return new BaiduHanyuObject();
+  const charResponseCode = res.getResponseCode();
+  if (charResponseCode != 200) {
+    Logger.log(
+      `character fetch failed: HTTP ${charResponseCode} - ${res.getContentText().slice(0, 300)}`,
+    );
+    return new BaiduHanyuObject();
+  }
   const parsed = JSON.parse(res.getContentText());
   const data = parsed.data;
   const obj = new BaiduHanyuObject();
@@ -227,9 +241,7 @@ function handleTermBaiduBaike(data, baiduHanyu) {
   Logger.log("handleTermBaiduBaike start.");
   const dataBaiduBaike = data.baikeInfo;
   if (!dataBaiduBaike || dataBaiduBaike.baikeMean == "") return;
-  baiduHanyu.pinyinList.push(
-    new PinyinObject("", [new Definition(dataBaiduBaike.baikeMean)]),
-  );
+  baiduHanyu.pinyinList.push(new PinyinObject("", [new Definition(dataBaiduBaike.baikeMean)]));
 }
 
 function handleIdiomType(data, baiduHanyu) {
@@ -249,7 +261,5 @@ function handleIdiomType(data, baiduHanyu) {
   }
   // add example sentences
   const lijuList = data.liju.map((x) => x.name);
-  baiduHanyu.pinyinList.push(
-    new PinyinObject(data.pinyin, [new Definition(definition, lijuList)]),
-  );
+  baiduHanyu.pinyinList.push(new PinyinObject(data.pinyin, [new Definition(definition, lijuList)]));
 }
