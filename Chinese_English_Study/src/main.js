@@ -68,6 +68,11 @@ async function processCandidate(dict) {
   ]);
   dict.baiduHanyuObject = baiduResult;
   Logger.log("baiduHanyu finish.");
+
+  if (dict.baiduHanyuObject.pinyinList.length === 0) {
+    Logger.log("baiduHanyu returned no result. Fallback to AI.");
+    dict.baiduHanyuObject = await GetDefinitionFromAI(dict.word);
+  }
   dict.MDBG = mdbgResult?.definition ?? "";
   dict.MDBGPinyin = mdbgResult?.pinyin ?? "";
   Logger.log("MDBG finish.");
