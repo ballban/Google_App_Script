@@ -1,28 +1,24 @@
 "use strict";
 
 /**
- * Translates a given text using the DeepL API.
+ * Builds a DeepL translation request.
  * @param {string} text - The text to be translated.
- * @param {string} [sourceLang='zh'] - The source language of the text. Defaults to 'zh' (Chinese).
- * @param {string} [targetLang='en'] - The target language for the translation. Defaults to 'en' (English).
- * @returns {string} - The translated text.
+ * @param {string} [sourceLang='zh'] - The source language of the text.
+ * @param {string} [targetLang='en'] - The target language for the translation.
+ * @returns {object|null} - A UrlFetchApp request or null when the key is missing.
  */
-function deepl(text, sourceLang = "zh", targetLang = "en") {
-  Logger.log("deepl start.");
+function buildDeepLRequest(text, sourceLang = "zh", targetLang = "en") {
   const apiKey =
     PropertiesService.getScriptProperties().getProperty("DEEPL_API_KEY");
-  if (!apiKey) {
-    Logger.log("DeepL API key not found.");
-    return "Error: API Key missing";
-  }
-  const url = `https://api-free.deepl.com/v2/translate`; // Base URL
-  // Construct payload and headers
+  if (!apiKey) return null;
+
   const payload = {
     text: [text],
     target_lang: targetLang,
     source_lang: sourceLang,
   };
-  const options = {
+  return {
+    url: "https://api-free.deepl.com/v2/translate",
     method: "post",
     headers: {
       Authorization: `DeepL-Auth-Key ${apiKey}`,
@@ -30,25 +26,48 @@ function deepl(text, sourceLang = "zh", targetLang = "en") {
     },
     payload: JSON.stringify(payload),
   };
+}
+
+function parseDeepLResponse(response) {
   try {
-    let response = UrlFetchApp.fetch(url, options);
-    let responseCode = response.getResponseCode();
+    const responseCode = response.getResponseCode();
     if (responseCode !== 200) {
       Logger.log(
         `DeepL API Error: ${responseCode} - ${response.getContentText()}`,
       );
       return `Error: ${responseCode}`;
     }
-    let json = response.getContentText();
-    let data = JSON.parse(json);
-    let result =
+
+    const data = JSON.parse(response.getContentText());
+    const result =
       data.translations && data.translations.length > 0
         ? data.translations[0].text
         : "No value";
     Logger.log(`DeepL: ${result}`);
     return result;
-  } catch (e) {
-    Logger.log(`DeepL Fetch Error: ${e}`);
+  } catch (err) {
+    Logger.log(`DeepL response error: ${err}`);
+    return "Error: Exception";
+  }
+}
+
+function deepl(text, sourceLang = "zh", targetLang = "en") {
+  Logger.log("deepl start.");
+  const request = buildDeepLRequest(text, sourceLang, targetLang);
+  if (request == null) {
+    Logger.log("DeepL API key not found.");
+    return "Error: API Key missing";
+  }
+
+  try {
+    const options = {
+      method: request.method,
+      headers: request.headers,
+      payload: request.payload,
+    };
+    return parseDeepLResponse(UrlFetchApp.fetch(request.url, options));
+  } catch (err) {
+    Logger.log(`DeepL Fetch Error: ${err}`);
     return "Error: Exception";
   }
 }

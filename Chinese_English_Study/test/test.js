@@ -1,7 +1,7 @@
 "use strict";
 // @ts-ignore
 require("dotenv/config");
-const child_process = require("child_process");
+const { execFileSync } = require("child_process");
 const fs = require("fs");
 const vm = require("vm");
 const path = require("path");
@@ -28,41 +28,45 @@ try {
   console.warn("Cheerio not found, MDBGWeb might fail.");
 }
 
-// Use curl via execSync for synchronous UrlFetchApp
-const urlFetchAppShim = {
-  fetch: (url, options) => {
+// Use curl with argument arrays for synchronous UrlFetchApp.
+function fetchWithCurl(url, options) {
+  const args = ["-sS", "-L", "-w", "\n%{http_code}"];
+
+  if (options && typeof options === "object") {
+    const opts = options;
+    if (opts.method === "post" && opts.payload !== undefined) {
+      args.push("-X", "POST");
+      if (opts.headers && typeof opts.headers === "object") {
+        Object.entries(opts.headers).forEach(([key, value]) => {
+          args.push("-H", `${key}: ${value}`);
+        });
+      }
+      args.push("--data", String(opts.payload));
+    }
+  }
+
+  args.push(url);
+
+  try {
+    const output = execFileSync("curl", args, { encoding: "utf-8" });
+    const statusMatch = output.match(/\r?\n(\d{3})$/);
+    const responseCode = statusMatch ? Number(statusMatch[1]) : 0;
+    const contentText = statusMatch ? output.slice(0, statusMatch.index) : output;
     return {
-      getResponseCode: () => 200,
-      getContentText: () => {
-        try {
-          // Use curl for synchronous fetch
-          // -s: silent, -L: follow redirects
-          // encoding: 'utf-8' returns string instead of Buffer
-          let curlCmd = `curl -sL "${url}"`;
-          // Handle POST requests with JSON payload
-          if (options && typeof options === "object") {
-            const opts = options;
-            if (opts.method === "post" && opts.payload) {
-              const headers = opts.headers;
-              let headerArgs = "";
-              if (headers) {
-                Object.entries(headers).forEach(([key, value]) => {
-                  headerArgs += ` -H "${key}: ${value}"`;
-                });
-              }
-              // Escape single quotes for shell
-              const payload = opts.payload.replace(/'/g, "'\\''");
-              curlCmd = `curl -sL -X POST${headerArgs} -d '${payload}' "${url}"`;
-            }
-          }
-          return child_process.execSync(curlCmd, { encoding: "utf-8" });
-        } catch (e) {
-          console.error(`Fetch failed for ${url}:`, e);
-          return "{}";
-        }
-      },
+      getResponseCode: () => responseCode,
+      getContentText: () => contentText,
     };
-  },
+  } catch (error) {
+    console.error(`Fetch failed for ${url}:`, error.message || error);
+    return {
+      getResponseCode: () => 0,
+      getContentText: () => "",
+    };
+  }
+}
+
+const urlFetchAppShim = {
+  fetch: fetchWithCurl,
 };
 globalThis.UrlFetchApp = urlFetchAppShim;
 
@@ -99,6 +103,7 @@ function loadGasScript(filePath) {
 // Load the source files
 try {
   loadGasScript("../src/baiduHanyu.js");
+  loadGasScript("../src/moedict.js");
   loadGasScript("../src/MDBG.js");
   loadGasScript("../src/deepL.js");
 } catch (e) {
@@ -113,6 +118,7 @@ function testBaiduHanyu(w) {
   const baiduObj = baiduHanyu(w);
   if (!baiduObj || baiduObj.pinyinList.length === 0) {
     console.log("  ❌ No baiduHanyu result.");
+    return false;
   } else {
     console.log(`  ✓ Type: ${baiduObj.type}`);
     baiduObj.pinyinList.forEach((d, i) => {
@@ -121,6 +127,7 @@ function testBaiduHanyu(w) {
       console.log(`${d.getFormattedDefinition()}`);
     });
   }
+  return true;
 }
 
 function testMDBG(w) {
@@ -129,9 +136,11 @@ function testMDBG(w) {
   try {
     if (typeof MDBGWeb === "function") {
       mdbgResult = MDBGWeb(w);
-      if (mdbgResult && mdbgResult.definition !== "") {
-        console.log(`  ✓ MDBG pinyin: ${mdbgResult.pinyin}`);
-        console.log(`  ✓ MDBG definition: ${mdbgResult.definition}`);
+      const definition =
+        typeof mdbgResult === "string" ? mdbgResult : mdbgResult?.definition || "";
+      if (definition !== "") {
+        console.log(`  ✓ MDBG pinyin: ${mdbgResult.pinyin || ""}`);
+        console.log(`  ✓ MDBG definition: ${definition}`);
       } else {
         console.log("  ❌ MDBG returned empty");
       }
@@ -151,6 +160,7 @@ function testDeepL(w) {
       const deeplResult = deepl(w, "zh", "en");
       if (deeplResult && deeplResult !== "" && !deeplResult.startsWith("Error")) {
         console.log(`  ✓ DeepL: ${deeplResult}`);
+        return true;
       } else {
         console.log(`  ❌ DeepL failed: ${deeplResult}`);
       }
@@ -160,25 +170,40 @@ function testDeepL(w) {
   } catch (e) {
     console.error(`  ❌ DeepL error:`, e);
   }
+  return false;
 }
 
 function runTest() {
   const argv = (process === null || process === void 0 ? void 0 : process.argv) || [];
   const args = argv.slice(2);
   const inputs = args.length > 0 ? args : testWords;
+  let failures = 0;
   console.log(`Starting comprehensive test for: ${inputs.join(", ")}`);
   for (const w of inputs) {
     console.log(`\n====== ${w} ======`);
     try {
-      testBaiduHanyu(w);
-      testMDBG(w);
-      testDeepL(w);
-      console.log("\n✓ Test complete for", w);
+      const baiduOk = testBaiduHanyu(w);
+      const mdbgResult = testMDBG(w);
+      const mdbgDefinition =
+        typeof mdbgResult === "string" ? mdbgResult : mdbgResult?.definition || "";
+      const translationOk = mdbgDefinition === "" ? testDeepL(w) : true;
+
+      if (baiduOk && (mdbgDefinition !== "" || translationOk)) {
+        console.log("\n✓ Test complete for", w);
+      } else {
+        failures += 1;
+        console.error("\n❌ Test failed for", w);
+      }
     } catch (e) {
+      failures += 1;
       const error = e;
       console.error(`\n❌ Error processing ${w}:`, error.message || error);
     }
   }
   console.log("\n========== All tests complete ==========");
+  if (failures > 0) {
+    process.exitCode = 1;
+    console.error(`Failed inputs: ${failures}`);
+  }
 }
 runTest();

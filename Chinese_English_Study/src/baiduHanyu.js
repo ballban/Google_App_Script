@@ -5,13 +5,15 @@
  * "data" contains the definition of the word.
  */
 class BaiduHanyuObject {
-  constructor(pinyinList = [], type = "", name = "") {
+  constructor(pinyinList = [], type = "", name = "", source = "") {
     this.pinyinList = [];
     this.type = ""; // "term" | "idiom" | "other" | "unknown"
     this.name = ""; // word/idiom name
+    this.source = ""; // "Baidu Hanyu" | "Moedict"
     this.pinyinList = pinyinList;
     this.type = type;
     this.name = name;
+    this.source = source;
   }
 }
 
@@ -120,6 +122,13 @@ const BAIDU_FETCH_OPTIONS = {
  */
 function baiduHanyu(word) {
   Logger.log("baiduHanyu start");
+  if (typeof word !== "string") {
+    Logger.log("baiduHanyu skipped non-text input.");
+    return new BaiduHanyuObject();
+  }
+  word = word.trim();
+  if (word === "") return new BaiduHanyuObject();
+
   // Try idiom API first, then character API; merge if needed
   if (word.length === 1) {
     const charObj = baiduHanyuApiFetchCharacter(word);
@@ -127,90 +136,121 @@ function baiduHanyu(word) {
   }
   const wordObj = baiduHanyuApiFetchWord(word);
   if (wordObj.pinyinList.length > 0) return wordObj;
-  return new BaiduHanyuObject();
+  return moedict(word);
 }
 
 /**
- * Retrieves the definition of a word from the Baidu Hanyu API.
+ * Builds a Baidu Hanyu request for a word or character lookup.
  *
  * @param word - The word to retrieve the definition for.
- * @returns The BaiduHanyuObject containing the definition of the word.
+ * @param kind - Either "word" or "character".
+ * @returns A UrlFetchApp request object.
  */
+function buildBaiduHanyuRequest(word, kind) {
+  const endpoint = kind === "character"
+    ? BAIDU_HANYU_ENDPOINTS.character
+    : BAIDU_HANYU_ENDPOINTS.word;
+  return {
+    url: endpoint(word),
+    muteHttpExceptions: BAIDU_FETCH_OPTIONS.muteHttpExceptions,
+    headers: BAIDU_FETCH_OPTIONS.headers,
+  };
+}
+
+function parseBaiduHanyuWordResponse(res) {
+  try {
+    const wordResponseCode = res.getResponseCode();
+    if (wordResponseCode != 200) {
+      Logger.log(`word fetch failed: HTTP ${wordResponseCode}`);
+      return new BaiduHanyuObject();
+    }
+
+    const parsed = JSON.parse(res.getContentText());
+    const data = parsed.data;
+    if (!data) return new BaiduHanyuObject();
+    if (data.type !== WordType.idiom && data.type !== WordType.term) {
+      return new BaiduHanyuObject();
+    }
+
+    const obj = new BaiduHanyuObject();
+    obj.source = "Baidu Hanyu";
+    obj.type = data.type;
+    obj.name = data.name || "";
+    if (data.type === WordType.idiom) {
+      handleIdiomType(data, obj);
+    } else {
+      handleTermType(data, obj);
+    }
+    return obj;
+  } catch (e) {
+    Logger.log(`word response failed: ${e}`);
+    return new BaiduHanyuObject();
+  }
+}
+
+function parseBaiduHanyuCharacterResponse(res) {
+  try {
+    const charResponseCode = res.getResponseCode();
+    if (charResponseCode != 200) {
+      Logger.log(`character fetch failed: HTTP ${charResponseCode}`);
+      return new BaiduHanyuObject();
+    }
+
+    const parsed = JSON.parse(res.getContentText());
+    const data = parsed.data;
+    const obj = new BaiduHanyuObject();
+    // word.json structure: data.detail holds character info
+    if (data && data.detail) {
+      obj.source = "Baidu Hanyu";
+      obj.type = WordType.character;
+      obj.name = data.detail.name || "";
+      const compDefs = data.detail.comprehensiveDefinition || [];
+      compDefs.forEach((cd) => {
+        let pinyin = cd.pinyin || cd.name || "";
+        // Prefer basicDefinition when present, else detailDefinition
+        const defsSrc =
+          cd.basicDefinition && cd.basicDefinition.length > 0
+            ? cd.basicDefinition
+            : cd.detailDefinition || [];
+        const definitions = [];
+        defsSrc.forEach((d) => {
+          const lijuList = d && d.liju ? d.liju.map((x) => x.name) : [];
+          definitions.push(new Definition(d.definition, lijuList, d.cixing));
+        });
+        obj.pinyinList.push(new PinyinObject(pinyin, definitions, cd.bolCommon));
+      });
+    }
+    return obj;
+  } catch (e) {
+    Logger.log(`character response failed: ${e}`);
+    return new BaiduHanyuObject();
+  }
+}
+
 function baiduHanyuApiFetchWord(word) {
   Logger.log("baiduHanyuApiFetchWord start");
-  const url = BAIDU_HANYU_ENDPOINTS.word(word);
-  let res;
+  const request = buildBaiduHanyuRequest(word, "word");
   try {
-    res = UrlFetchApp.fetch(url, BAIDU_FETCH_OPTIONS);
+    return parseBaiduHanyuWordResponse(
+      UrlFetchApp.fetch(request.url, BAIDU_FETCH_OPTIONS),
+    );
   } catch (e) {
     Logger.log(`word fetch failed: ${e}`);
     return new BaiduHanyuObject();
   }
-  const wordResponseCode = res.getResponseCode();
-  if (wordResponseCode != 200) {
-    Logger.log(
-      `word fetch failed: HTTP ${wordResponseCode} - ${res.getContentText().slice(0, 300)}`,
-    );
-    return new BaiduHanyuObject();
-  }
-  const parsed = JSON.parse(res.getContentText());
-  const data = parsed.data;
-  if (!data) return new BaiduHanyuObject();
-  if (data.type !== WordType.idiom && data.type !== WordType.term) return new BaiduHanyuObject();
-  const obj = new BaiduHanyuObject();
-  obj.type = data.type;
-  obj.name = data.name || "";
-  if (data.type === WordType.idiom) {
-    handleIdiomType(data, obj);
-  } else {
-    handleTermType(data, obj);
-  }
-  return obj;
 }
 
 function baiduHanyuApiFetchCharacter(word) {
   Logger.log("baiduHanyuApiFetchCharacter start");
-  const url = BAIDU_HANYU_ENDPOINTS.character(word);
-  let res;
+  const request = buildBaiduHanyuRequest(word, "character");
   try {
-    res = UrlFetchApp.fetch(url, BAIDU_FETCH_OPTIONS);
+    return parseBaiduHanyuCharacterResponse(
+      UrlFetchApp.fetch(request.url, BAIDU_FETCH_OPTIONS),
+    );
   } catch (e) {
     Logger.log(`character fetch failed: ${e}`);
     return new BaiduHanyuObject();
   }
-  const charResponseCode = res.getResponseCode();
-  if (charResponseCode != 200) {
-    Logger.log(
-      `character fetch failed: HTTP ${charResponseCode} - ${res.getContentText().slice(0, 300)}`,
-    );
-    return new BaiduHanyuObject();
-  }
-  const parsed = JSON.parse(res.getContentText());
-  const data = parsed.data;
-  const obj = new BaiduHanyuObject();
-  // word.json structure: data.detail holds character info
-  if (data && data.detail) {
-    obj.type = WordType.character;
-    obj.name = data.detail.name || "";
-    const compDefs = data.detail.comprehensiveDefinition || [];
-    const pinyinList = [];
-    compDefs.forEach((cd) => {
-      let pinyin = cd.pinyin || cd.name || "";
-      if (pinyin) pinyinList.push(pinyin);
-      // Prefer basicDefinition when present, else detailDefinition
-      const defsSrc =
-        cd.basicDefinition && cd.basicDefinition.length > 0
-          ? cd.basicDefinition
-          : cd.detailDefinition || [];
-      const definitions = [];
-      defsSrc.forEach((d) => {
-        const lijuList = d && d.liju ? d.liju.map((x) => x.name) : [];
-        definitions.push(new Definition(d.definition, lijuList, d.cixing));
-      });
-      obj.pinyinList.push(new PinyinObject(pinyin, definitions, cd.bolCommon));
-    });
-  }
-  return obj;
 }
 
 function handleTermType(data, baiduHanyu) {
