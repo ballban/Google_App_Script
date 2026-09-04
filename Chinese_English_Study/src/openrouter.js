@@ -2,8 +2,6 @@
 
 const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
 const OPENROUTER_MODEL = "openrouter/free";
-const OPENROUTER_SYSTEM_PROMPT =
-  "You are a Chinese dictionary assistant. Given a Chinese word or phrase, return one concise dictionary-style definition in Simplified Chinese. Return only the Chinese definition text; do not include pinyin, English, Markdown, labels, or a preamble. If you cannot identify the word or phrase with reasonable confidence, return an empty string.";
 
 function getOpenRouterProvider() {
   return {
@@ -13,7 +11,7 @@ function getOpenRouterProvider() {
   };
 }
 
-function buildOpenRouterRequest(word) {
+function buildOpenRouterRequest(word, systemPrompt) {
   if (typeof word !== "string" || word.trim() === "") return null;
 
   const apiKey = PropertiesService.getScriptProperties().getProperty("OPENROUTER_API_KEY");
@@ -37,7 +35,7 @@ function buildOpenRouterRequest(word) {
       messages: [
         {
           role: "system",
-          content: OPENROUTER_SYSTEM_PROMPT,
+          content: systemPrompt,
         },
         {
           role: "user",

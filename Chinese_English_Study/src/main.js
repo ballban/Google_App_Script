@@ -217,10 +217,10 @@ function processCandidates(dicts) {
     .filter((job) => job.request != null);
   const aiResponses = fetchAllJobs(aiJobs);
   aiJobs.forEach((job, index) => {
-    const definition = parseAiResponse(aiResponses[index], job.provider);
+    const aiData = parseAiResponse(aiResponses[index], job.provider);
     const result = createAiHanyuObject(
       job.dict.word,
-      definition,
+      aiData,
       job.provider,
     );
     if (hasChineseDefinition(result)) job.dict.baiduHanyuObject = result;
