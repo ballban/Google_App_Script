@@ -38,7 +38,7 @@ function buildMoedictTraditionalRequest(word) {
   };
 }
 
-function buildMoedictSimplifiedRequest(text) {
+function buildSimplifiedTextRequest(text) {
   if (typeof text !== "string" || text === "") return null;
 
   return {
@@ -147,11 +147,11 @@ function parseMoedictTraditionalResponse(response) {
   return parseMoedictConversionResponse(response, "Traditional conversion");
 }
 
-function parseMoedictSimplifiedResponse(response) {
+function parseSimplifiedTextResponse(response) {
   return parseMoedictConversionResponse(response, "Simplified conversion");
 }
 
-function getMoedictTextSlots(baiduHanyuObject) {
+function getChineseDefinitionTextSlots(baiduHanyuObject) {
   const slots = [];
   if (!baiduHanyuObject || !Array.isArray(baiduHanyuObject.pinyinList)) {
     return slots;
@@ -182,8 +182,8 @@ function getMoedictTextSlots(baiduHanyuObject) {
   return slots;
 }
 
-function applyMoedictSimplifiedText(baiduHanyuObject, convertedText) {
-  const slots = getMoedictTextSlots(baiduHanyuObject);
+function applySimplifiedText(baiduHanyuObject, convertedText) {
+  const slots = getChineseDefinitionTextSlots(baiduHanyuObject);
   if (slots.length === 0) return true;
 
   let convertedValues;
@@ -213,17 +213,17 @@ function applyMoedictSimplifiedText(baiduHanyuObject, convertedText) {
   return true;
 }
 
-function convertMoedictObjectToSimplified(baiduHanyuObject) {
-  const slots = getMoedictTextSlots(baiduHanyuObject);
+function convertChineseDefinitionToSimplified(baiduHanyuObject) {
+  const slots = getChineseDefinitionTextSlots(baiduHanyuObject);
   if (slots.length === 0) return baiduHanyuObject;
 
-  const request = buildMoedictSimplifiedRequest(
+  const request = buildSimplifiedTextRequest(
     JSON.stringify(slots.map((slot) => slot.value)),
   );
   if (request == null) return baiduHanyuObject;
 
   try {
-    const convertedText = parseMoedictSimplifiedResponse(
+    const convertedText = parseSimplifiedTextResponse(
       UrlFetchApp.fetch(request.url, {
         method: request.method,
         headers: request.headers,
@@ -231,7 +231,7 @@ function convertMoedictObjectToSimplified(baiduHanyuObject) {
         muteHttpExceptions: request.muteHttpExceptions,
       }),
     );
-    applyMoedictSimplifiedText(baiduHanyuObject, convertedText);
+    applySimplifiedText(baiduHanyuObject, convertedText);
   } catch (err) {
     Logger.log(`Simplified conversion fetch failed: ${err}`);
   }
@@ -248,7 +248,7 @@ function moedict(word) {
       word,
     );
     if (result.pinyinList.length > 0) {
-      return convertMoedictObjectToSimplified(result);
+      return convertChineseDefinitionToSimplified(result);
     }
 
     const conversionRequest = buildMoedictTraditionalRequest(word);
@@ -269,7 +269,7 @@ function moedict(word) {
       ),
       traditionalWord,
     );
-    return convertMoedictObjectToSimplified(result);
+    return convertChineseDefinitionToSimplified(result);
   } catch (err) {
     Logger.log(`Moedict fetch failed: ${err}`);
     return new BaiduHanyuObject();

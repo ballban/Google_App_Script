@@ -150,7 +150,7 @@ function processCandidates(dicts) {
   });
 
   const characterFallbackJobs = baiduJobs
-    .filter((job) => job.kind === "character" && job.dict.baiduHanyuObject.pinyinList.length === 0)
+    .filter((job) => job.kind === "character" && !hasChineseDefinition(job.dict.baiduHanyuObject))
     .map((job) => ({
       dict: job.dict,
       kind: "word",
@@ -159,11 +159,11 @@ function processCandidates(dicts) {
   const characterFallbackResponses = fetchAllJobs(characterFallbackJobs);
   characterFallbackJobs.forEach((job, index) => {
     const result = parseBaiduHanyuWordResponse(characterFallbackResponses[index]);
-    if (result.pinyinList.length > 0) job.dict.baiduHanyuObject = result;
+    if (hasChineseDefinition(result)) job.dict.baiduHanyuObject = result;
   });
 
   const moedictJobs = dicts
-    .filter((dict) => dict.baiduHanyuObject.pinyinList.length === 0)
+    .filter((dict) => !hasChineseDefinition(dict.baiduHanyuObject))
     .map((dict) => ({
       dict,
       word: dict.word,
@@ -173,11 +173,11 @@ function processCandidates(dicts) {
   const moedictResponses = fetchAllJobs(moedictJobs);
   moedictJobs.forEach((job, index) => {
     const result = parseMoedictResponse(moedictResponses[index], job.word);
-    if (result.pinyinList.length > 0) job.dict.baiduHanyuObject = result;
+    if (hasChineseDefinition(result)) job.dict.baiduHanyuObject = result;
   });
 
   const traditionalConversionJobs = moedictJobs
-    .filter((job) => job.dict.baiduHanyuObject.pinyinList.length === 0)
+    .filter((job) => !hasChineseDefinition(job.dict.baiduHanyuObject))
     .map((job) => ({
       dict: job.dict,
       word: job.word,
@@ -204,16 +204,40 @@ function processCandidates(dicts) {
       convertedMoedictResponses[index],
       job.word,
     );
-    if (result.pinyinList.length > 0) job.dict.baiduHanyuObject = result;
+    if (hasChineseDefinition(result)) job.dict.baiduHanyuObject = result;
   });
 
-  const simplificationJobs = moedictJobs
-    .filter((job) => job.dict.baiduHanyuObject.pinyinList.length > 0)
+  const aiJobs = dicts
+    .filter((dict) => !hasChineseDefinition(dict.baiduHanyuObject))
+    .map((dict) => ({
+      dict,
+      provider: DEFAULT_AI_PROVIDER,
+      request: buildAiRequest(dict.word),
+    }))
+    .filter((job) => job.request != null);
+  const aiResponses = fetchAllJobs(aiJobs);
+  aiJobs.forEach((job, index) => {
+    const definition = parseAiResponse(aiResponses[index], job.provider);
+    const result = createAiHanyuObject(
+      job.dict.word,
+      definition,
+      job.provider,
+    );
+    if (hasChineseDefinition(result)) job.dict.baiduHanyuObject = result;
+  });
+
+  const simplificationJobs = dicts
+    .filter(
+      (dict) =>
+        hasChineseDefinition(dict.baiduHanyuObject) &&
+        (dict.baiduHanyuObject.source === "Moedict" ||
+          dict.baiduHanyuObject.source === "OpenRouter"),
+    )
     .map((job) => {
-      const slots = getMoedictTextSlots(job.dict.baiduHanyuObject);
+      const slots = getChineseDefinitionTextSlots(job.baiduHanyuObject);
       return {
-        dict: job.dict,
-        request: buildMoedictSimplifiedRequest(
+        dict: job,
+        request: buildSimplifiedTextRequest(
           JSON.stringify(slots.map((slot) => slot.value)),
         ),
         textCount: slots.length,
@@ -222,9 +246,9 @@ function processCandidates(dicts) {
     .filter((job) => job.textCount > 0 && job.request != null);
   const simplificationResponses = fetchAllJobs(simplificationJobs);
   simplificationJobs.forEach((job, index) => {
-    applyMoedictSimplifiedText(
+    applySimplifiedText(
       job.dict.baiduHanyuObject,
-      parseMoedictSimplifiedResponse(simplificationResponses[index]),
+      parseSimplifiedTextResponse(simplificationResponses[index]),
     );
   });
 
@@ -268,9 +292,15 @@ function pasteToSheet(candidate) {
     .map((pinyinObject) => pinyinObject.getFormattedDefinition())
     .filter((value) => value != "")
     .join("\n\n");
+  const chineseSourceLabel =
+    candidate.baiduHanyuObject.source === "Moedict"
+      ? "(Moedict)"
+      : candidate.baiduHanyuObject.source === "OpenRouter"
+        ? "(OpenRouter)"
+        : "";
   const chineseDefinitionWithSource =
-    candidate.baiduHanyuObject.source === "Moedict" && chineseDefinition !== ""
-      ? `(Moedict) ${chineseDefinition}`
+    chineseSourceLabel !== "" && chineseDefinition !== ""
+      ? `${chineseSourceLabel} ${chineseDefinition}`
       : chineseDefinition;
   const englishDefinition =
     candidate.MDBG == "" ? `(deepL) ${candidate.deepL}` : `(MDBG) ${candidate.MDBG}`;

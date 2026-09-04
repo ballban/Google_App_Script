@@ -9,7 +9,7 @@ class BaiduHanyuObject {
     this.pinyinList = [];
     this.type = ""; // "term" | "idiom" | "other" | "unknown"
     this.name = ""; // word/idiom name
-    this.source = ""; // "Baidu Hanyu" | "Moedict"
+    this.source = ""; // "Baidu Hanyu" | "Moedict" | "OpenRouter"
     this.pinyinList = pinyinList;
     this.type = type;
     this.name = name;
@@ -98,6 +98,24 @@ class Definition {
   }
 }
 
+function hasChineseDefinition(baiduHanyuObject) {
+  if (!baiduHanyuObject || !Array.isArray(baiduHanyuObject.pinyinList)) {
+    return false;
+  }
+
+  return baiduHanyuObject.pinyinList.some(
+    (pinyinObject) =>
+      pinyinObject &&
+      Array.isArray(pinyinObject.definitionList) &&
+      pinyinObject.definitionList.some(
+        (definition) =>
+          definition &&
+          typeof definition.definition === "string" &&
+          definition.definition.trim() !== "",
+      ),
+  );
+}
+
 // Temporary endpoints; user will provide final URLs later
 const BAIDU_HANYU_ENDPOINTS = {
   word: (wd) =>
@@ -132,11 +150,14 @@ function baiduHanyu(word) {
   // Try idiom API first, then character API; merge if needed
   if (word.length === 1) {
     const charObj = baiduHanyuApiFetchCharacter(word);
-    if (charObj.pinyinList.length > 0) return charObj;
+    if (hasChineseDefinition(charObj)) return charObj;
   }
   const wordObj = baiduHanyuApiFetchWord(word);
-  if (wordObj.pinyinList.length > 0) return wordObj;
-  return moedict(word);
+  if (hasChineseDefinition(wordObj)) return wordObj;
+
+  const moedictObj = moedict(word);
+  if (hasChineseDefinition(moedictObj)) return moedictObj;
+  return ai(word);
 }
 
 /**

@@ -12,7 +12,7 @@ const path = require("path");
 
 // const testWords = ["挑", "幸灾乐祸", "转运", "崴脚"];
 // const testWords = ["挑", "情怀", "淡色", "有心无力", "截留"];
-const testWords = ["褶皱", "皱褶"];
+const testWords = ["褶皱", "皱褶", "小心驶得万年船"];
 
 // Shims
 const loggerShim = {
@@ -65,6 +65,8 @@ function fetchWithCurl(url, options) {
   }
 }
 
+let activeProvider = "";
+
 const urlFetchAppShim = {
   fetch: fetchWithCurl,
 };
@@ -84,6 +86,9 @@ const propertiesServiceShim = {
   getScriptProperties: () => ({
     getProperty: (key) => {
       // Return mock API key for testing, or read from environment
+      if (key === "DEEPL_API_KEY" && activeProvider === "openrouter") {
+        return process.env.OPENROUTER_API_KEY || null;
+      }
       if (key === "DEEPL_API_KEY") {
         return process.env.DEEPL_API_KEY || null;
       }
@@ -104,6 +109,8 @@ function loadGasScript(filePath) {
 try {
   loadGasScript("../src/baiduHanyu.js");
   loadGasScript("../src/moedict.js");
+  loadGasScript("../src/openrouter.js");
+  loadGasScript("../src/ai.js");
   loadGasScript("../src/MDBG.js");
   loadGasScript("../src/deepL.js");
 } catch (e) {
@@ -115,7 +122,13 @@ try {
 // Synchronous helper using mocked UrlFetchApp to call endpoints
 function testBaiduHanyu(w) {
   console.log("[1/3] Fetching baiduHanyu...");
-  const baiduObj = baiduHanyu(w);
+  activeProvider = "openrouter";
+  let baiduObj;
+  try {
+    baiduObj = baiduHanyu(w);
+  } finally {
+    activeProvider = "";
+  }
   if (!baiduObj || baiduObj.pinyinList.length === 0) {
     console.log("  ❌ No baiduHanyu result.");
     return false;
