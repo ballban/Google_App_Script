@@ -16,8 +16,7 @@ function getOpenRouterProvider() {
 function buildOpenRouterRequest(word) {
   if (typeof word !== "string" || word.trim() === "") return null;
 
-  const apiKey =
-    PropertiesService.getScriptProperties().getProperty("DEEPL_API_KEY");
+  const apiKey = PropertiesService.getScriptProperties().getProperty("OPENROUTER_API_KEY");
   if (!apiKey) {
     Logger.log("OpenRouter API key not found.");
     return null;
