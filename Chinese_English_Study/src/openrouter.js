@@ -2,6 +2,7 @@
 
 const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
 const OPENROUTER_MODEL = "openrouter/free";
+const OPENROUTER_MAX_TOKENS = 1000;
 
 function getOpenRouterProvider() {
   return {
@@ -43,7 +44,10 @@ function buildOpenRouterRequest(word, systemPrompt) {
         },
       ],
       temperature: 0.2,
-      max_tokens: 300,
+      max_tokens: OPENROUTER_MAX_TOKENS,
+      reasoning: {
+        exclude: true,
+      },
       stream: false,
     }),
     muteHttpExceptions: true,

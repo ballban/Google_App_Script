@@ -12,7 +12,13 @@ const path = require("path");
 
 // const testWords = ["挑", "幸灾乐祸", "转运", "崴脚"];
 // const testWords = ["挑", "情怀", "淡色", "有心无力", "截留"];
-const testWords = ["褶皱", "皱褶", "小心驶得万年船"];
+const testWords = [
+  "褶皱",
+  "皱褶",
+  "小心驶得万年船",
+  "我很无奈",
+  "我草你妈",
+];
 
 // Shims
 const loggerShim = {
@@ -65,8 +71,6 @@ function fetchWithCurl(url, options) {
   }
 }
 
-let activeProvider = "";
-
 const urlFetchAppShim = {
   fetch: fetchWithCurl,
 };
@@ -85,8 +89,8 @@ globalThis.XmlService = xmlServiceShim;
 const propertiesServiceShim = {
   getScriptProperties: () => ({
     getProperty: (key) => {
-      // Return mock API key for testing, or read from environment
-      if (key === "DEEPL_API_KEY" && activeProvider === "openrouter") {
+      // Return mock API keys for testing, or read from the environment.
+      if (key === "OPENROUTER_API_KEY") {
         return process.env.OPENROUTER_API_KEY || null;
       }
       if (key === "DEEPL_API_KEY") {
@@ -122,13 +126,8 @@ try {
 // Synchronous helper using mocked UrlFetchApp to call endpoints
 function testBaiduHanyu(w) {
   console.log("[1/3] Fetching baiduHanyu...");
-  activeProvider = "openrouter";
   let baiduObj;
-  try {
-    baiduObj = baiduHanyu(w);
-  } finally {
-    activeProvider = "";
-  }
+  baiduObj = baiduHanyu(w);
   if (!baiduObj || baiduObj.pinyinList.length === 0) {
     console.log("  ❌ No baiduHanyu result.");
     return false;
