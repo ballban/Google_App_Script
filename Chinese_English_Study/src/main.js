@@ -263,7 +263,12 @@ function processCandidates(dicts) {
       request: buildAiRequest(dict.word, aiProviderName),
     }))
     .filter((job) => job.request != null);
+  const aiStartedAt = Date.now();
   const aiResponses = fetchAllJobs(aiJobs);
+  if (aiJobs.length > 0) {
+    const slowMessage = getAiSlowRequestMessage(aiProviderName, Date.now() - aiStartedAt);
+    if (slowMessage !== "") log(slowMessage);
+  }
   aiJobs.forEach((job, index) => {
     const aiData = parseAiResponse(aiResponses[index], job.provider);
     const result = createAiHanyuObject(

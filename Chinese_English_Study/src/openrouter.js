@@ -7,12 +7,13 @@ const OPENROUTER_MAX_TOKENS = 1000;
 function getOpenRouterProvider() {
   return {
     displayName: "OpenRouter",
+    defaultModel: OPENROUTER_MODEL,
     buildRequest: buildOpenRouterRequest,
     parseResponse: parseOpenRouterResponse,
   };
 }
 
-function buildOpenRouterRequest(word, systemPrompt) {
+function buildOpenRouterRequest(word, systemPrompt, model = OPENROUTER_MODEL) {
   if (typeof word !== "string" || word.trim() === "") return null;
 
   const apiKey = PropertiesService.getScriptProperties().getProperty("OPENROUTER_API_KEY");
@@ -32,7 +33,7 @@ function buildOpenRouterRequest(word, systemPrompt) {
       "X-OpenRouter-Title": "Chinese English Study",
     },
     payload: JSON.stringify({
-      model: OPENROUTER_MODEL,
+      model,
       messages: [
         {
           role: "system",

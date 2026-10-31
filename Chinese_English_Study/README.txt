@@ -21,10 +21,21 @@ node test/test.js <word>
 # fills in the Chinese definition. Choose it with the AI_PROVIDER script
 # property ("nvidia" or "openrouter"; default "nvidia"). Locally, AI_PROVIDER
 # can be set in .env.
-#   nvidia:     NVIDIA Build (deepseek-ai/deepseek-v4.1-flash); set
+#   nvidia:     NVIDIA Build (default nvidia/nemotron-3.5-super-vl-120b-a12b); set
 #               NVIDIA_BUILD_API_KEY in .env and as a script property.
 #   openrouter: OpenRouter free-model router; set OPENROUTER_API_KEY in .env
 #               and as a script property.
+# Set the optional AI_MODEL script property (or .env value) to override the
+# selected provider's default model; it must be a model ID of AI_PROVIDER.
+#
+# AI requests should finish within 5 seconds. The local harness aborts AI
+# requests at that limit; Apps Script cannot abort a request, so slower calls
+# are recorded on the "log" sheet instead. To choose a fast model, run:
+npm run benchmark:ai
+node test/ai-benchmark.js nvidia
+# It tries every NVIDIA Build model and every free OpenRouter model, keeps only
+# models that answer every test word within 5 seconds, and saves the results
+# under test/ai-benchmark-results (not committed).
 
 # Files in src folder will push to Google Apps Script.
 clasp push

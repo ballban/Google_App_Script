@@ -34,9 +34,16 @@ try {
   console.warn("Cheerio not found, MDBGWeb might fail.");
 }
 
+// Set after the deployable scripts load; AI requests are aborted at the same
+// limit the deployed script reports.
+let aiFetchLimit = null;
+
 // Use curl with argument arrays for synchronous UrlFetchApp.
 function fetchWithCurl(url, options) {
   const args = ["-sS", "-L", "-w", "\n%{http_code}"];
+  if (aiFetchLimit && aiFetchLimit.endpoints.includes(url)) {
+    args.push("--max-time", String(aiFetchLimit.timeoutMs / 1000));
+  }
 
   if (options && typeof options === "object") {
     const opts = options;
@@ -54,7 +61,10 @@ function fetchWithCurl(url, options) {
   args.push(url);
 
   try {
-    const output = execFileSync("curl", args, { encoding: "utf-8" });
+    const output = execFileSync("curl", args, {
+      encoding: "utf-8",
+      stdio: ["ignore", "pipe", "pipe"],
+    });
     const statusMatch = output.match(/\r?\n(\d{3})$/);
     const responseCode = statusMatch ? Number(statusMatch[1]) : 0;
     const contentText = statusMatch ? output.slice(0, statusMatch.index) : output;
@@ -63,7 +73,9 @@ function fetchWithCurl(url, options) {
       getContentText: () => contentText,
     };
   } catch (error) {
-    console.error(`Fetch failed for ${url}:`, error.message || error);
+    // error.message contains the full curl command line, including API keys.
+    const detail = String(error.stderr || "").trim() || `exit code ${error.status}`;
+    console.error(`Fetch failed for ${url}: ${detail}`);
     return {
       getResponseCode: () => 0,
       getContentText: () => "",
@@ -92,6 +104,9 @@ const propertiesServiceShim = {
       // Return mock API keys for testing, or read from the environment.
       if (key === "AI_PROVIDER") {
         return process.env.AI_PROVIDER || null;
+      }
+      if (key === "AI_MODEL") {
+        return process.env.AI_MODEL || null;
       }
       if (key === "NVIDIA_BUILD_API_KEY") {
         return process.env.NVIDIA_BUILD_API_KEY || null;
@@ -124,6 +139,9 @@ try {
   loadGasScript("../src/ai.js");
   loadGasScript("../src/MDBG.js");
   loadGasScript("../src/deepL.js");
+  aiFetchLimit = vm.runInThisContext(
+    "({ endpoints: [NVIDIA_ENDPOINT, OPENROUTER_ENDPOINT], timeoutMs: AI_TIMEOUT_MS })",
+  );
 } catch (e) {
   console.error("Error loading source files:", e);
   process.exit(1);

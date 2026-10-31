@@ -1,19 +1,22 @@
 "use strict";
 
 const NVIDIA_ENDPOINT = "https://integrate.api.nvidia.com/v1/chat/completions";
-const NVIDIA_MODEL = "deepseek-ai/deepseek-v4.1-flash";
+// Chosen by test/ai-benchmark.js: the fastest model that returned valid
+// dictionary JSON for every test word within AI_TIMEOUT_MS.
+const NVIDIA_MODEL = "nvidia/nemotron-3.5-super-vl-120b-a12b";
 const NVIDIA_MAX_TOKENS = 1000;
 const NVIDIA_API_KEY_PROPERTY = "NVIDIA_BUILD_API_KEY";
 
 function getNvidiaProvider() {
   return {
     displayName: "NVIDIA Build",
+    defaultModel: NVIDIA_MODEL,
     buildRequest: buildNvidiaRequest,
     parseResponse: parseNvidiaResponse,
   };
 }
 
-function buildNvidiaRequest(word, systemPrompt) {
+function buildNvidiaRequest(word, systemPrompt, model = NVIDIA_MODEL) {
   if (typeof word !== "string" || word.trim() === "") return null;
 
   const apiKey = PropertiesService.getScriptProperties().getProperty(
@@ -34,7 +37,7 @@ function buildNvidiaRequest(word, systemPrompt) {
       Accept: "application/json",
     },
     payload: JSON.stringify({
-      model: NVIDIA_MODEL,
+      model,
       messages: [
         {
           role: "system",
