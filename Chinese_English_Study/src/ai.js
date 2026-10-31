@@ -110,10 +110,32 @@ function getAiRequestOptions(request) {
   return options;
 }
 
+// OpenAI-compatible responses report the model that actually answered, which
+// differs from the requested ID when a router such as openrouter/free is used.
+function getAiResponseModel(response) {
+  try {
+    const data = JSON.parse(response.getContentText());
+    return data && typeof data.model === "string" ? data.model.trim() : "";
+  } catch (err) {
+    return "";
+  }
+}
+
+// "nvidia/nemotron-3.5-super-vl-120b-a12b" -> "nemotron". Router IDs such as
+// "openrouter/free" do not name a model, so they return "".
+function getAiModelLabel(modelId) {
+  if (typeof modelId !== "string") return "";
+  const id = modelId.trim();
+  if (id === "" || id.toLowerCase().startsWith("openrouter/")) return "";
+  const name = id.split("/").pop().split(":")[0];
+  return name.split("-")[0] || name;
+}
+
 function createAiHanyuObject(
   word,
   aiData,
   providerName = getConfiguredAiProviderName(),
+  modelId = "",
 ) {
   const normalizedData = normalizeAiHanyuData(aiData);
   if (normalizedData == null) {
@@ -128,7 +150,7 @@ function createAiHanyuObject(
     normalizedData.type,
     normalizedData.name ||
       (typeof word === "string" ? word.trim() : ""),
-    provider.displayName,
+    getAiModelLabel(modelId || getAiModelName(provider)) || provider.displayName,
   );
 
   normalizedData.pinyinList.forEach((pinyinData) => {
@@ -255,7 +277,7 @@ function ai(word, providerName = getConfiguredAiProviderName()) {
     if (slowMessage !== "") Logger.log(slowMessage);
     const aiData = parseAiResponse(response, providerName);
     return convertChineseDefinitionToSimplified(
-      createAiHanyuObject(word, aiData, providerName),
+      createAiHanyuObject(word, aiData, providerName, getAiResponseModel(response)),
     );
   } catch (err) {
     Logger.log(`AI fetch failed: ${err}`);

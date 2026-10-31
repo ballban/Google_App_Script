@@ -9,7 +9,7 @@ class BaiduHanyuObject {
     this.pinyinList = [];
     this.type = ""; // "term" | "idiom" | "other" | "unknown"
     this.name = ""; // word/idiom name
-    this.source = ""; // "Baidu Hanyu" | "Moedict" | AI provider displayName
+    this.source = ""; // "Baidu Hanyu" | "Moedict" | AI model label (or provider displayName)
     this.pinyinList = pinyinList;
     this.type = type;
     this.name = name;

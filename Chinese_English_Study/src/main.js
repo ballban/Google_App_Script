@@ -275,6 +275,7 @@ function processCandidates(dicts) {
       job.dict.word,
       aiData,
       job.provider,
+      getAiResponseModel(aiResponses[index]),
     );
     if (hasChineseDefinition(result)) job.dict.baiduHanyuObject = result;
   });
