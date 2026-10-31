@@ -90,6 +90,12 @@ const propertiesServiceShim = {
   getScriptProperties: () => ({
     getProperty: (key) => {
       // Return mock API keys for testing, or read from the environment.
+      if (key === "AI_PROVIDER") {
+        return process.env.AI_PROVIDER || null;
+      }
+      if (key === "NVIDIA_BUILD_API_KEY") {
+        return process.env.NVIDIA_BUILD_API_KEY || null;
+      }
       if (key === "OPENROUTER_API_KEY") {
         return process.env.OPENROUTER_API_KEY || null;
       }
@@ -113,6 +119,7 @@ function loadGasScript(filePath) {
 try {
   loadGasScript("../src/baiduHanyu.js");
   loadGasScript("../src/moedict.js");
+  loadGasScript("../src/nvidia.js");
   loadGasScript("../src/openrouter.js");
   loadGasScript("../src/ai.js");
   loadGasScript("../src/MDBG.js");

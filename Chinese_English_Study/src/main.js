@@ -254,12 +254,13 @@ function processCandidates(dicts) {
     if (hasChineseDefinition(result)) job.dict.baiduHanyuObject = result;
   });
 
+  const aiProviderName = getConfiguredAiProviderName();
   const aiJobs = dicts
     .filter((dict) => !hasChineseDefinition(dict.baiduHanyuObject))
     .map((dict) => ({
       dict,
-      provider: DEFAULT_AI_PROVIDER,
-      request: buildAiRequest(dict.word),
+      provider: aiProviderName,
+      request: buildAiRequest(dict.word, aiProviderName),
     }))
     .filter((job) => job.request != null);
   const aiResponses = fetchAllJobs(aiJobs);
@@ -277,8 +278,7 @@ function processCandidates(dicts) {
     .filter(
       (dict) =>
         hasChineseDefinition(dict.baiduHanyuObject) &&
-        (dict.baiduHanyuObject.source === "Moedict" ||
-          dict.baiduHanyuObject.source === "OpenRouter"),
+        isFallbackChineseSource(dict.baiduHanyuObject.source),
     )
     .map((job) => {
       const slots = getChineseDefinitionTextSlots(job.baiduHanyuObject);
@@ -339,12 +339,9 @@ function pasteToSheet(candidate) {
     .map((pinyinObject) => pinyinObject.getFormattedDefinition())
     .filter((value) => value != "")
     .join("\n\n");
-  const chineseSourceLabel =
-    candidate.baiduHanyuObject.source === "Moedict"
-      ? "(Moedict)"
-      : candidate.baiduHanyuObject.source === "OpenRouter"
-        ? "(OpenRouter)"
-        : "";
+  const chineseSourceLabel = isFallbackChineseSource(candidate.baiduHanyuObject.source)
+    ? `(${candidate.baiduHanyuObject.source})`
+    : "";
   const chineseDefinitionWithSource =
     chineseSourceLabel !== "" && chineseDefinition !== ""
       ? `${chineseSourceLabel} ${chineseDefinition}`

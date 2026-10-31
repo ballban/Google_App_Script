@@ -4,7 +4,7 @@
     "dotenv": "^17.3.1"
   },
   "scripts": {
-    "check": "node --check src\\main.js && node --check src\\baiduHanyu.js && node --check src\\moedict.js && node --check src\\openrouter.js && node --check src\\ai.js && node --check src\\MDBG.js && node --check src\\deepL.js",
+    "check": "node --check src\\main.js && node --check src\\baiduHanyu.js && node --check src\\moedict.js && node --check src\\nvidia.js && node --check src\\openrouter.js && node --check src\\ai.js && node --check src\\MDBG.js && node --check src\\deepL.js",
     "build": "npm run check",
     "test": "node test\\test.js"
   }

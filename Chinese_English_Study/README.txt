@@ -17,9 +17,14 @@ node test/test.js <word>
 # definitions/examples are converted back to Simplified. Moedict definitions
 # are marked with "(Moedict)" in the Chinese definition cell.
 #
-# If neither Baidu Hanyu nor Moedict returns a definition, set
-# OPENROUTER_API_KEY in the local .env to enable the OpenRouter free-model
-# router fallback. In Apps Script, set the OPENROUTER_API_KEY script property.
+# If neither Baidu Hanyu nor Moedict returns a definition, an AI provider
+# fills in the Chinese definition. Choose it with the AI_PROVIDER script
+# property ("nvidia" or "openrouter"; default "nvidia"). Locally, AI_PROVIDER
+# can be set in .env.
+#   nvidia:     NVIDIA Build (deepseek-ai/deepseek-v4.1-flash); set
+#               NVIDIA_BUILD_API_KEY in .env and as a script property.
+#   openrouter: OpenRouter free-model router; set OPENROUTER_API_KEY in .env
+#               and as a script property.
 
 # Files in src folder will push to Google Apps Script.
 clasp push

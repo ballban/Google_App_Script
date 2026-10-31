@@ -9,7 +9,7 @@ class BaiduHanyuObject {
     this.pinyinList = [];
     this.type = ""; // "term" | "idiom" | "other" | "unknown"
     this.name = ""; // word/idiom name
-    this.source = ""; // "Baidu Hanyu" | "Moedict" | "OpenRouter"
+    this.source = ""; // "Baidu Hanyu" | "Moedict" | AI provider displayName
     this.pinyinList = pinyinList;
     this.type = type;
     this.name = name;
@@ -101,6 +101,11 @@ class Definition {
     result += `\n　▷例：${shortestExample}`;
     return result;
   }
+}
+
+// Moedict and AI results are labeled in the sheet and converted to Simplified.
+function isFallbackChineseSource(source) {
+  return typeof source === "string" && source !== "" && source !== "Baidu Hanyu";
 }
 
 function hasChineseDefinition(baiduHanyuObject) {
