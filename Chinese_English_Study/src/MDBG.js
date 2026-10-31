@@ -49,6 +49,45 @@ function buildMDBGRequest(input) {
   };
 }
 
+// MDBG result markup is parsed with string matching because an HTML parser
+// library is loaded on every edit trigger and slows each lookup. This relies on
+// result rows being `<tr class="row">` and `pinyin`/`defs` divs not nesting divs.
+function getMDBGResultRows(html) {
+  const body = html.replace(/<script\b[\s\S]*?<\/script>/gi, "");
+  return body
+    .split('<tr class="row">')
+    .slice(1)
+    .map((row) => row.split("</tbody>")[0]);
+}
+
+function getMDBGDivContents(html, className) {
+  const pattern = new RegExp(`<div class="${className}"[^>]*>([\\s\\S]*?)</div>`, "g");
+  return Array.from(html.matchAll(pattern), (match) => match[1]);
+}
+
+const MDBG_NAMED_ENTITIES = {
+  amp: "&",
+  lt: "<",
+  gt: ">",
+  quot: '"',
+  apos: "'",
+  nbsp: "\u00a0",
+};
+
+function getMDBGText(html) {
+  return html
+    .replace(/<(?:[^>"']|"[^"]*"|'[^']*')*>/g, "")
+    .replace(/&(#[xX][0-9a-fA-F]+|#\d+|[a-zA-Z]+);/g, (entity, code) => {
+      if (code[0] === "#") {
+        const isHex = code[1] === "x" || code[1] === "X";
+        return String.fromCodePoint(parseInt(code.slice(isHex ? 2 : 1), isHex ? 16 : 10));
+      }
+      return Object.prototype.hasOwnProperty.call(MDBG_NAMED_ENTITIES, code)
+        ? MDBG_NAMED_ENTITIES[code]
+        : entity;
+    });
+}
+
 function parseMDBGResponse(response) {
   try {
     if (response.getResponseCode() !== 200) {
@@ -56,18 +95,23 @@ function parseMDBGResponse(response) {
       return { pinyin: "", definition: "" };
     }
 
-    const $ = Cheerio.load(response.getContentText());
-    const noResults = $(':contains("No results found searching for")').length;
-    if (noResults != 0) return { pinyin: "", definition: "" };
-    const firstRow = $(".row").first();
-    const pinyin = firstRow
-      .find(".pinyin span")
-      .toArray()
-      .map((x) => $(x).text())
-      .join("");
-    const definition = $(".row .defs")
-      .toArray()
-      .map((x) => $(x).text());
+    const html = response.getContentText();
+    if (html.indexOf("No results found searching for") !== -1) {
+      return { pinyin: "", definition: "" };
+    }
+    const rows = getMDBGResultRows(html);
+    const pinyin = rows.length === 0
+      ? ""
+      : getMDBGDivContents(rows[0], "pinyin")
+        .flatMap((pinyinHtml) =>
+          Array.from(pinyinHtml.matchAll(/<span\b[^>]*>([\s\S]*?)<\/span>/g), (match) =>
+            getMDBGText(match[1]),
+          ),
+        )
+        .join("");
+    const definition = rows.flatMap((row) =>
+      getMDBGDivContents(row, "defs").map(getMDBGText),
+    );
     Logger.log(`MDBG definition: ${definition}`);
     return { pinyin, definition: definition.join(", ") };
   } catch (err) {

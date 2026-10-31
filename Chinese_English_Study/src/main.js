@@ -2,6 +2,7 @@
 
 const MAX_BATCH_SIZE = 20;
 const LOG_SHEET_NAME = "log";
+const STALE_OUTPUT_SCAN_ROWS = 10;
 // Leaves most of the 6-minute trigger runtime for this execution's own lookups.
 const EDIT_LOCK_TIMEOUT_MS = 120000;
 
@@ -113,6 +114,9 @@ function main(candidates) {
     const batchStart = Math.max(candidates.length - MAX_BATCH_SIZE, 0);
     const batch = candidates.splice(batchStart);
     batch.forEach(addLoadingText);
+    // Show the placeholder before the lookups; otherwise Apps Script holds the
+    // write until the next sheet read after the lookups.
+    SpreadsheetApp.flush();
 
     try {
       processCandidates(batch);
@@ -364,8 +368,12 @@ function pasteToSheet(candidate) {
   ];
 
   ensureWritableOutputRows(sheet, rowIndex, data.length);
+  // Read before writing so the sheet is not flushed between the steps.
+  const staleRowCount = countStaleOutputRows(sheet, rowIndex + data.length);
   sheet.getRange(rowIndex, 1, data.length, 3).setValues(data);
-  clearStaleOutputRows(sheet, rowIndex, data.length);
+  if (staleRowCount > 0) {
+    sheet.getRange(rowIndex + data.length, 1, staleRowCount, 3).clearContent();
+  }
 }
 
 function ensureWritableOutputRows(sheet, rowIndex, rowCount) {
@@ -380,18 +388,24 @@ function ensureWritableOutputRows(sheet, rowIndex, rowCount) {
   if (hasInputBelow) sheet.insertRowsAfter(rowIndex, extraRows);
 }
 
-function clearStaleOutputRows(sheet, rowIndex, rowCount) {
-  let nextRow = rowIndex + rowCount;
+/**
+ * Counts leftover output rows (blank in column A, content in B/C) starting at
+ * firstRow, stopping at the next input row or a fully blank row.
+ */
+function countStaleOutputRows(sheet, firstRow) {
   const maxRows = sheet.getMaxRows();
+  let row = firstRow;
 
-  while (nextRow <= maxRows) {
-    const values = sheet.getRange(nextRow, 1, 1, 3).getValues()[0];
-    if (values[0] !== "") break;
-    if (values.every((value) => value === "")) break;
-
-    sheet.getRange(nextRow, 1, 1, 3).clearContent();
-    nextRow += 1;
+  while (row <= maxRows) {
+    const chunkSize = Math.min(STALE_OUTPUT_SCAN_ROWS, maxRows - row + 1);
+    const chunk = sheet.getRange(row, 1, chunkSize, 3).getValues();
+    for (const values of chunk) {
+      if (values[0] !== "") return row - firstRow;
+      if (values.every((value) => value === "")) return row - firstRow;
+      row += 1;
+    }
   }
+  return row - firstRow;
 }
 
 function changeCellFontColor(candidate) {

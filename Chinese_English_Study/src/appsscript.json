@@ -4,15 +4,7 @@
     "https://www.googleapis.com/auth/script.external_request",
     "https://www.googleapis.com/auth/spreadsheets.currentonly"
   ],
-  "dependencies": {
-    "libraries": [
-      {
-        "userSymbol": "Cheerio",
-        "version": "14",
-        "libraryId": "1ReeQ6WO8kKNxoaA_O0XEQ589cIrRvEBA9qcWpNqdOP17i47u6N9M5Xh0"
-      }
-    ]
-  },
+  "dependencies": {},
   "runtimeVersion": "V8",
   "executionApi": {
     "access": "MYSELF"

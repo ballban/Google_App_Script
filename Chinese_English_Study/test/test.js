@@ -26,14 +26,6 @@ const loggerShim = {
 };
 globalThis.Logger = loggerShim;
 
-// Try to load Cheerio if available
-try {
-  const cheerio = require("cheerio");
-  globalThis.Cheerio = cheerio;
-} catch (e) {
-  console.warn("Cheerio not found, MDBGWeb might fail.");
-}
-
 // Set after the deployable scripts load; AI requests are aborted at the same
 // limit the deployed script reports.
 let aiFetchLimit = null;
