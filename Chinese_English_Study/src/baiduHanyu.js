@@ -45,9 +45,7 @@ class PinyinObject {
     for (let i = 0; i < this.definitionList.length; i++) {
       // add ①, ②, ③, ... before each definition if there are multiple definitions
       const prefixSymbol =
-        this.definitionList.length == 1
-          ? ""
-          : String.fromCharCode(parseInt((2460 + i).toString(), 16));
+        this.definitionList.length == 1 ? "" : getDefinitionNumber(i);
       result += `\n${prefixSymbol}${this.definitionList[i].getFormattedDefinitionAndExample()}`;
     }
     return result.trim();
@@ -71,6 +69,11 @@ class PinyinObject {
   }
 }
 
+// Unicode circled numbers stop at ⑳ (U+2473).
+function getDefinitionNumber(index) {
+  return index < 20 ? String.fromCharCode(0x2460 + index) : `(${index + 1})`;
+}
+
 class Definition {
   constructor(definition = "", lijuList = [], cixingList = []) {
     this.definition = "";
@@ -88,7 +91,9 @@ class Definition {
   getFormattedDefinitionAndExample() {
     let result = "";
     const cixing =
-      this.cixingList.length > 0 ? `【${this.cixingList.join("").replace("词", "")}】` : "";
+      this.cixingList.length > 0
+        ? `【${this.cixingList.map((cixing) => String(cixing).replace(/词/g, "")).join("、")}】`
+        : "";
     result += `${cixing}${this.definition}`;
     // add example sentences after definition
     if (this.lijuList.length == 0 || this.lijuList[0].length == 0) return result;

@@ -34,7 +34,7 @@ function MDBGApi(input) {
  * Builds an MDBG.net lookup request.
  *
  * @param {string} input - The Chinese word to search for.
- * @returns {{url: string}|null} - A request object, or null for empty input.
+ * @returns {{url: string, muteHttpExceptions: boolean}|null} - A request object, or null for empty input.
  */
 function buildMDBGRequest(input) {
   if (typeof input !== "string" || input.trim() === "") {
@@ -44,6 +44,8 @@ function buildMDBGRequest(input) {
   const normalizedInput = input.trim();
   return {
     url: `https://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=0&wdqb=c%3A${encodeURIComponent(normalizedInput)}`,
+    // fetchAll throws for the whole batch when any unmuted request fails.
+    muteHttpExceptions: true,
   };
 }
 
@@ -80,7 +82,11 @@ function MDBGWeb(input) {
 
   Logger.log("MDBGWeb start.");
   try {
-    return parseMDBGResponse(UrlFetchApp.fetch(request.url));
+    return parseMDBGResponse(
+      UrlFetchApp.fetch(request.url, {
+        muteHttpExceptions: request.muteHttpExceptions,
+      }),
+    );
   } catch (err) {
     Logger.log(`MDBGWeb fetch failed: ${err}`);
     return { pinyin: "", definition: "" };

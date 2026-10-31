@@ -25,6 +25,8 @@ function buildDeepLRequest(text, sourceLang = "zh", targetLang = "en") {
       "Content-Type": "application/json",
     },
     payload: JSON.stringify(payload),
+    // fetchAll throws for the whole batch when any unmuted request fails.
+    muteHttpExceptions: true,
   };
 }
 
@@ -64,6 +66,7 @@ function deepl(text, sourceLang = "zh", targetLang = "en") {
       method: request.method,
       headers: request.headers,
       payload: request.payload,
+      muteHttpExceptions: request.muteHttpExceptions,
     };
     return parseDeepLResponse(UrlFetchApp.fetch(request.url, options));
   } catch (err) {

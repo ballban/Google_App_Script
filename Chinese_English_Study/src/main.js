@@ -1,7 +1,9 @@
 "use strict";
 
-let candidates = [];
-let processing = false;
+const MAX_BATCH_SIZE = 20;
+const LOG_SHEET_NAME = "log";
+// Leaves most of the 6-minute trigger runtime for this execution's own lookups.
+const EDIT_LOCK_TIMEOUT_MS = 120000;
 
 // Configure this function as an installable spreadsheet "On edit" trigger.
 function on_edit(e) {
@@ -12,81 +14,126 @@ function on_edit(e) {
       return;
     }
 
-    let range = e.range;
+    const range = e.range;
     // return if data is not start from column A
     if (range.getColumn() != 1) return;
+
+    const sheet = range.getSheet();
+    if (sheet.getName() === LOG_SHEET_NAME) return;
 
     const rowIndex = range.getRowIndex();
     const rowNum = range.getNumRows();
     if (rowIndex == 1 && rowNum == 1) return;
 
+    const values = range.getValues();
+    const candidates = [];
     const firstDataRow = rowIndex == 1 ? 1 : 0;
     for (let i = firstDataRow; i < rowNum; i++) {
-      let cell = range.getCell(i + 1, 1);
-      const rawValue = cell.getValue();
+      const rawValue = values[i][0];
       if (typeof rawValue !== "string") {
-        Logger.log(`Skipping non-text input at row ${cell.getRowIndex()}.`);
+        Logger.log(`Skipping non-text input at row ${rowIndex + i}.`);
         continue;
       }
 
-      let value = rawValue.trim();
+      const value = rawValue.trim();
       if (value == "") continue;
-      let dictObject = {
+      candidates.push({
         word: value,
         baiduHanyuObject: new BaiduHanyuObject(),
         MDBG: "",
         deepL: "",
-        cell: cell,
-        rowIndex: cell.getRowIndex(),
-        sheet: range.getSheet(),
-      };
-      candidates.push(dictObject);
+        rowIndex: rowIndex + i,
+        sheet,
+      });
       Logger.log(`Added candidate: ${value}`);
     }
+    if (candidates.length === 0) return;
 
-    if (!processing && candidates.length > 0) main();
+    // Every edit runs in a separate execution; serialize the ones that insert rows.
+    const lock = LockService.getScriptLock();
+    if (!lock.tryLock(EDIT_LOCK_TIMEOUT_MS)) {
+      log(
+        `on_edit skipped after waiting for another lookup: ${candidates
+          .map((dict) => dict.word)
+          .join(", ")}`,
+      );
+      return;
+    }
+    try {
+      main(relocateCandidates(sheet, candidates));
+    } finally {
+      lock.releaseLock();
+    }
     Logger.log("on_edit end.");
   } catch (err) {
     Logger.log(`on_edit error: ${err}`);
   }
 }
 
-const MAX_BATCH_SIZE = 20;
+/**
+ * Finds the current row of each input after waiting for the lock. Earlier
+ * executions only insert output rows, so inputs can move down but keep their
+ * order; an input that no longer exists is skipped.
+ */
+function relocateCandidates(sheet, candidates) {
+  const firstRow = candidates[0].rowIndex;
+  const lastRow = sheet.getLastRow();
+  if (lastRow < firstRow) return [];
 
-function main() {
-  processing = true;
-  try {
-    Logger.log(`candidates: ${candidates.length}`);
-    while (candidates.length > 0) {
-      // Process lower input rows first so row insertion does not invalidate
-      // candidates that are still waiting above them.
-      const batchStart = Math.max(candidates.length - MAX_BATCH_SIZE, 0);
-      const batch = candidates.splice(batchStart);
-      batch.forEach(addLoadingText);
+  const columnA = sheet
+    .getRange(firstRow, 1, lastRow - firstRow + 1, 1)
+    .getValues()
+    .map((row) => row[0]);
+  const relocated = [];
+  let searchFrom = firstRow;
+  candidates.forEach((dict) => {
+    let row = Math.max(dict.rowIndex, searchFrom);
+    while (row <= lastRow) {
+      const value = columnA[row - firstRow];
+      if (typeof value === "string" && value.trim() === dict.word) break;
+      row += 1;
+    }
+    if (row > lastRow) {
+      Logger.log(`Skipping input that is no longer in column A: ${dict.word}`);
+      return;
+    }
 
+    dict.rowIndex = row;
+    relocated.push(dict);
+    searchFrom = row + 1;
+  });
+  return relocated;
+}
+
+function main(candidates) {
+  Logger.log(`candidates: ${candidates.length}`);
+  while (candidates.length > 0) {
+    // Process lower input rows first so row insertion does not invalidate
+    // candidates that are still waiting above them.
+    const batchStart = Math.max(candidates.length - MAX_BATCH_SIZE, 0);
+    const batch = candidates.splice(batchStart);
+    batch.forEach(addLoadingText);
+
+    try {
+      processCandidates(batch);
+    } catch (err) {
+      batch.forEach((dict) => {
+        dict.baiduHanyuObject = new BaiduHanyuObject();
+        dict.MDBG = "";
+        dict.deepL = "Error";
+        logError(err, dict);
+      });
+    }
+
+    for (let i = batch.length - 1; i >= 0; i--) {
+      const dict = batch[i];
       try {
-        processCandidates(batch);
+        pasteToSheet(dict);
+        changeCellFontColor(dict);
       } catch (err) {
-        batch.forEach((dict) => {
-          dict.baiduHanyuObject = new BaiduHanyuObject();
-          dict.MDBG = "";
-          dict.deepL = "Error";
-          logError(err, dict);
-        });
-      }
-
-      for (let i = batch.length - 1; i >= 0; i--) {
-        const dict = batch[i];
-        try {
-          pasteToSheet(dict);
-          changeCellFontColor(dict);
-        } catch (err) {
-          logError(err, dict);
-        }
+        logError(err, dict);
       }
     }
-  } finally {
-    processing = false;
   }
 }
 
@@ -322,6 +369,9 @@ function ensureWritableOutputRows(sheet, rowIndex, rowCount) {
   const extraRows = rowCount - 1;
   if (extraRows <= 0) return;
 
+  const missingRows = rowIndex + extraRows - sheet.getMaxRows();
+  if (missingRows > 0) sheet.insertRowsAfter(sheet.getMaxRows(), missingRows);
+
   const existingRows = sheet.getRange(rowIndex + 1, 1, extraRows, 3).getValues();
   const hasInputBelow = existingRows.some((row) => row[0] !== "");
   if (hasInputBelow) sheet.insertRowsAfter(rowIndex, extraRows);
@@ -344,7 +394,7 @@ function clearStaleOutputRows(sheet, rowIndex, rowCount) {
 function changeCellFontColor(candidate) {
   Logger.log(`changeCellFontColor start. type: ${candidate.baiduHanyuObject.type}`);
   if (candidate.baiduHanyuObject.type == WordType.idiom) {
-    candidate.cell.setFontColor("red");
+    candidate.sheet.getRange(candidate.rowIndex, 1).setFontColor("red");
   }
 }
 
@@ -355,15 +405,9 @@ function changeCellFontColor(candidate) {
  */
 function log(value) {
   Logger.log(value);
-  let row = 1;
-  let sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("log");
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(LOG_SHEET_NAME);
   if (sheet == null) return;
-  let range = sheet.getRange(`B${row}:C${row}`);
-  while (range.getValue() != "") {
-    row += 1;
-    range = sheet.getRange(`B${row}:C${row}`);
-  }
-  range.setValues([[new Date().toLocaleString(), value]]);
+  sheet.appendRow(["", new Date().toLocaleString(), value]);
 }
 
 /**
