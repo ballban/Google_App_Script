@@ -3,13 +3,22 @@
 // model, aborts at AI_TIMEOUT_MS, and saves the results under
 // test/ai-benchmark-results (git-ignored).
 //
-// Usage: node test/ai-benchmark.js [nvidia] [openrouter]
+// Usage: node test/ai-benchmark.js [nvidia] [openrouter] [provider=model ...]
+// A bare provider name tests every listed model; provider=model tests only
+// that model, e.g. nvidia=nvidia/nemotron-3.5-super-vl-120b-a12b.
 require("dotenv/config");
+const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 const vm = require("vm");
 
-const WORDS = ["我很无奈", "褶皱", "小心驶得万年船"];
+// Accepted pinyin per word, compared without spaces, punctuation, or case.
+const EXPECTED_PINYIN = {
+  我很无奈: ["wǒhěnwúnài"],
+  褶皱: ["zhězhòu"],
+  小心驶得万年船: ["xiǎoxīnshǐdéwànniánchuán", "xiǎoxīnshǐdewànniánchuán"],
+};
+const WORDS = Object.keys(EXPECTED_PINYIN);
 const RESULTS_DIR = path.join(__dirname, "ai-benchmark-results");
 
 globalThis.Logger = { log: () => {} };
@@ -98,6 +107,44 @@ function describeHttpError(status, text) {
   return `HTTP ${status}: ${String(detail).replace(/\s+/g, " ").slice(0, 120)}`;
 }
 
+const CJK = /[\u3400-\u9fff]/;
+const NON_CHINESE_CIXING = /[^\u3400-\u9fff、]/;
+const TONE_DIGITS = /[a-zü]\d/i;
+
+function normalizePinyin(pinyin) {
+  return pinyin.toLowerCase().replace(/[\s'’·,，.。-]/g, "");
+}
+
+// Structural validity is checked by createAiHanyuObject; these checks catch
+// answers that parse but would put wrong or English content in the sheet.
+function findQualityIssues(word, result) {
+  const issues = [];
+  const common = result.pinyinList.filter((p) => p.isCommon);
+  const pinyinCandidates = (common.length > 0 ? common : result.pinyinList).map((p) => p.pinyin);
+  const expected = EXPECTED_PINYIN[word] || [];
+  if (pinyinCandidates.some((pinyin) => TONE_DIGITS.test(pinyin))) {
+    issues.push(`numeric tones "${pinyinCandidates.join(" / ")}"`);
+  } else if (
+    expected.length > 0 &&
+    !pinyinCandidates.some((pinyin) => expected.includes(normalizePinyin(pinyin)))
+  ) {
+    issues.push(`pinyin "${pinyinCandidates.join(" / ")}"`);
+  }
+
+  result.pinyinList.forEach((p) =>
+    p.definitionList.forEach((d) => {
+      if (!CJK.test(d.definition)) issues.push(`non-Chinese definition "${d.definition}"`);
+      d.cixingList
+        .filter((cixing) => NON_CHINESE_CIXING.test(cixing))
+        .forEach((cixing) => issues.push(`non-Chinese part of speech "${cixing}"`));
+      d.lijuList
+        .filter((liju) => !CJK.test(liju))
+        .forEach((liju) => issues.push(`non-Chinese example "${liju}"`));
+    }),
+  );
+  return Array.from(new Set(issues));
+}
+
 async function measure(providerName, model, word) {
   const request = buildAiRequest(word, providerName, model);
   const startedAt = Date.now();
@@ -116,14 +163,17 @@ async function measure(providerName, model, word) {
 
     const shim = { getResponseCode: () => response.status, getContentText: () => text };
     const result = createAiHanyuObject(word, parseAiResponse(shim, providerName), providerName);
-    const valid = hasChineseDefinition(result);
+    if (!hasChineseDefinition(result)) {
+      return { word, elapsedMs, ok: false, reason: "invalid dictionary JSON" };
+    }
+    const issues = findQualityIssues(word, result);
     return {
       word,
       elapsedMs,
-      ok: valid,
-      reason: valid ? "" : "invalid dictionary JSON",
-      pinyin: valid ? result.pinyinList.map((p) => p.pinyin).join(" / ") : "",
-      definition: valid ? result.pinyinList[0].getFormattedDefinition().split("\n")[0] : "",
+      ok: issues.length === 0,
+      reason: issues.length === 0 ? "" : `quality: ${issues.join("; ")}`,
+      pinyin: result.pinyinList.map((p) => p.pinyin).join(" / "),
+      definitions: result.pinyinList.map((p) => p.getFormattedDefinition()),
     };
   } catch (err) {
     const elapsedMs = Date.now() - startedAt;
@@ -137,14 +187,14 @@ async function measure(providerName, model, word) {
   }
 }
 
-async function benchmarkProvider(providerName) {
+async function benchmarkProvider(providerName, onlyModels = []) {
   const config = PROVIDERS[providerName];
   if (!process.env[config.keyEnv]) {
     console.log(`[${providerName}] skipped: ${config.keyEnv} is not set.`);
     return [];
   }
 
-  const models = await config.listModels();
+  const models = onlyModels.length > 0 ? onlyModels : await config.listModels();
   console.log(`[${providerName}] ${models.length} models; screening with "${WORDS[0]}".`);
   const pace = createPacer(config.minIntervalMs);
   const results = models.map((model) => ({ provider: providerName, model, runs: [] }));
@@ -159,7 +209,12 @@ async function benchmarkProvider(providerName) {
 
   await runPool(results, config.concurrency, runWord(WORDS[0]));
   for (const word of WORDS.slice(1)) {
-    const candidates = results.filter((entry) => entry.runs.every((run) => run.ok));
+    // Screening saves free-tier quota on full runs; explicitly selected models
+    // get every word so prompt comparisons are complete.
+    const candidates =
+      onlyModels.length > 0
+        ? results
+        : results.filter((entry) => entry.runs.every((run) => run.ok));
     await runPool(candidates, config.concurrency, runWord(word));
   }
   return results;
@@ -179,17 +234,25 @@ function summarize(entry) {
 }
 
 async function main() {
-  const requested = process.argv.slice(2);
-  const providerNames = requested.length > 0 ? requested : Object.keys(PROVIDERS);
-  const unknown = providerNames.filter((name) => !PROVIDERS[name]);
-  if (unknown.length > 0) {
-    console.error(`Unknown provider: ${unknown.join(", ")}`);
-    process.exitCode = 1;
-    return;
+  const selection = new Map();
+  for (const arg of process.argv.slice(2)) {
+    const separator = arg.indexOf("=");
+    const providerName = separator === -1 ? arg : arg.slice(0, separator);
+    if (!PROVIDERS[providerName]) {
+      console.error(`Unknown provider: ${providerName}`);
+      process.exitCode = 1;
+      return;
+    }
+    const models = selection.get(providerName) || [];
+    if (separator !== -1) models.push(arg.slice(separator + 1));
+    selection.set(providerName, models);
   }
+  if (selection.size === 0) Object.keys(PROVIDERS).forEach((name) => selection.set(name, []));
 
   const startedAt = new Date();
-  const providerResults = await Promise.all(providerNames.map(benchmarkProvider));
+  const providerResults = await Promise.all(
+    Array.from(selection, ([providerName, models]) => benchmarkProvider(providerName, models)),
+  );
   const results = providerResults
     .flat()
     .map(summarize)
@@ -212,6 +275,12 @@ async function main() {
         startedAt: startedAt.toISOString(),
         finishedAt: new Date().toISOString(),
         timeoutMs: TIMEOUT_MS,
+        // Distinguishes runs made with different AI_SYSTEM_PROMPT versions.
+        systemPromptSha256: crypto
+          .createHash("sha256")
+          .update(vm.runInThisContext("AI_SYSTEM_PROMPT"))
+          .digest("hex")
+          .slice(0, 12),
         words: WORDS,
         passed: passed.map(({ provider, model, medianMs, maxMs }) => ({
           provider,

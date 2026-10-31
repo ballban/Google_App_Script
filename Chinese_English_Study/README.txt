@@ -33,9 +33,11 @@ node test/test.js <word>
 # are recorded on the "log" sheet instead. To choose a fast model, run:
 npm run benchmark:ai
 node test/ai-benchmark.js nvidia
-# It tries every NVIDIA Build model and every free OpenRouter model, keeps only
-# models that answer every test word within 5 seconds, and saves the results
-# under test/ai-benchmark-results (not committed).
+node test/ai-benchmark.js nvidia=nvidia/nemotron-3.5-super-vl-120b-a12b
+# It tries every NVIDIA Build model and every free OpenRouter model (or only the
+# provider=model entries given), keeps only models that answer every test word
+# within 5 seconds with the expected pinyin and Chinese parts of speech, and
+# saves the results under test/ai-benchmark-results (not committed).
 
 # Files in src folder will push to Google Apps Script.
 clasp push

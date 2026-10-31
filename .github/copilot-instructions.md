@@ -14,7 +14,7 @@ Run project commands from `Chinese_English_Study`.
 | Validate deployable JavaScript | `npm run build` or `npm run check` | Runs `node --check` on each deployable script under `src`; there is no TypeScript build. |
 | Run the live lookup harness | `npm test` | Uses the two default Chinese words in the file. It calls the live Baidu, MDBG, and possibly DeepL endpoints. |
 | Run one lookup | `node test/test.js <word>` | The harness accepts one or more words as command-line arguments; it is not an isolated/offline unit test. |
-| Benchmark AI models | `npm run benchmark:ai` or `node test/ai-benchmark.js nvidia` | Sends the deployed AI request to every NVIDIA Build model and free OpenRouter model, aborts at `AI_TIMEOUT_MS` (5 seconds), and writes results to the git-ignored `test/ai-benchmark-results`. Uses live provider quotas. |
+| Benchmark AI models | `npm run benchmark:ai`, `node test/ai-benchmark.js nvidia`, or `node test/ai-benchmark.js nvidia=<model-id>` | Sends the deployed AI request to every NVIDIA Build model and free OpenRouter model (or only the given `provider=model` entries), aborts at `AI_TIMEOUT_MS` (5 seconds), fails answers whose pinyin differs from `EXPECTED_PINYIN` or whose definitions, parts of speech, or examples are not Chinese, and writes results with the system prompt hash to the git-ignored `test/ai-benchmark-results`. Uses live provider quotas. |
 | Deploy to Apps Script | `clasp push` | Pushes the `src` directory. The ignored local `.clasp.json` must be available for the linked script. |
 
 There is no lint script or lint configuration.
